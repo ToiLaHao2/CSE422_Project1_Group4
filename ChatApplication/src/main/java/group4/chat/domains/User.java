@@ -71,6 +71,20 @@ public class User {
 			this._lastName = lastName;
 			return this;
 		}
+		
+		public UserBuilder fullName(String firstName, String lastName) {
+			this._fullName = firstName + " " + lastName;
+			return this;
+		}
 
+		public UserBuilder gender(Gender gender) {
+			this._gender = gender;
+			return this;
+		}
+		
+		public User build() {
+			User user = new User(_firstName, _lastName, _hashedPassword, _gender, _dateOfBirth);
+			return user;
+		}
 	}
 }
