@@ -13,6 +13,64 @@ public class User {
 	public enum Gender {
 		MALE, FEMALE, OTHER
 	}
-	
-	
+
+	public User(String _firstName, String _lastName, String _hashedPassword, Gender _gender, Date _dateOfBirth) {
+		super();
+		this._firstName = _firstName;
+		this._lastName = _lastName;
+		this._hashedPassword = _hashedPassword;
+		this._gender = _gender;
+		this._dateOfBirth = _dateOfBirth;
+	}
+
+	public String get_firstName() {
+		return _firstName;
+	}
+
+	public String get_lastName() {
+		return _lastName;
+	}
+
+	public String get_fullName() {
+		return this._firstName + " " + _lastName;
+	}
+
+	public String get_hashedPassword() {
+		return _hashedPassword;
+	}
+
+	public Gender get_gender() {
+		return _gender;
+	}
+
+	public Date get_dateOfBirth() {
+		return _dateOfBirth;
+	}
+
+	public static class UserBuilder {
+		private String _firstName;
+		private String _lastName;
+		private String _fullName;
+		private String _hashedPassword;
+		private Gender _gender;
+		private Date _dateOfBirth;
+
+		public UserBuilder(String _lastName, String _fullName, String _hashedPassword) {
+			super();
+			this._lastName = _lastName;
+			this._fullName = _fullName;
+			this._hashedPassword = _hashedPassword;
+		}
+		
+		public UserBuilder firstName(String firstName) {
+			this._firstName = firstName;
+			return this;
+		}
+		
+		public UserBuilder lastName(String lastName) {
+			this._lastName = lastName;
+			return this;
+		}
+
+	}
 }
