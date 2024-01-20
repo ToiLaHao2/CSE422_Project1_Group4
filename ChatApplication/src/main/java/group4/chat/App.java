@@ -1,4 +1,4 @@
-package group4.ChatApplication;
+package group4.chat;
 
 /**
  * Hello world!
