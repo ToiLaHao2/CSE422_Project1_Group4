@@ -8,6 +8,6 @@ package group4.chat.infrastructure.services;
  *
  * @author Asus
  */
-public class MD5Hasher implements Hasher{
+public class MD5Hasher{
     
 }
