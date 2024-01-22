@@ -1,10 +1,11 @@
 package group4.ChatApplication.Usecase.adapters;
+import group4.chat.domains.User;
 
 public interface DataStorage {
     
-   // Repository<User> getUser();
+   Respository<User> getUser();
 
-   // void cleanAll();
+   void cleanAll();
 }
 
 

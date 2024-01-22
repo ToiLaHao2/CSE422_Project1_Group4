@@ -2,7 +2,7 @@ package group4.chat.domains;
 
 import java.util.Date;
 
-public class User {
+public class User extends BaseEntity {
 	private String _firstName;
 	private String _lastName;
 	private String _fullName;
