@@ -4,7 +4,7 @@
  */
 package group4.chat.infrastructure.services;
 
-import group4.chat.usecases.adapterts.Hasher;
+import group4.chat.usecases.adapters.Hasher;
 
 /**
  *

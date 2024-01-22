@@ -1,4 +1,4 @@
-package group4.chat.usecases.adapterts;
+package group4.chat.usecases.adapters;
 
 public interface Hasher {
    String hash(String orginal);
