@@ -1,16 +1,17 @@
 package group4.ChatApplication.Usecase.adapters;
-
+import java.util.function.Predicate;
+import group4.chat.domains.BaseEntity;
  
     
 
-public interface Repository<T extends BaseEntity> {
-   // T getById(String id);
+public interface Respository<T extends BaseEntity> {
+    T getById(String id);
 
-   // boolean add(T addingEntity);
+    boolean add(T addingEntity);
 
-   // void deleteAll();
+   void deleteAll();
 
-   // T getFirst(Predicate<T> predicate);
+T getFirst(Predicate<T> predicate);
 } 
 
 
