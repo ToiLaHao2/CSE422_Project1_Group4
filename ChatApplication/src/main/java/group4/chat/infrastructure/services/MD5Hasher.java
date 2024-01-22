@@ -11,7 +11,8 @@ import group4.chat.usecases.adapterts.Hasher;
  * @author Asus
  */
 
-public class MD5Hasher{
-    
-
+public class MD5Hasher {
+    public String hash(String text) {
+        return text;
+    }
 }
