@@ -1,16 +1,16 @@
 package group4.ChatApplication.Usecase.adapters;
 
-public class Respository {
+ 
     
 
-/*public interface Repository<T extends BaseEntity> {
-    T getById(String id);
+public interface Repository<T extends BaseEntity> {
+   // T getById(String id);
 
-    boolean add(T addingEntity);
+   // boolean add(T addingEntity);
 
-    void deleteAll();
+   // void deleteAll();
 
-    T getFirst(Predicate<T> predicate);
-} */
+   // T getFirst(Predicate<T> predicate);
+} 
 
-}
+

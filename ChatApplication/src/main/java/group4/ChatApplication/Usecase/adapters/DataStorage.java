@@ -1,6 +1,6 @@
 package group4.ChatApplication.Usecase.adapters;
 
-public class DataStorage {
+public interface DataStorage {
     
    // Repository<User> getUser();
 
