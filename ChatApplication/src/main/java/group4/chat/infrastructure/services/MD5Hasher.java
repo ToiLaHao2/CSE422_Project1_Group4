@@ -4,10 +4,14 @@
  */
 package group4.chat.infrastructure.services;
 
+import group4.chat.usecases.adapterts.Hasher;
+
 /**
  *
  * @author Asus
  */
-public class MD5Hasher implements Hasher{
-    
+public class MD5Hasher implements Hasher {
+    public String hash(String text) {
+        return text;
+    }
 }
