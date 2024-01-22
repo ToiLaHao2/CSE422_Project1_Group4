@@ -61,6 +61,11 @@ public class User extends BaseEntity {
 			this._fullName = _fullName;
 			this._hashedPassword = _hashedPassword;
 		}
+		public UserBuilder(String _firstName, String _hashedPassword) {
+			super();
+			this._firstName = _firstName;
+			this._hashedPassword = _hashedPassword;
+		}
 		
 		public UserBuilder firstName(String firstName) {
 			this._firstName = firstName;
