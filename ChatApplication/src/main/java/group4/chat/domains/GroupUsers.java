@@ -1,7 +1,9 @@
-package group4.chat.domains;
+package group4.chat.domains.groupUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import group4.chat.domains.User;
 
 public class GroupUsers {
 
