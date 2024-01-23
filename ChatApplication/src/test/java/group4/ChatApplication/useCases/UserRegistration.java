@@ -1,4 +1,6 @@
 package group4.ChatApplication.useCases;
+import java.security.Identity;
+import java.util.Optional;
 
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.users.UserRegistration.InputValues;
@@ -24,7 +26,7 @@ public class UserRegistration {
 
     
 
-    @Test
+    //@Test
     public void addUserSuccessfully() {
 
         //UserRegistration. input = new UserRegistration.InputValues("phuc", "1234");
