@@ -9,6 +9,7 @@ import group4.chat.usecases.adapters.Respository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 import group4.chat.domains.BaseEntity;
 
@@ -16,7 +17,7 @@ import group4.chat.domains.BaseEntity;
  *
  * @author Asus
  */
-public class InMemoryRepositories<T extends BaseEntity> implements Repository<T> {
+public class InMemoryRepositories<T extends BaseEntity> implements Respository<T> {
     private List<T> enities;
     public static int idCounter = 1;
 
@@ -51,4 +52,5 @@ public class InMemoryRepositories<T extends BaseEntity> implements Repository<T>
         Optional<T> entity = enities.stream().filter(predicate).findFirst();
         return entity.isPresent() ? entity.get() : null;
     }
+
 }
