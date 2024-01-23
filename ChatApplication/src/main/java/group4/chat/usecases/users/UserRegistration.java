@@ -17,7 +17,7 @@ public class UserRegistration
     }
 
     @Override
-    public OutputValues execute(InputValues input) {
+    public OutputValues execute(InputValues input) throws Exception {
         User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
         _dataStorage.getUsers().add(user);
         return new OutputValues(ResultCodes.SUCCESS, "You sign up sucessfully");
