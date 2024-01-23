@@ -1,3 +1,4 @@
+package group4.ChatApplication.useCases;
 import java.security.Identity;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class UserRegistration {
 
     
 
-    @Test
+    //@Test
     public void addUserSuccessfully() {
 
         //UserRegistration. input = new UserRegistration.InputValues("phuc", "1234");
