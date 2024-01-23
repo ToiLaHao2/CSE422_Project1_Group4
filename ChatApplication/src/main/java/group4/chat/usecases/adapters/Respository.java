@@ -1,5 +1,4 @@
 package group4.chat.usecases.adapters;
-
 import java.util.function.Predicate;
 import group4.chat.domains.BaseEntity;
 
