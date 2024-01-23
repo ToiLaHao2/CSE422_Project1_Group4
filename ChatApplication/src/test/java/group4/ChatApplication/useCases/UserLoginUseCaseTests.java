@@ -1,6 +1,8 @@
-package group4.ChatApplication.useCases;
 import java.security.Identity;
 import java.util.Optional;
+
+//import org.junit.jupiter.api.Assertions;
+// org.junit.jupiter.api.Test;
 
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.users.UserRegistration.InputValues;
@@ -11,8 +13,8 @@ import group4.chat.usecases.users.UserRegistration.OutputValues;
 import group4.chat.usecases.users.UserRegistration.ResultCodes;
 import org.junit.jupiter.api.Test;
 
-public class UserRegistration {
-   // @org.junit.jupiter.api.BeforeEach
+public class UserLoginUseCaseTests {
+    // @org.junit.jupiter.api.BeforeEach
     public void setUp() {
         DataStorage storage = InMemoryDataStorage.getInstance();
         storage.getUsers().add(new User("phuc", "1234"));
@@ -24,21 +26,21 @@ public class UserRegistration {
         storage.cleanAll();
     }
 
-    
 
-    //@Test
+
+    @Test
     public void addUserSuccessfully() {
 
         //UserRegistration. input = new UserRegistration.InputValues("phuc", "1234");
         //DataStorage storage = InMemoryDataStorage.getInstance();
 
         //UserRegistration registration = new UserRegistration(storage, new MD5Hasher());
-       // UserRegistration.OutputValues output = registration.execute(input);
+        // UserRegistration.OutputValues output = registration.execute(input);
 
-        
+
     }
 
 
 
-   
+
 }
