@@ -22,6 +22,10 @@ public class User extends BaseEntity {
 		this._gender = _gender;
 		this._dateOfBirth = _dateOfBirth;
 	}
+	public User(String _firstName, String _hashedPassword) {
+		this._firstName = _firstName;
+		this._hashedPassword = _hashedPassword;
+	}
 
 	public String get_firstName() {
 		return _firstName;
