@@ -8,6 +8,7 @@ import group4.chat.usecases.adapters.Hasher;
 
 public class UserRegistration
         extends UseCase<UserRegistration.InputValues, UserRegistration.OutputValues> {
+    
     private DataStorage _dataStorage;
     private Hasher _hasher;
 
