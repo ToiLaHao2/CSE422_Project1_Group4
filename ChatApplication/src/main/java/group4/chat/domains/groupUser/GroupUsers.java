@@ -3,9 +3,10 @@ package group4.chat.domains.groupUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import group4.chat.domains.BaseEntity;
 import group4.chat.domains.User;
 
-public class GroupUsers {
+public class GroupUsers extends BaseEntity {
 
     protected List<User> _groupUsers;
 
