@@ -15,7 +15,6 @@ public class UserInvitation extends UseCase<UserRegistration.InputValues, UserRe
         _hasher = hasher;
     }
 
-    @Override
     public OutputValues execute(InputValues input) throws Exception {
         return new OutputValues(ResultCodes.SUCCESS, "");
     }
