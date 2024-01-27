@@ -8,12 +8,13 @@ import group4.chat.domains.User;
 
 public class GroupUsers extends BaseEntity {
 
-    protected List<User> _groupUsers;
+    protected ArrayList<User> _groupUsers;
 
     public GroupUsers() {
         super();
         this._groupUsers = new ArrayList<User>();
     }
+    
 
     // find a user
     public User findUser(String username) {
