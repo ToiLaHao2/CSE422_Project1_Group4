@@ -7,4 +7,5 @@ public class PublicGroup extends GroupUsers {
     public PublicGroup() {
         super();
     }
+
 }

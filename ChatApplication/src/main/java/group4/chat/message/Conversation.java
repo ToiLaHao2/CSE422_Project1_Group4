@@ -12,7 +12,7 @@ public class Conversation {
 		this._messages = new ArrayList<>();
 
 		if (user1 != null && user2 != null) {
-			// Conversation between two users
+			// Conversati	on between two users
 			this._user1 = user1;
 			this._user2 = user2;
 		} else if (group != null) {
