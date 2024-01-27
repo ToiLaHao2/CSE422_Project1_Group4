@@ -1,4 +1,4 @@
-package group4.chatApplication.useCases;
+package group4.chapApplication.useCases;
 
 import java.security.Identity;
 import java.util.Optional;
