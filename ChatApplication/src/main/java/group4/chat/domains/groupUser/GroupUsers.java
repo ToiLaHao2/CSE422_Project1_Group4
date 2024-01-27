@@ -7,11 +7,12 @@ import group4.chat.domains.User;
 
 public class GroupUsers {
 
-    protected List<User> _groupUsers;
+    protected ArrayList<User> _groupUsers;
 
     public GroupUsers() {
         super();
         this._groupUsers = new ArrayList<User>();
     }
+    
 
 }
