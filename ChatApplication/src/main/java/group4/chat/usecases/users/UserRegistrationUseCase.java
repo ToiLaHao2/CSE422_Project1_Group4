@@ -2,31 +2,35 @@ package group4.chat.usecases.users;
 
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.domains.User;
+import group4.chat.domains.User.UserBuilder;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
 
-public class UserInvitation extends UseCase<UserRegistration.InputValues, UserRegistration.OutputValues> {
-
+public class UserRegistrationUseCase
+        extends UseCase<UserRegistrationUseCase.InputValues, UserRegistrationUseCase.OutputValues> {
+    
     private DataStorage _dataStorage;
     private Hasher _hasher;
 
-    public UserInvitation(DataStorage dataStorage, Hasher hasher) {
+    public UserRegistrationUseCase(DataStorage dataStorage, Hasher hasher) {
         _dataStorage = dataStorage;
         _hasher = hasher;
     }
 
+    @Override
     public OutputValues execute(InputValues input) throws Exception {
-        return new OutputValues(ResultCodes.SUCCESS, "");
+        User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
+        _dataStorage.getUsers().add(user);
+        return new OutputValues(ResultCodes.SUCCESS, "You sign up sucessfully");
     }
 
     public static class InputValues {
-        private User _admin;
-        private User _user;
-        private String _groupID;
+        private String _username;
+        private String _password;
 
-        public InputValues(User admin, User user, String groupId) {
-            _admin = admin;
-            _user = user;
+        public InputValues(String username, String password) {
+            _username = username;
+            _password = password;
         }
     }
 
@@ -39,11 +43,11 @@ public class UserInvitation extends UseCase<UserRegistration.InputValues, UserRe
             _resultCode = resultCode;
         }
 
-        public int getResultCode() {
+        public int getResultCode(){
             return _resultCode;
         }
 
-        public String getMessage() {
+        public String getMessage(){
             return _message;
         }
     }
@@ -51,12 +55,5 @@ public class UserInvitation extends UseCase<UserRegistration.InputValues, UserRe
     public static class ResultCodes {
         public static final int SUCCESS = 1;
         public static final int FAILED = 0;
-    }
-
-    @Override
-    public group4.chat.usecases.users.UserRegistration.OutputValues execute(
-            group4.chat.usecases.users.UserRegistration.InputValues input) throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
     }
 }
