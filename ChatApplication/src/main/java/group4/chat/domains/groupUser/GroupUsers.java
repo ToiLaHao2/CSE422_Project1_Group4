@@ -14,4 +14,14 @@ public class GroupUsers {
         this._groupUsers = new ArrayList<User>();
     }
 
+    // find a user
+    public User findUser(String username) {
+        for (int i = 0; i < this._groupUsers.size(); ++i) {
+            if (this._groupUsers.get(i).get_fullName().equalsIgnoreCase(username)) {
+                return this._groupUsers.get(i);
+            }
+        }
+        return null;
+    }
+
 }
