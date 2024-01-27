@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group4.chat.domains.User;
+
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
+
 
 public class JoinGroupUseCase {
     private String joinCode;
@@ -12,6 +14,7 @@ public class JoinGroupUseCase {
     private String groupName;
     private PublicGroup publicGroup;
     private User user;
+
     public JoinGroupUseCase(String joinCode) {
         this.joinCode = joinCode;
     }
@@ -24,6 +27,7 @@ public class JoinGroupUseCase {
     public String getGroupName() {
         return groupName;
     }
+
     public boolean joinGroupByJoinCode(String code){
         if (code.equals(joinCode)) {
             members.add(user);
@@ -34,6 +38,6 @@ public class JoinGroupUseCase {
             return false;
         }
     }
-    
+
     
 }
