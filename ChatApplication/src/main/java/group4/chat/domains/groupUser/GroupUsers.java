@@ -15,21 +15,3 @@ public class GroupUsers {
     }
 
 }
-
-class PublicGroup extends GroupUsers {
-
-    public PublicGroup() {
-        super();
-    }
-}
-
-class PrivateGroup extends GroupUsers {
-
-    private User _admin;
-
-    public PrivateGroup(String name, User admin) {
-        super();
-        this._admin = admin;
-        this._groupUsers.add(admin);
-    }
-}
