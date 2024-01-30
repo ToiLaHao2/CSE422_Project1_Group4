@@ -6,13 +6,13 @@ import group4.chat.domains.User.UserBuilder;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
 
-public class UserRegistration
-        extends UseCase<UserRegistration.InputValues, UserRegistration.OutputValues> {
+public class UserRegistrationUseCase
+        extends UseCase<UserRegistrationUseCase.InputValues, UserRegistrationUseCase.OutputValues> {
     
     private DataStorage _dataStorage;
     private Hasher _hasher;
 
-    public UserRegistration(DataStorage dataStorage, Hasher hasher) {
+    public UserRegistrationUseCase(DataStorage dataStorage, Hasher hasher) {
         _dataStorage = dataStorage;
         _hasher = hasher;
     }
