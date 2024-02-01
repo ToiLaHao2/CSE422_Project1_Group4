@@ -17,15 +17,16 @@ public class UserInviteForPublicGroupUseCase extends UseCase<UserInviteForPublic
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
+        User user = _dataStorage.getUsers().getById(input._userID);
         return new OutputValues(ResultCodes.SUCCESS, "User has been added to group");
     }
 
     public static class InputValues {
-        private User _user;
+        private String _userID;
         private String _groupID;
 
-        public InputValues(User user, String groupId) {
-            _user = user;
+        public InputValues(String userID, String groupId) {
+            _userID = userID;
             _groupID = groupId;
         }
 

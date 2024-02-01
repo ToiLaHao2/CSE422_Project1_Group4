@@ -1,9 +1,13 @@
 package group4.chat.usecases.users;
 
 import group4.chat.usecases.adapters.DataStorage;
+
+import java.util.List;
+
 import group4.chat.domains.User;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
+import group4.chat.file.File;
 
 public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, SendMessageUseCase.OutputValues> {
 
@@ -22,14 +26,16 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
     }
 
     public static class InputValues {
-        private User _sender;
-        private User _receiver;
+        private String _senderID;
+        private String _receiverID;
         private String _message;
+        private List<File> _files;
 
-        public InputValues(User sender, User receiver, String message) {
-            _sender = sender;
-            _receiver = receiver;
+        public InputValues(String senderID, String receiverID, String message, List<File> files) {
+            _senderID = senderID;
+            _receiverID = receiverID;
             _message = message;
+            _files = files;
         }
 
     }

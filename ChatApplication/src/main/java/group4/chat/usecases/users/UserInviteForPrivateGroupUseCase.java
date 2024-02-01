@@ -5,32 +5,31 @@ import group4.chat.domains.User;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
 
-public class SendAttachmentUseCase
-        extends UseCase<SendAttachmentUseCase.InputValues, SendAttachmentUseCase.OutputValues> {
+public class UserInviteForPrivateGroupUseCase extends UseCase<UserInviteForPrivateGroupUseCase.InputValues, UserInviteForPrivateGroupUseCase.OutputValues> {
 
     private DataStorage _dataStorage;
     private Hasher _hasher;
 
-    public SendAttachmentUseCase(DataStorage dataStorage, Hasher hasher) {
+    public UserInviteForPrivateGroupUseCase(DataStorage dataStorage, Hasher hasher) {
         _dataStorage = dataStorage;
         _hasher = hasher;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        // code to activate leave group
-        return new OutputValues(ResultCodes.SUCCESS, "Sending attachment successfull");
+        // Check and invite user to group
+        return new OutputValues(ResultCodes.SUCCESS, "User has been added to group");
     }
 
     public static class InputValues {
-        private User _sender;
-        private User _receiver;
-        private Byte[] _attachments;
+        private String _adminID;
+        private String _userID;
+        private String _groupID;
 
-        public InputValues(User sender, User receiver, Byte[] attachments) {
-            _sender = sender;
-            _receiver = receiver;
-            _attachments = attachments;
+        public InputValues(String adminID, String userID, String groupId) {
+            _adminID = adminID;
+            _userID = userID;
+            _groupID = groupId;
         }
 
     }
