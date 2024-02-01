@@ -23,12 +23,12 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
 
     public static class InputValues {
         private User _sender;
-        private User _receiver;
+        private String _receiverID;
         private String _message;
 
-        public InputValues(User sender, User receiver, String message) {
+        public InputValues(User sender, String receiverID, String message) {
             _sender = sender;
-            _receiver = receiver;
+            _receiverID = receiverID;
             _message = message;
         }
 
