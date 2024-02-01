@@ -21,6 +21,7 @@ class LeavvePrivateGroupTest {
 	public void setUp() {
 		DataStorage storage = InMemoryDataStorage.getInstance();
 		storage.getUsers().add(new User("phuc", "1234"));
+		storage.getUsers().add(new User("haoo", "1234"));
 	}
 
 	@AfterEach
@@ -30,21 +31,12 @@ class LeavvePrivateGroupTest {
 	}
 
 	@Test
-	public void addUserSuccessfully() throws Exception {
-
-		UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("phuc", "1234");
+	public void inviteUserToGroupTest() throws Exception {
+		UserInviteUseCase.InputValues input = new UserInviteUseCase.InputValues("phucc", "haoo", "0001248");
 		DataStorage storage = InMemoryDataStorage.getInstance();
 
-		UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
-		UserRegistrationUseCase.OutputValues output = registration.execute(input);
-
-		input = new UserRegistrationUseCase.InputValues("phuccc", "1234");
-		storage = InMemoryDataStorage.getInstance();
-
-		registration = new UserRegistrationUseCase(storage, new MD5Hasher());
-		output = registration.execute(input);
-
-		UserInviteUseCase invite = new UserInviteUseCase("phuc", "1234");
+		UserInviteUseCase invite = new UserInviteUseCase(storage, new MD5Hasher());
+		UserInviteUseCase.OutputValues output = invite.execute(input);
 		
 	}
 

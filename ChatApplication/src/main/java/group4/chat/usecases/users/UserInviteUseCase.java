@@ -22,13 +22,13 @@ public class UserInviteUseCase extends UseCase<UserInviteUseCase.InputValues, Us
     }
 
     public static class InputValues {
-        private User _admin;
-        private User _user;
+        private String _adminID;
+        private String _userID;
         private String _groupID;
 
-        public InputValues(User admin, User user, String groupId) {
-            _admin = admin;
-            _user = user;
+        public InputValues(String adminID, String userID, String groupId) {
+            _adminID = adminID;
+            _userID = userID;
             _groupID = groupId;
         }
 
