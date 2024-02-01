@@ -29,7 +29,7 @@ public class UserRegistrationTest {
     }
 
     @Test
-    public void addUserSuccessfully() throws Exception {
+    public void createUserSuccessfully() throws Exception {
 
         UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("phuc", "1234");
         DataStorage storage = InMemoryDataStorage.getInstance();
