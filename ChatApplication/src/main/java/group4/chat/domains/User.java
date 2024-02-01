@@ -112,4 +112,12 @@ public class User extends BaseEntity {
 		this._listGroupOfUser.remove(groupID);
 		System.out.println("You have left the group: " + groupID);
 	}
+
+	public void sendMessage(String receiverID, String content) {
+		System.out.println("Message: '" + content + "''  has been sent to user with ID: " + receiverID);
+	}
+
+	public void sendAttachment(String receiverID, Byte[] attachment) {
+		System.out.println("File: '" + attachment + "' has been sent to user with ID: " + receiverID);
+	}
 }

@@ -1,7 +1,9 @@
 package group4.chat.file;
 
-public class File {
-	private String name;
+import group4.chat.domains.BaseEntity;
+
+public class File extends BaseEntity {
+    private String name;
     private String fileType;
 
     public File(String name, String fileType) {
@@ -17,13 +19,13 @@ class Image extends File {
 }
 
 class Video extends File {
-	public Video(String name) {
-		super(name, "Video");
-	}
+    public Video(String name) {
+        super(name, "Video");
+    }
 }
 
-class Audio extends File{
-	public Audio(String name) {
-		super(name, "Audio");
-	}
+class Audio extends File {
+    public Audio(String name) {
+        super(name, "Audio");
+    }
 }
