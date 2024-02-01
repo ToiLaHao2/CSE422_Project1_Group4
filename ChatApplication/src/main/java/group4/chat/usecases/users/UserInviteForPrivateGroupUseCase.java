@@ -5,12 +5,12 @@ import group4.chat.domains.User;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
 
-public class UserInviteUseCase extends UseCase<UserInviteUseCase.InputValues, UserInviteUseCase.OutputValues> {
+public class UserInviteForPrivateGroupUseCase extends UseCase<UserInviteForPrivateGroupUseCase.InputValues, UserInviteForPrivateGroupUseCase.OutputValues> {
 
     private DataStorage _dataStorage;
     private Hasher _hasher;
 
-    public UserInviteUseCase(DataStorage dataStorage, Hasher hasher) {
+    public UserInviteForPrivateGroupUseCase(DataStorage dataStorage, Hasher hasher) {
         _dataStorage = dataStorage;
         _hasher = hasher;
     }
@@ -22,13 +22,13 @@ public class UserInviteUseCase extends UseCase<UserInviteUseCase.InputValues, Us
     }
 
     public static class InputValues {
-        private User _admin;
-        private User _user;
+        private String _adminID;
+        private String _userID;
         private String _groupID;
 
-        public InputValues(User admin, User user, String groupId) {
-            _admin = admin;
-            _user = user;
+        public InputValues(String adminID, String userID, String groupId) {
+            _adminID = adminID;
+            _userID = userID;
             _groupID = groupId;
         }
 
