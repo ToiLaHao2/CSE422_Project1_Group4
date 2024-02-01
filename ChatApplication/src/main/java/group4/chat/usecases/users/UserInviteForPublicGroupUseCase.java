@@ -21,11 +21,11 @@ public class UserInviteForPublicGroupUseCase extends UseCase<UserInviteForPublic
     }
 
     public static class InputValues {
-        private User _user;
+        private String _userID;
         private String _groupID;
 
-        public InputValues(User user, String groupId) {
-            _user = user;
+        public InputValues(String userID, String groupId) {
+            _userID = userID;
             _groupID = groupId;
         }
 

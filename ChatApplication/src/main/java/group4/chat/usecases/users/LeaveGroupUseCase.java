@@ -22,14 +22,14 @@ public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, Le
     }
 
     public static class InputValues {
-        private User _admin;
-        private User _user;
+        private String _adminID;
+        private String _userID;
         private String _groupID;
 
-        public InputValues(User admin, User user, String groupId) {
-            _admin = admin;
-            _user = user;
-            _groupID = groupId;
+        public InputValues(String adminID, String userID, String groupID) {
+            _adminID = adminID;
+            _userID = userID;
+            _groupID = groupID;
         }
 
     }
