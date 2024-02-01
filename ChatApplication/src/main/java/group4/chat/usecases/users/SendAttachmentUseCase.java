@@ -24,12 +24,12 @@ public class SendAttachmentUseCase
 
     public static class InputValues {
         private User _sender;
-        private User _receiver;
+        private String _receiverID;
         private Byte[] _attachments;
 
-        public InputValues(User sender, User receiver, Byte[] attachments) {
+        public InputValues(User sender, String receiverID, Byte[] attachments) {
             _sender = sender;
-            _receiver = receiver;
+            _receiverID = receiverID;
             _attachments = attachments;
         }
 
