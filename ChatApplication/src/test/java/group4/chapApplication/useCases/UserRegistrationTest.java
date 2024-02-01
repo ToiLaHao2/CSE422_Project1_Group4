@@ -16,27 +16,24 @@ import group4.chat.usecases.users.UserRegistrationUseCase.OutputValues;
 import group4.chat.usecases.users.UserRegistrationUseCase.ResultCodes;
 
 public class UserRegistrationTest {
-    @BeforeEach
-    public void setUp() {
-        DataStorage storage = InMemoryDataStorage.getInstance();
-        storage.getUsers().add(new User("phuc", "1234"));
-    }
+	@BeforeEach
+	public void setUp() {
+		DataStorage storage = InMemoryDataStorage.getInstance();
+		storage.getUsers().add(new User("phuc", "1234"));
+	}
 
-    @AfterEach
-    public void tearDown() {
-        DataStorage storage = InMemoryDataStorage.getInstance();
-        storage.cleanAll();
-    }
+	@AfterEach
+	public void tearDown() {
+		DataStorage storage = InMemoryDataStorage.getInstance();
+		storage.cleanAll();
+	}
 
-    @Test
-    public void createUserSuccessfully() throws Exception {
+	@Test
+	public void createUserSuccessfully() throws Exception {
+		UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("phuc", "1234");
+		DataStorage storage = InMemoryDataStorage.getInstance();
 
-        UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("phuc", "1234");
-        DataStorage storage = InMemoryDataStorage.getInstance();
-
-        UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
-        UserRegistrationUseCase.OutputValues output = registration.execute(input);
-
-    }
-
+		UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
+		UserRegistrationUseCase.OutputValues output = registration.execute(input);
+	}
 }

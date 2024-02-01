@@ -25,6 +25,7 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
         private User _sender;
         private String _receiverID;
         private String _message;
+        
 
         public InputValues(User sender, String receiverID, String message) {
             _sender = sender;
