@@ -1,33 +1,53 @@
 package group4.chat.usecases.users;
 
-import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.domains.User;
+import group4.chat.domains.groupUser.publicGroup.PublicGroup;
+import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
-import group4.chat.usecases.adapters.Hasher;
 
-public class UserInviteForPublicGroupUseCase extends UseCase<UserInviteForPublicGroupUseCase.InputValues, UserInviteForPublicGroupUseCase.OutputValues> {
+public class UserInviteForPublicGroupUseCase
+        extends UseCase<UserInviteForPublicGroupUseCase.InputValues, UserInviteForPublicGroupUseCase.OutputValues> {
+    private InMemoryDataStorage dataStorage;
 
-    private DataStorage _dataStorage;
-    private Hasher _hasher;
-
-    public UserInviteForPublicGroupUseCase(DataStorage dataStorage, Hasher hasher) {
-        _dataStorage = dataStorage;
-        _hasher = hasher;
+    public UserInviteForPublicGroupUseCase(InMemoryDataStorage dataStorage) {
+        this.dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        User user = _dataStorage.getUsers().getById(input._userID);
-        return new OutputValues(ResultCodes.SUCCESS, "User has been added to group");
+
+        String groupId = input.getGroupId();
+        User user = input.getUser();
+
+        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupId);
+
+        if (publicGroup != null) {
+            if (!publicGroup.getGroupUsers().contains(user)) {
+                publicGroup.addMember(user);
+                return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
+            } else {
+                return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
+            }
+        } else {
+            return new OutputValues(ResultCodes.FAILED, "Invalid group ID. Unable to add user to the group");
+        }
     }
 
     public static class InputValues {
-        private String _userID;
-        private String _groupID;
+        private String groupId;
+        private User user;
 
-        public InputValues(String userID, String groupId) {
-            _userID = userID;
-            _groupID = groupId;
+        public InputValues(String groupId, User user) {
+            this.groupId = groupId;
+            this.user = user;
+        }
+
+        public String getGroupId() {
+            return groupId;
+        }
+
+        public User getUser() {
+            return user;
         }
 
     }

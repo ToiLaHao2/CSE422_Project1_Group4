@@ -6,10 +6,9 @@ import group4.chat.domains.User;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;
 
-
 public class FindUsernameUseCase
         extends UseCase<FindUsernameUseCase.InputValues, FindUsernameUseCase.OutputValues> {
-            private DataStorage dataStorage;
+    private DataStorage dataStorage;
 
     public FindUsernameUseCase(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
@@ -31,8 +30,6 @@ public class FindUsernameUseCase
         }
 
     }
-
-    
 
     public static class InputValues {
         private String searchString;
@@ -57,6 +54,7 @@ public class FindUsernameUseCase
             this.message = message;
             this.foundUsers = foundUsers;
         }
+
         public OutputValues(int resultCode, String message) {
             this.resultCode = resultCode;
             this.message = message;

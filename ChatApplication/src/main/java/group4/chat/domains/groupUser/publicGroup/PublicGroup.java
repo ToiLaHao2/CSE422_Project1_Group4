@@ -47,6 +47,9 @@ private User user;
     public String getJoinCode() {
         return _joinCode;
     }
+    public List<User> getGroupUsers() {
+        return _groupUsers;
+    }
 
     
 
