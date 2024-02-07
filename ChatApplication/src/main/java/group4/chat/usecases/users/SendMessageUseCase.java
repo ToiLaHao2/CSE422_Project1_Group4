@@ -31,6 +31,7 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
         private String _message;
         private List<File> _files;
 
+
         public InputValues(String senderID, String receiverID, String message, List<File> files) {
             _senderID = senderID;
             _receiverID = receiverID;
