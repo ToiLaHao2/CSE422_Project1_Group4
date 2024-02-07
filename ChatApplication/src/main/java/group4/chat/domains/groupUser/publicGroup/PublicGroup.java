@@ -18,10 +18,7 @@ private User user;
 
 
     }
-    private void generateJoinCode() {
-        Random rd=new Random(5);
-        this._joinCode=rd.toString();
-    }
+   
     public String outputJoinCode(){
         return this._joinCode;
     }
