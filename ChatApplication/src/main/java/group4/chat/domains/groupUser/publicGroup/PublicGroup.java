@@ -1,7 +1,6 @@
 package group4.chat.domains.groupUser.publicGroup;
 
 import java.util.List;
-import java.util.Random;
 
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.GroupUsers;
@@ -10,8 +9,6 @@ public class PublicGroup extends GroupUsers {
 private String _joinCode;
 private User _user;
 protected List<User> _listUsers;
-private User user;
-
     public PublicGroup(String _joincode) {
         super();
         this._joinCode=_joincode;
