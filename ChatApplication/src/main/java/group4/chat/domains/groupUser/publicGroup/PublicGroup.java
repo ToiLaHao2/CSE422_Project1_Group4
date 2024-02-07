@@ -12,10 +12,9 @@ private User _user;
 protected List<User> _listUsers;
 private User user;
 
-    public PublicGroup(String _joincode, User user) {
+    public PublicGroup(String _joincode) {
         super();
         this._joinCode=_joincode;
-        this._groupUsers.add(_user);
 
 
     }

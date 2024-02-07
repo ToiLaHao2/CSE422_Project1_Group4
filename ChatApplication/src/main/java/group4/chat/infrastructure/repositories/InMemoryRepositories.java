@@ -52,5 +52,9 @@ public class InMemoryRepositories<T extends BaseEntity> implements Respository<T
         Optional<T> entity = enities.stream().filter(predicate).findFirst();
         return entity.isPresent() ? entity.get() : null;
     }
+    @Override
+    public List<T> getAll() {
+        return new ArrayList<>(enities);
+    }
 
 }

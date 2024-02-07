@@ -4,6 +4,8 @@
  */
 package group4.chat.infrastructure.data;
 
+import java.util.List;
+
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
@@ -43,11 +45,18 @@ public class InMemoryDataStorage implements DataStorage {
         _users.deleteAll();
     }
 
-    public Respository<PublicGroup> getPubicGroup() {
+    public Respository<PublicGroup> getPublicGroup() {
         return _publicGroups;
     }
 
     public Respository<PrivateGroup> getPrivateGroup() {
         return _privateGroups;
     }
+    @Override
+    public List<User> getAllUsers() {
+        // Implement this method to return all users
+        return _users.getAll();
+    }
+
+    
 }
