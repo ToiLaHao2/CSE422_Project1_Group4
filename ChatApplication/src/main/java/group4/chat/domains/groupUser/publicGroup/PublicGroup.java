@@ -51,7 +51,7 @@ public class PublicGroup extends GroupUsers {
         return _joinCode;
     }
 
-    public boolean findUser(String userID) {
+    public boolean searchUser(String userID) {
         boolean check;
         for (User user : _listUsers) {
             if (user.getId().equals(userID)) {
