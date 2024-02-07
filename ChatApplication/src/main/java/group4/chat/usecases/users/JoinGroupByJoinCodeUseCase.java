@@ -6,12 +6,9 @@ import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.adapters.Hasher;
 
 public class JoinGroupByJoinCodeUseCase extends UseCase<JoinGroupByJoinCodeUseCase.InputValues, JoinGroupByJoinCodeUseCase.OutputValues> {
-    private DataStorage _dataStorage;
-    private Hasher _hasher;
+    
 
-    public JoinGroupByJoinCodeUseCase(DataStorage dataStorage, Hasher hasher) {
-        _dataStorage = dataStorage;
-        _hasher = hasher;
+    public JoinGroupByJoinCodeUseCase() {
     }
 
     @Override
@@ -20,15 +17,7 @@ public class JoinGroupByJoinCodeUseCase extends UseCase<JoinGroupByJoinCodeUseCa
     }
 
     public static class InputValues {
-        private String _userID;
-        private String _groupID;
-        private String _joinCode;
-
-        public InputValues(String userID, String _joinCode,String _groupID) {
-            _userID = userID;
-            this._joinCode=_joinCode;
-            this._groupID=_groupID;
-        }
+       
 
     }
 

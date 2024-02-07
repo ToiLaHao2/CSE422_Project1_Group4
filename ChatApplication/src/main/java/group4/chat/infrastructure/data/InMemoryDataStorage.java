@@ -54,7 +54,6 @@ public class InMemoryDataStorage implements DataStorage {
     }
     @Override
     public List<User> getAllUsers() {
-        // Implement this method to return all users
         return _users.getAll();
     }
 
