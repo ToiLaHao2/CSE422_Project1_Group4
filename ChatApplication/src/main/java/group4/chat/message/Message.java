@@ -40,6 +40,15 @@ public class Message {
 		this._attachment = _attachment;
 	}
 
+	public ArrayList<String> get_attachments() {
+		return _attachments;
+	}
+	
+
+	public int get_messageId() {
+		return _messageId;
+	}
+
 	@Override
 	public String toString() {
 		return _messageId + " " + _sender + " " + _receiver + " " + _timestamp + " " + _content + " " + _attachments;

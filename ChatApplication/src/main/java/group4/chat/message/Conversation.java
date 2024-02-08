@@ -34,5 +34,17 @@ public class Conversation {
             System.out.println(message);
         }
     }
+	public Message getMessageById(int messageId) {
+        for (Message message : _messages) {
+            if (message.get_messageId() == messageId) {
+                return message;
+            }
+        }
+        return null;
+    }
+    
+    public void deleteMessage(Message message) {
+        _messages.remove(message);
+    }
 
 }
