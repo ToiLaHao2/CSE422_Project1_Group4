@@ -59,4 +59,7 @@ public class PrivateGroup extends GroupUsers {
     public List<User> getGroupUsers() {
         return _groupUsers;
     }
+    public boolean isAdmin(User user) {
+        return _listAdmins.contains(user);
+    }
 }
