@@ -2,42 +2,89 @@ package group4.chat.usecases.users;
 
 import group4.chat.usecases.adapters.DataStorage;
 
-import java.util.List;
+import java.io.FileOutputStream;
+import java.util.UUID;
 
 import group4.chat.domains.User;
 import group4.chat.usecases.UseCase;
-import group4.chat.usecases.adapters.Hasher;
-import group4.chat.file.File;
+import group4.chat.message.Message;
 
 public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, SendMessageUseCase.OutputValues> {
+    private DataStorage dataStorage;
 
-    private DataStorage _dataStorage;
-    private Hasher _hasher;
-
-    public SendMessageUseCase(DataStorage dataStorage, Hasher hasher) {
-        _dataStorage = dataStorage;
-        _hasher = hasher;
+    public SendMessageUseCase(DataStorage dataStorage) {
+        this.dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        // code to activate leave group
-        return new OutputValues(ResultCodes.SUCCESS, "Sending message successfull");
+        User sender = dataStorage.getUsers().getById(input.getSenderID());
+        User receiver = dataStorage.getUsers().getById(input.getReceiverId());
+        if (sender == null || receiver == null) {
+            return new OutputValues(ResultCodes.FAILED, "Sender or receiver not found");
+        }
+        if (input.attachment != null) {
+            String attachmentId = saveAttachment(input.attachment);
+            sendMessageWithAttachment(input.messageId, input.senderID, input.receiverId, input.content, attachmentId);
+            return new OutputValues(ResultCodes.SUCCESS, "Sending message successfull");
+        } else {
+            sendMessage(input.messageId, input.senderID, input.receiverId, input.content);
+        }
+        return new OutputValues(ResultCodes.SUCCESS, "Sending message successful");
+    }
+
+    private String saveAttachment(byte[] attachment) throws Exception {
+        String attachmentId = UUID.randomUUID().toString();
+        String filePath = "/path/to/attachments/" + attachmentId + ".dat";
+        try (FileOutputStream fos = new FileOutputStream(filePath)) {
+            fos.write(attachment);
+        }
+        return attachmentId;
+    }
+
+    private void sendMessage(int messageId, String senderId, String receiverId, String content) {
+        new Message(messageId, senderId, receiverId, content);
+    }
+
+    private void sendMessageWithAttachment(int messageId, String senderId, String receiverId, String content,
+            String attachmentId) {
+        new Message(messageId, senderId, receiverId, content, attachmentId);
     }
 
     public static class InputValues {
-        private String _senderID;
-        private String _receiverID;
-        private String _message;
-        private List<File> _files;
+        private byte[] attachment;
+        private String receiverId;
+        private String content;
+        private int messageId;
+        private String senderID;
 
-        public InputValues(String senderID, String receiverID, String message, List<File> files) {
-            _senderID = senderID;
-            _receiverID = receiverID;
-            _message = message;
-            _files = files;
+        public InputValues(byte[] attachment, String receiverId, String content, int messageId, String senderID) {
+            this.attachment = attachment;
+            this.receiverId = receiverId;
+            this.content = content;
+            this.messageId = messageId;
+            this.senderID = senderID;
         }
 
+        public byte[] getAttachment() {
+            return attachment;
+        }
+
+        public String getReceiverId() {
+            return receiverId;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public int getMessageId() {
+            return messageId;
+        }
+
+        public String getSenderID() {
+            return senderID;
+        }
     }
 
     public static class OutputValues {

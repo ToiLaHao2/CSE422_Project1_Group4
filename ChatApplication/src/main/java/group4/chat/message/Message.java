@@ -10,6 +10,7 @@ public class Message {
 	private Date _timestamp;
 	private String _content;
 	private ArrayList<String> _attachments;
+	private String _attachment;
 
 	public Message(int messageId, String sender, String receiver, String content, ArrayList<String> attachments) {
 		this._messageId = messageId;
@@ -24,9 +25,25 @@ public class Message {
 		}
 	}
 
+	public Message(int _messageId, String _sender, String _receiver, String _content) {
+		this._messageId = _messageId;
+		this._sender = _sender;
+		this._receiver = _receiver;
+		this._content = _content;
+	}
+
+	public Message(int _messageId, String _sender, String _receiver, String _content, String _attachment) {
+		this._messageId = _messageId;
+		this._sender = _sender;
+		this._receiver = _receiver;
+		this._content = _content;
+		this._attachment = _attachment;
+	}
+
 	@Override
 	public String toString() {
 		return _messageId + " " + _sender + " " + _receiver + " " + _timestamp + " " + _content + " " + _attachments;
 	}
+	
 
 }
