@@ -35,7 +35,6 @@ class InviteAndLeaveGroupTest {
 
 		UserInviteForPrivateGroupUseCase invite = new UserInviteForPrivateGroupUseCase(storage, new MD5Hasher());
 		UserInviteForPrivateGroupUseCase.OutputValues output = invite.execute(input);
-
 	}
 
 	@Test
@@ -52,7 +51,7 @@ class InviteAndLeaveGroupTest {
 	public void leaveGroupTest() throws Exception {
 		LeaveGroupUseCase.InputValues input = new LeaveGroupUseCase.InputValues("phucc", "haoo", "0001248");
 		DataStorage storage = InMemoryDataStorage.getInstance();
-		
+
 		LeaveGroupUseCase leave = new LeaveGroupUseCase(storage, new MD5Hasher());
 		LeaveGroupUseCase.OutputValues output = leave.execute(input);
 	}

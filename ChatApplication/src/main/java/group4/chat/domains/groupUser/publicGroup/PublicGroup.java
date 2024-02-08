@@ -13,12 +13,14 @@ protected List<User> _listUsers;
         super();
         this._joinCode=_joincode;
 
-
     }
+
+    
    
     public String outputJoinCode(){
         return this._joinCode;
     }
+
     public void addMember(User user) {
         if (!_groupUsers.contains(user)) {
             _groupUsers.add(user);
@@ -35,7 +37,7 @@ protected List<User> _listUsers;
         } else {
             System.out.println("The user is not in this group. Please choose another group");
         }
-       
+
     }
 
     public String getJoinCode() {
@@ -45,8 +47,16 @@ protected List<User> _listUsers;
         return _groupUsers;
     }
 
-    
-
-    
+    public boolean searchUser(String userID) {
+        boolean check;
+        for (User user : _listUsers) {
+            if (user.getId().equals(userID)) {
+                check = true;
+                break;
+            }
+        }
+        check = false;
+        return check;
+    }
 
 }
