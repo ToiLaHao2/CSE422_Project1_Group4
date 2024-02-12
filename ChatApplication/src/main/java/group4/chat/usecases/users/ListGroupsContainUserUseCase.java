@@ -19,18 +19,20 @@ public class ListGroupsContainUserUseCase
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
+        User user = dataStorage.getUsers().getById(input.userID);
+
         List<PublicGroup> publicGroups = dataStorage.getPublicGroup().getAll();
         List<PrivateGroup> privateGroups = dataStorage.getPrivateGroup().getAll();
 
         List<PublicGroup> userPublicGroups = new ArrayList<>();
         List<PrivateGroup> userPrivateGroups = new ArrayList<>();
         for (PublicGroup group : publicGroups) {
-            if (group.getGroupUsers().contains(input.user)) {
+            if (group.getGroupUsers().contains(user)) {
                 userPublicGroups.add(group);
             }
         }
         for (PrivateGroup group : privateGroups) {
-            if (group.getGroupUsers().contains(input.user)) {
+            if (group.getGroupUsers().contains(user)) {
                 userPrivateGroups.add(group);
             }
         }
@@ -40,14 +42,14 @@ public class ListGroupsContainUserUseCase
     }
 
     public static class InputValues {
-        private User user;
+        private String userID;
 
-        public InputValues(User user) {
-            this.user = user;
+        public InputValues(String userID) {
+            this.userID = userID;
         }
 
-        public User getUser() {
-            return user;
+        public String getUserID() {
+            return userID;
         }
 
     }

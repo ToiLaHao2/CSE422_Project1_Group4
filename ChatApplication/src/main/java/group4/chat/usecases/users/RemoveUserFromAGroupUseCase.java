@@ -27,7 +27,7 @@ public class RemoveUserFromAGroupUseCase
         }
         User admin = dataStorage.getUsers().getById(input.getAdminID());
         if (admin == null) {
-            return new OutputValues(ResultCodes.FAILED, "Administrator not found");
+            return new OutputValues(ResultCodes.FAILED, "User not found");
         }
         if (!group.isAdmin(admin)) {
             return new OutputValues(ResultCodes.FAILED, "You are not an administrator of this group");

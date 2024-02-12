@@ -17,24 +17,26 @@ public class CreatePrivateGroupUseCase
 
     @Override
     public OutputValues execute(InputValues input) {
-        ArrayList<User> users = input.getUsers();
-        User creator = users.get(0);
+        ArrayList<String> userIDs = input.getUserIDs();
+        User creator = _dataStorage.getUsers().getById(userIDs.get(0));
         PrivateGroup privateGroup = new PrivateGroup(creator, "GroupID");
+        for (int i = 1; i < userIDs.size(); i++) {
+            User member = _dataStorage.getUsers().getById(userIDs.get(i));
+            privateGroup.addMember(member);
+        }
         _dataStorage.getPrivateGroup().add(privateGroup);
-
         return new OutputValues(ResultCodes.SUCCESS, "Private group created successfully");
-
     }
 
     public static class InputValues {
-        private ArrayList<User> users;
+        private ArrayList<String> userIDs;
 
-        public InputValues(ArrayList<User> users) {
-            this.users = users;
+        public InputValues(ArrayList<String> userIDs) {
+            this.userIDs = userIDs;
         }
 
-        public ArrayList<User> getUsers() {
-            return users;
+        public ArrayList<String> getUserIDs() {
+            return userIDs;
         }
 
     }

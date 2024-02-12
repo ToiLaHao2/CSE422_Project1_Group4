@@ -8,8 +8,7 @@ import group4.chat.message.Conversation;
 import group4.chat.message.Message;
 import group4.chat.usecases.UseCase;
 
-public class DeleteMessageUseCase
-        extends UseCase<DeleteMessageUseCase.InputValues, DeleteMessageUseCase.OutputValues> {
+public class DeleteMessageUseCase extends UseCase<DeleteMessageUseCase.InputValues, DeleteMessageUseCase.OutputValues> {
 
     public DeleteMessageUseCase() {
 

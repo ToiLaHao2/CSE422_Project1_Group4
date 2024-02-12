@@ -1,7 +1,6 @@
 package group4.chat.domains.groupUser;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import group4.chat.domains.BaseEntity;
 import group4.chat.domains.User;
@@ -14,7 +13,6 @@ public class GroupUsers extends BaseEntity {
         super();
         this._groupUsers = new ArrayList<User>();
     }
-    
 
     // find a user
     public User findUser(String username) {

@@ -6,18 +6,15 @@ import group4.chat.domains.User;
 import group4.chat.domains.groupUser.GroupUsers;
 
 public class PublicGroup extends GroupUsers {
-private String _joinCode;
-private User _user;
-protected List<User> _listUsers;
+    private String _joinCode;
+    protected List<User> _listUsers;
+
     public PublicGroup(String _joincode) {
         super();
-        this._joinCode=_joincode;
-
+        this._joinCode = _joincode;
     }
 
-    
-   
-    public String outputJoinCode(){
+    public String outputJoinCode() {
         return this._joinCode;
     }
 
@@ -43,6 +40,7 @@ protected List<User> _listUsers;
     public String getJoinCode() {
         return _joinCode;
     }
+
     public List<User> getGroupUsers() {
         return _groupUsers;
     }

@@ -8,12 +8,12 @@ import group4.chat.domains.groupUser.GroupUsers;
 public class PrivateGroup extends GroupUsers {
 
     private String _groupID;
-    private User _admin;
+    private User _firstAdmin;
     protected List<User> _listAdmins;
 
     public PrivateGroup(User admin, String groupID) {
         super();
-        this._admin = admin;
+        this._firstAdmin = admin;
         this._listAdmins = new ArrayList<>();
         this._groupUsers.add(admin);
         this._groupID = groupID;
