@@ -8,11 +8,9 @@ import group4.chat.domains.groupUser.publicGroup.PublicGroup;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;
 
-
 public class CreatePublicGroupUseCase
         extends UseCase<CreatePublicGroupUseCase.InputValues, CreatePublicGroupUseCase.OutputValues> {
     private DataStorage _dataStorage;
-    private User user;
 
     public CreatePublicGroupUseCase(DataStorage dataStorage) {
         _dataStorage = dataStorage;
@@ -20,12 +18,15 @@ public class CreatePublicGroupUseCase
 
     @Override
     public OutputValues execute(InputValues input) {
+        ArrayList<String> userIDs = input.getUserIDs();
         String joinCode = generateJoinCode();
         PublicGroup publicGroup = new PublicGroup(joinCode);
+        for (int i = 0; i < userIDs.size(); i++) {
+            User member = _dataStorage.getUsers().getById(userIDs.get(i));
+            publicGroup.addMember(member);
+        }
         _dataStorage.getPublicGroup().add(publicGroup);
-        publicGroup.addMember(executeInput(input.users));
         return new OutputValues(ResultCodes.SUCCESS, "Public group created successfully with join code: " + joinCode);
-
     }
 
     private String generateJoinCode() {
@@ -34,17 +35,16 @@ public class CreatePublicGroupUseCase
         _joinCode = rd.toString();
         return _joinCode;
     }
-    private User executeInput(ArrayList<User> users){
-        for (User user:users)
-        return user;
-        return user;
-    }
 
     public static class InputValues {
-        private ArrayList<User> users;
+        private ArrayList<String> userIDs;
 
-        public InputValues(ArrayList<User> users) {
-            this.users = users;
+        public InputValues(ArrayList<String> userIDs) {
+            this.userIDs = userIDs;
+        }
+
+        public ArrayList<String> getUserIDs() {
+            return userIDs;
         }
 
     }

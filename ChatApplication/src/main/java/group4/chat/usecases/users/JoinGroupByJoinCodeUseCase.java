@@ -16,38 +16,39 @@ public class JoinGroupByJoinCodeUseCase
     @Override
     public OutputValues execute(InputValues input) throws Exception {
         String joinCode = input.getJoinCode();
-        User user = input.getUser();
-
-        PublicGroup publicGroup = dataStorage.getPublicGroup().getAll()
-                .stream()
-                .filter(group -> group.getJoinCode().equals(joinCode))
-                .findFirst()
-                .orElse(null);
+        User user = dataStorage.getUsers().getById(input.getUserID());
+        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(input.publicGroupID);
         if (publicGroup != null) {
-            publicGroup.addMember(user);
-            return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
-        } else {
-            return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
+            if (publicGroup.getJoinCode().equals(joinCode)) {
+                publicGroup.addMember(user);
+                return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
+            }
         }
+        return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
     }
 
     public static class InputValues {
         private String joinCode;
-        private User user;
+        private String userID;
+        private String publicGroupID;
 
-        public InputValues(String joinCode, User user) {
+        public InputValues(String joinCode, String userID, String publicGroupID) {
             this.joinCode = joinCode;
-            this.user = user;
+            this.userID = userID;
+            this.publicGroupID = publicGroupID;
         }
 
         public String getJoinCode() {
             return joinCode;
         }
 
-        public User getUser() {
-            return user;
+        public String getUserID() {
+            return userID;
         }
 
+        public String getPublicGroupID() {
+            return publicGroupID;
+        }
     }
 
     public static class OutputValues {

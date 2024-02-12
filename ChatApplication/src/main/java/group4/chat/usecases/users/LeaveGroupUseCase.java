@@ -15,7 +15,7 @@ public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, Le
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        User user = input.getUser();
+        User user = dataStorage.getUsers().getById(input.userID);
         String groupID = input.getGroupID();
 
         PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupID);
@@ -34,16 +34,16 @@ public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, Le
     }
 
     public static class InputValues {
-        private User user;
+        private String userID;
         private String groupID;
 
-        public InputValues(User user, String groupID) {
-            this.user = user;
+        public InputValues(String userID, String groupID) {
+            this.userID = userID;
             this.groupID = groupID;
         }
 
-        public User getUser() {
-            return user;
+        public String getUserID() {
+            return userID;
         }
 
         public String getGroupID() {

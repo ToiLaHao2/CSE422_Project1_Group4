@@ -16,14 +16,16 @@ public class UserInviteForPrivateGroupUseCase
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
+        String adminID = input.getAdminID();
         String userId = input.getUserId();
         String groupId = input.getGroupId();
         Respository<User> userRepository = dataStorage.getUsers();
         Respository<PrivateGroup> privateGroupRepository = dataStorage.getPrivateGroup();
+        User admin = userRepository.getById(adminID);
         User user = userRepository.getById(userId);
         PrivateGroup privateGroup = privateGroupRepository.getById(groupId);
 
-        if (user == null || privateGroup == null) {
+        if (admin == null || privateGroup == null || user == null) {
             return new OutputValues(ResultCodes.FAILED, "User or group not found");
         }
         if (!privateGroup.getGroupAdmins().contains(user)) {
@@ -35,12 +37,18 @@ public class UserInviteForPrivateGroupUseCase
     }
 
     public static class InputValues {
+        private String adminID;
         private String userId;
         private String groupId;
 
-        public InputValues(String userId, String groupId) {
+        public InputValues(String adminID, String userId, String groupId) {
+            this.adminID = adminID;
             this.userId = userId;
             this.groupId = groupId;
+        }
+
+        public String getAdminID() {
+            return adminID;
         }
 
         public String getUserId() {
