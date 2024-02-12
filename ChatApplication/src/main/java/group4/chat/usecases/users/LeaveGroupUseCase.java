@@ -1,37 +1,54 @@
 package group4.chat.usecases.users;
 
-import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.domains.User;
+import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
+import group4.chat.domains.groupUser.publicGroup.PublicGroup;
+import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
-import group4.chat.usecases.adapters.Hasher;
 
 public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, LeaveGroupUseCase.OutputValues> {
+     private InMemoryDataStorage dataStorage;
 
-    private DataStorage _dataStorage;
-    private Hasher _hasher;
-
-    public LeaveGroupUseCase(DataStorage dataStorage, Hasher hasher) {
-        _dataStorage = dataStorage;
-        _hasher = hasher;
+    public LeaveGroupUseCase(InMemoryDataStorage dataStorage) {
+        this.dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        // code to activate leave group
-        return new OutputValues(ResultCodes.SUCCESS, "User has been left to group");
+        User user = input.getUser();
+        String groupID = input.getGroupID();
+
+        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupID);
+        if (publicGroup != null) {
+            publicGroup.removeMember(user);
+            return new OutputValues(ResultCodes.SUCCESS, "User has left the group");
+        }
+
+        PrivateGroup privateGroup = dataStorage.getPrivateGroup().getById(groupID);
+        if (privateGroup != null) {
+            privateGroup.removeMember(user);
+            return new OutputValues(ResultCodes.SUCCESS, "User has left the group");
+        }
+
+        return new OutputValues(ResultCodes.FAILED, "Group not found");
     }
 
     public static class InputValues {
-        private String _adminID;
-        private String _userID;
-        private String _groupID;
+        private User user;
+        private String groupID;
 
-        public InputValues(String adminID, String userID, String groupID) {
-            _adminID = adminID;
-            _userID = userID;
-            _groupID = groupID;
+        public InputValues(User user, String groupID) {
+            this.user = user;
+            this.groupID = groupID;
         }
 
+        public User getUser() {
+            return user;
+        }
+
+        public String getGroupID() {
+            return groupID;
+        }
     }
 
     public static class OutputValues {

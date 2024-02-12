@@ -1,30 +1,23 @@
 package group4.chat.domains.groupUser.publicGroup;
 
 import java.util.List;
-import java.util.Random;
 
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.GroupUsers;
 
 public class PublicGroup extends GroupUsers {
-    private String _joinCode;
-    private User _user;
-    protected List<User> _listUsers;
-    private User user;
-
-    public PublicGroup(String _joincode, User user) {
+private String _joinCode;
+private User _user;
+protected List<User> _listUsers;
+    public PublicGroup(String _joincode) {
         super();
-        this._joinCode = _joincode;
-        this._groupUsers.add(_user);
+        this._joinCode=_joincode;
 
     }
 
-    private void generateJoinCode() {
-        Random rd = new Random(5);
-        this._joinCode = rd.toString();
-    }
-
-    public String outputJoinCode() {
+    
+   
+    public String outputJoinCode(){
         return this._joinCode;
     }
 
@@ -49,6 +42,9 @@ public class PublicGroup extends GroupUsers {
 
     public String getJoinCode() {
         return _joinCode;
+    }
+    public List<User> getGroupUsers() {
+        return _groupUsers;
     }
 
     public boolean searchUser(String userID) {

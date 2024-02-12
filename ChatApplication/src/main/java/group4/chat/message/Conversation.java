@@ -12,7 +12,7 @@ public class Conversation {
 		this._messages = new ArrayList<>();
 
 		if (user1 != null && user2 != null) {
-			// Conversati	on between two users
+			// Conversation between two users
 			this._user1 = user1;
 			this._user2 = user2;
 		} else if (group != null) {
@@ -33,6 +33,18 @@ public class Conversation {
         for (Message message : _messages) {
             System.out.println(message);
         }
+    }
+	public Message getMessageById(int messageId) {
+        for (Message message : _messages) {
+            if (message.get_messageId() == messageId) {
+                return message;
+            }
+        }
+        return null;
+    }
+    
+    public void deleteMessage(Message message) {
+        _messages.remove(message);
     }
 
 }

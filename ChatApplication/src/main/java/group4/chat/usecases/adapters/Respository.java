@@ -1,4 +1,5 @@
 package group4.chat.usecases.adapters;
+import java.util.List;
 import java.util.function.Predicate;
 import group4.chat.domains.BaseEntity;
 
@@ -10,6 +11,7 @@ public interface Respository<T extends BaseEntity> {
    void deleteAll();
 
 T getFirst(Predicate<T> predicate);
+List<T> getAll();
 } 
 
 

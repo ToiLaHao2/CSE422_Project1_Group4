@@ -5,45 +5,43 @@ import group4.chat.domains.groupUser.publicGroup.PublicGroup;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
 
-public class UserInviteForPublicGroupUseCase
-        extends UseCase<UserInviteForPublicGroupUseCase.InputValues, UserInviteForPublicGroupUseCase.OutputValues> {
+public class JoinGroupByJoinCodeUseCase
+        extends UseCase<JoinGroupByJoinCodeUseCase.InputValues, JoinGroupByJoinCodeUseCase.OutputValues> {
     private InMemoryDataStorage dataStorage;
 
-    public UserInviteForPublicGroupUseCase(InMemoryDataStorage dataStorage) {
+    public JoinGroupByJoinCodeUseCase(InMemoryDataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-
-        String groupId = input.getGroupId();
+        String joinCode = input.getJoinCode();
         User user = input.getUser();
 
-        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupId);
-
+        PublicGroup publicGroup = dataStorage.getPublicGroup().getAll()
+                .stream()
+                .filter(group -> group.getJoinCode().equals(joinCode))
+                .findFirst()
+                .orElse(null);
         if (publicGroup != null) {
-            if (!publicGroup.getGroupUsers().contains(user)) {
-                publicGroup.addMember(user);
-                return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
-            } else {
-                return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
-            }
+            publicGroup.addMember(user);
+            return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
         } else {
-            return new OutputValues(ResultCodes.FAILED, "Invalid group ID. Unable to add user to the group");
+            return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
         }
     }
 
     public static class InputValues {
-        private String groupId;
+        private String joinCode;
         private User user;
 
-        public InputValues(String groupId, User user) {
-            this.groupId = groupId;
+        public InputValues(String joinCode, User user) {
+            this.joinCode = joinCode;
             this.user = user;
         }
 
-        public String getGroupId() {
-            return groupId;
+        public String getJoinCode() {
+            return joinCode;
         }
 
         public User getUser() {
@@ -75,5 +73,4 @@ public class UserInviteForPublicGroupUseCase
         public static final int SUCCESS = 1;
         public static final int FAILED = 0;
     }
-
 }

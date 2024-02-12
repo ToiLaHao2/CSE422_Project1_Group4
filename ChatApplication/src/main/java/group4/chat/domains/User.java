@@ -120,4 +120,7 @@ public class User extends BaseEntity {
 	public void sendAttachment(String receiverID, Byte[] attachment) {
 		System.out.println("File: '" + attachment + "' has been sent to user with ID: " + receiverID);
 	}
+	public void receiveGroupInvite(String message) {
+        System.out.println("Group invitation: " + message);
+    }
 }

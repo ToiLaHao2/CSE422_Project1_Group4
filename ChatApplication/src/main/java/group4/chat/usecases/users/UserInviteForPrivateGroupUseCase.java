@@ -2,36 +2,54 @@ package group4.chat.usecases.users;
 
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.domains.User;
+import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.usecases.UseCase;
-import group4.chat.usecases.adapters.Hasher;
+import group4.chat.usecases.adapters.Respository;
 
-public class UserInviteForPrivateGroupUseCase extends UseCase<UserInviteForPrivateGroupUseCase.InputValues, UserInviteForPrivateGroupUseCase.OutputValues> {
+public class UserInviteForPrivateGroupUseCase
+        extends UseCase<UserInviteForPrivateGroupUseCase.InputValues, UserInviteForPrivateGroupUseCase.OutputValues> {
+    private DataStorage dataStorage;
 
-    private DataStorage _dataStorage;
-    private Hasher _hasher;
-
-    public UserInviteForPrivateGroupUseCase(DataStorage dataStorage, Hasher hasher) {
-        _dataStorage = dataStorage;
-        _hasher = hasher;
+    public UserInviteForPrivateGroupUseCase(DataStorage dataStorage) {
+        this.dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        // Check and invite user to group
-        return new OutputValues(ResultCodes.SUCCESS, "User has been added to group");
+        String userId = input.getUserId();
+        String groupId = input.getGroupId();
+        Respository<User> userRepository = dataStorage.getUsers();
+        Respository<PrivateGroup> privateGroupRepository = dataStorage.getPrivateGroup();
+        User user = userRepository.getById(userId);
+        PrivateGroup privateGroup = privateGroupRepository.getById(groupId);
+
+        if (user == null || privateGroup == null) {
+            return new OutputValues(ResultCodes.FAILED, "User or group not found");
+        }
+        if (!privateGroup.getGroupAdmins().contains(user)) {
+            return new OutputValues(ResultCodes.FAILED, "User is not an admin of the group");
+        }
+        String inviteMessage = "You have been invited to join the private group: " + privateGroup.getGroupID();
+        user.receiveGroupInvite(inviteMessage);
+        return new OutputValues(ResultCodes.SUCCESS, "User has been invited to join the group");
     }
 
     public static class InputValues {
-        private String _adminID;
-        private String _userID;
-        private String _groupID;
+        private String userId;
+        private String groupId;
 
-        public InputValues(String adminID, String userID, String groupId) {
-            _adminID = adminID;
-            _userID = userID;
-            _groupID = groupId;
+        public InputValues(String userId, String groupId) {
+            this.userId = userId;
+            this.groupId = groupId;
         }
 
+        public String getUserId() {
+            return userId;
+        }
+
+        public String getGroupId() {
+            return groupId;
+        }
     }
 
     public static class OutputValues {
