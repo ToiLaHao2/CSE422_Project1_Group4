@@ -12,6 +12,7 @@ public interface DataStorage {
    Respository<PrivateGroup> getPrivateGroup();
    List<User> getAllUsers();
    Conversation getConversation(String conversationId);
+   List<Conversation> getAllConversations();
    void cleanAll();
 }
 

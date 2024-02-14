@@ -48,6 +48,11 @@ public class Message {
 	public void set_content(String _content) {
 		this._content = _content;
 	}
+	
+
+	public String get_content() {
+		return _content;
+	}
 
 	public int get_messageId() {
 		return _messageId;
