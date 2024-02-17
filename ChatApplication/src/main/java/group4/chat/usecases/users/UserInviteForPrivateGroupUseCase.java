@@ -28,7 +28,7 @@ public class UserInviteForPrivateGroupUseCase
         if (admin == null || privateGroup == null || user == null) {
             return new OutputValues(ResultCodes.FAILED, "User or group not found");
         }
-        if (!privateGroup.getGroupAdmins().contains(user)) {
+        if (!privateGroup.getGroupAdmins().contains(admin)) {
             return new OutputValues(ResultCodes.FAILED, "User is not an admin of the group");
         }
         String inviteMessage = "You have been invited to join the private group: " + privateGroup.getGroupID();
