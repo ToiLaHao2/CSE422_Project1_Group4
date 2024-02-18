@@ -62,4 +62,17 @@ public class PrivateGroup extends GroupUsers {
     public boolean isAdmin(User user) {
         return _listAdmins.contains(user);
     }
+    
+    public int getSize() {
+    	return _groupUsers.size();
+    }
+    
+    public User getUser(User user) {
+    	for (int i = 0; i < _groupUsers.size(); i++) {
+    		if(_groupUsers.get(i) == user) {
+    			return user;
+    		}
+    	}
+    	return null;
+    }
 }

@@ -44,12 +44,70 @@ public class Message {
 		return _attachments;
 	}
 
+	public void set_content(String _content) {
+		this._content = _content;
+	}
+	
+
+	public String get_content() {
+		return _content;
+	}
+
 	public int get_messageId() {
 		return _messageId;
 	}
 
+
 	public void setTimeStamp() {
 		this._timestamp = LocalDateTime.now();
+
+	public String get_sender() {
+		return _sender;
+	}
+
+	public void set_sender(String _sender) {
+		this._sender = _sender;
+	}
+
+	public String get_receiver() {
+		return _receiver;
+	}
+
+	public void set_receiver(String _receiver) {
+		this._receiver = _receiver;
+	}
+
+	public Date get_timestamp() {
+		return _timestamp;
+	}
+
+	public void set_timestamp(Date _timestamp) {
+		this._timestamp = _timestamp;
+	}
+
+	public String get_content() {
+		return _content;
+	}
+
+	public void set_content(String _content) {
+		this._content = _content;
+	}
+
+	public String get_attachment() {
+		return _attachment;
+	}
+
+	public void set_attachment(String _attachment) {
+		this._attachment = _attachment;
+	}
+
+	public void set_messageId(int _messageId) {
+		this._messageId = _messageId;
+	}
+
+	public void set_attachments(ArrayList<String> _attachments) {
+		this._attachments = _attachments;
+
 	}
 
 	@Override

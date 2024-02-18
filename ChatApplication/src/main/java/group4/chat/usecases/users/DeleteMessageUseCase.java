@@ -35,8 +35,8 @@ public class DeleteMessageUseCase extends UseCase<DeleteMessageUseCase.InputValu
     }
 
     private void deleteAttachments(ArrayList<String> attachments) {
-        for (String attachment : attachments) {
-            File file = new File(attachment);
+        for (String attachmentId : attachments) {
+            File file = new File(attachmentId);
             if (file.exists()) {
                 file.delete();
             }
