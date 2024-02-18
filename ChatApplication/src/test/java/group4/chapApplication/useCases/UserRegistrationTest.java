@@ -1,6 +1,6 @@
 package group4.chapApplication.useCases;
 
-import java.util.Optional;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,8 +12,6 @@ import group4.chat.usecases.users.UserRegistrationUseCase;
 import group4.chat.domains.User;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.infrastructure.services.MD5Hasher;
-import group4.chat.usecases.users.UserRegistrationUseCase.OutputValues;
-import group4.chat.usecases.users.UserRegistrationUseCase.ResultCodes;
 
 public class UserRegistrationTest {
 	@BeforeEach
@@ -35,5 +33,30 @@ public class UserRegistrationTest {
 
 		UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
 		UserRegistrationUseCase.OutputValues output = registration.execute(input);
+	}
+
+	@Test
+	public void createUserWithExistingUsername() throws Exception {
+		UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("phuc", "1234");
+		DataStorage storage = InMemoryDataStorage.getInstance();
+
+		UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
+		UserRegistrationUseCase.OutputValues output = registration.execute(input);
+
+		assertEquals(UserRegistrationUseCase.ResultCodes.FAILED, output.getResultCode());
+		assertEquals("Username already exists", output.getMessage());
+	}
+
+	@Test
+	public void createUserWithInvalidPassword() throws Exception {
+		UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("john", "pass"); // Invalid
+																												// password
+		DataStorage storage = InMemoryDataStorage.getInstance();
+
+		UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
+		UserRegistrationUseCase.OutputValues output = registration.execute(input);
+
+		assertEquals(UserRegistrationUseCase.ResultCodes.FAILED, output.getResultCode());
+		assertEquals("Invalid password. Password must be at least 8 characters long.", output.getMessage());
 	}
 }
