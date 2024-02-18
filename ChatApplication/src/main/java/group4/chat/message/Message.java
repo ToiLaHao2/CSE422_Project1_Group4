@@ -49,7 +49,7 @@ public class Message {
 	}
 
 	public void setTimeStamp() {
-		this._timestamp = 
+		this._timestamp = LocalDateTime.now();
 	}
 
 	@Override
