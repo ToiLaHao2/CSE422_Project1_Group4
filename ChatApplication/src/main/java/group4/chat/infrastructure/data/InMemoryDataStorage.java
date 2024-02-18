@@ -27,7 +27,7 @@ public class InMemoryDataStorage implements DataStorage {
 
     private static InMemoryDataStorage storage;
 
-    private InMemoryDataStorage() {
+    public InMemoryDataStorage() {
         _users = new InMemoryRepositories<User>();
         _publicGroups = new InMemoryRepositories<PublicGroup>();
         _privateGroups = new InMemoryRepositories<PrivateGroup>();
