@@ -1,13 +1,13 @@
 package group4.chat.message;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Message {
 	private int _messageId;
 	private String _sender;
 	private String _receiver;
-	private Date _timestamp;
+	private LocalDateTime _timestamp;
 	private String _content;
 	private ArrayList<String> _attachments;
 	private String _attachment;
@@ -16,7 +16,7 @@ public class Message {
 		this._messageId = messageId;
 		this._sender = sender;
 		this._receiver = receiver;
-		this._timestamp = new Date();
+		this._timestamp = LocalDateTime.now();
 		this._content = content;
 		if (attachments == null) {
 			this._attachments = new ArrayList<>(attachments);
@@ -44,9 +44,24 @@ public class Message {
 		return _attachments;
 	}
 
+
+	public void set_content(String _content) {
+		this._content = _content;
+	}
+	
+
+	public String get_content() {
+		return _content;
+	}
+
+
 	public int get_messageId() {
 		return _messageId;
 	}
+
+
+	public void setTimeStamp() {
+		this._timestamp = LocalDateTime.now();
 
 	public String get_sender() {
 		return _sender;
@@ -86,6 +101,7 @@ public class Message {
 
 	public void set_attachments(ArrayList<String> _attachments) {
 		this._attachments = _attachments;
+
 	}
 	
 	public String get_content() {
@@ -100,6 +116,5 @@ public class Message {
 	public String toString() {
 		return _messageId + " " + _sender + " " + _receiver + " " + _timestamp + " " + _content + " " + _attachments;
 	}
-	
 
 }
