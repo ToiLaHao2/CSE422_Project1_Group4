@@ -43,16 +43,6 @@ public class Message {
 	public ArrayList<String> get_attachments() {
 		return _attachments;
 	}
-	
-
-	public void set_content(String _content) {
-		this._content = _content;
-	}
-	
-
-	public String get_content() {
-		return _content;
-	}
 
 	public int get_messageId() {
 		return _messageId;
@@ -82,14 +72,6 @@ public class Message {
 		this._timestamp = _timestamp;
 	}
 
-	public String get_content() {
-		return _content;
-	}
-
-	public void set_content(String _content) {
-		this._content = _content;
-	}
-
 	public String get_attachment() {
 		return _attachment;
 	}
@@ -104,6 +86,14 @@ public class Message {
 
 	public void set_attachments(ArrayList<String> _attachments) {
 		this._attachments = _attachments;
+	}
+	
+	public String get_content() {
+		return _content;
+	}
+
+	public void set_content(String _content) {
+		this._content = _content;
 	}
 
 	@Override
