@@ -17,7 +17,7 @@ public class UserInviteForPublicGroupUseCase
     public OutputValues execute(InputValues input) throws Exception {
 
         String groupId = input.getGroupId();
-        User user = input.getUser();
+        User user = dataStorage.getUsers().getById(input.getUserID());
 
         PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupId);
 
@@ -35,19 +35,19 @@ public class UserInviteForPublicGroupUseCase
 
     public static class InputValues {
         private String groupId;
-        private User user;
+        private String userID;
 
-        public InputValues(String groupId, User user) {
+        public InputValues(String groupId, String userID) {
             this.groupId = groupId;
-            this.user = user;
+            this.userID = userID;
         }
 
         public String getGroupId() {
             return groupId;
         }
 
-        public User getUser() {
-            return user;
+        public String getUserID() {
+            return userID;
         }
 
     }
