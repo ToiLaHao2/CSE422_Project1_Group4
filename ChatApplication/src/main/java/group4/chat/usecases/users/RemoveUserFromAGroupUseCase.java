@@ -1,7 +1,5 @@
 package group4.chat.usecases.users;
 
-
-
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.usecases.UseCase;

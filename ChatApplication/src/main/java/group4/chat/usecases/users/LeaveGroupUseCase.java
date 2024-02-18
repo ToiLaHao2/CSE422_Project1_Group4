@@ -5,11 +5,12 @@ import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
+import group4.chat.usecases.adapters.DataStorage;
 
 public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, LeaveGroupUseCase.OutputValues> {
-     private InMemoryDataStorage dataStorage;
+     private DataStorage dataStorage;
 
-    public LeaveGroupUseCase(InMemoryDataStorage dataStorage) {
+    public LeaveGroupUseCase(DataStorage dataStorage) {
         this.dataStorage = dataStorage;
     }
 
