@@ -23,13 +23,12 @@ class InvitePublicGroupTestCase {
 	@Test
 	public void testUserInviteForPublicGroup_Success() throws Exception {
 		String groupId = "group123";
-		User user = new User("John", "123");
+		String user = "John";
 
 		PublicGroup publicGroup = new PublicGroup(groupId);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
-				groupId, user);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
@@ -42,14 +41,14 @@ class InvitePublicGroupTestCase {
 	@Test
 	public void testUserInviteForPublicGroup_UserAlreadyMember() throws Exception {
 		String groupId = "group123";
-		User user = new User("John", "123");
-
+		String user = "John";
+		User userUser = new User(user, "123");
+		
 		PublicGroup publicGroup = new PublicGroup(groupId);
-		publicGroup.addMember(user);
+		publicGroup.addMember(userUser);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
-				groupId, user);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
@@ -61,10 +60,9 @@ class InvitePublicGroupTestCase {
 	@Test
 	public void testUserInviteForPublicGroup_InvalidGroupId() throws Exception {
 		String groupId = "group123";
-		User user = new User("John", "123");
+		String user = "John";
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
-				groupId, user);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
