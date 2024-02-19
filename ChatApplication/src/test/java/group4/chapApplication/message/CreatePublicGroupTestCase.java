@@ -26,11 +26,12 @@ class CreatePublicGroupTestCase {
 
 	@Test
 	public void testCreatePublicGroup_Success() {
-		// Arrange
 		String userId1 = "user1";
 		String userId2 = "user2";
 		String userId3 = "user3";
+
 		ArrayList<String> userIDs = new ArrayList<>();
+
 		userIDs.add(userId1);
 		userIDs.add(userId2);
 		userIDs.add(userId3);

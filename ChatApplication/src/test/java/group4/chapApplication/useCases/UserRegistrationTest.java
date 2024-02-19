@@ -49,8 +49,8 @@ public class UserRegistrationTest {
 
 	@Test
 	public void createUserWithInvalidPassword() throws Exception {
-		UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("john", "pass"); // Invalid
-																												// password
+		UserRegistrationUseCase.InputValues input = new UserRegistrationUseCase.InputValues("john", "pass");
+
 		DataStorage storage = InMemoryDataStorage.getInstance();
 
 		UserRegistrationUseCase registration = new UserRegistrationUseCase(storage, new MD5Hasher());
