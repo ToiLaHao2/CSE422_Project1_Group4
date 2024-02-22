@@ -1,0 +1,126 @@
+Testing result: 
+1. UserLoginTest:
+	
+	Done: 100%
+
+2. UserRegistration:
+	
+	- createUserSuccessfully 			: Done
+	
+	- createUserWithExistingUsername 	: Not Done
+		Reason							: java.lang.AssertionError: expected:[0] but was:[1]
+	
+	- createUserWithInvalidPassword 	: Not Done
+		Reason							: java.lang.AssertionError: expected:[0] but was:[1]
+
+3. CreatePrivateGroupTestCase:
+	
+	- testCreatePrivateGroup 			: Done
+
+4. CreatePublicGroupTestCase:
+	
+	- testCreatePublicGroup				: Done
+
+5. DeleteMessageTestCase:
+	
+	- testDeleteMessageSuccess			: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+	
+	- testDeleteMessage_ConversationNotFound: Done
+
+6. FindUserNameTestCase:
+
+	- testFindUsernameSuccess			: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+	- testFindUsernameNoUsersFound		: Not Done
+		Reason							: java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.isEmpty()" because the return value of "group4.chat.usecases.users.FindUsernameUseCase$OutputValues.getFoundUsers()" is null
+										at group4.chapApplication.message.FindUsernameTestCase.testFindUsernameNoUsersFound(FindUsernameTestCase.java:58)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										(maybe logic problem)
+
+7. InvitePrivateGroupTestUseCase :
+
+	- testUserInviteForPrivateGroupSuccess	: Not Done
+		Reason								: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+8. InvitePublicGroupTestCase:
+
+	- testUserInviteForPublicGroup_Succes	: Not Done
+		Reason								: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+	- testUserInviteForPublicGroup_UserAlreadyMember : Not Done
+		Reason								: org.junit.ComparisonFailure: expected:[[User is already a member of] the group] but was:[[Invalid group ID. Unable to add user to] the group]
+											at group4.chapApplication.message.InvitePublicGroupTestCase.testUserInviteForPublicGroup_UserAlreadyMember(InvitePublicGroupTestCase.java:56)
+											at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+											at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+											(logic problem)
+
+	- testUserInviteForPublicGroup_InvalidGroupID 	 : Done
+
+9. JoinGroupByCodeTestCase :
+
+	- testJoinGroupByJoinCodeSuccess 	: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+	- testJoinGroupByJoinCodeInvalidJoinCode : Done
+
+	- testJoinGroupByJoinCodePublicGroupNotFound : Done
+
+10. LeaveGroupTestCase :
+	
+	- testLeavePublicGroupSuccess 		: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+	- testLeavePrivateGroupSuccess 		: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+- testLeaveGroupGroupNotFound			: Done
+
+11. ListGroupsContainUserTestCase:
+
+	- testListGroupsContainUserSuccess	: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: User should be a member of 2 public groups ==] expected: [2] but was: [0]
+										at group4.chapApplication.message.ListGroupsContainUserTestCase.testListGroupsContainUserSuccess(ListGroupsContainUserTestCase.java:62)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										(logic problem)
+
+	- testListGroupsContainUser_UserNotInAnyGroups : Done
+
+	- testListGroupsContainUser_UserNotInSomeGroups : Not Done
+		Reason							: org.opentest4j.AssertionFailedError: User should be a member of 1 public group ==] expected: [1] but was: [0]
+										at group4.chapApplication.message.ListGroupsContainUserTestCase.testListGroupsContainUser_UserNotInSomeGroups(ListGroupsContainUserTestCase.java:121)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										(logic problem)
+
+12. RemoveUserFromAGroupTestCase:
+
+	- testRemoveUserFromGroupSuccess 	: Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+	- testRemoveUserFromGroupAdminNotAdminOfGroup	: Not Done
+		Reason							: org.junit.ComparisonFailure: expected:[[You are not an administrator of this group]] but was:[[Group not found]]
+										at group4.chapApplication.message.RemoveUserFromAGroupTestCase.testRemoveUserFromGroupAdminNotAdminOfGroup(RemoveUserFromAGroupTestCase.java:79)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+										(logic problem)
+
+	- testRemoveUserFromGroupGroupNotFound			: Done
+
+	- testRemoveUserFromGroup_UserNotFound			: Not Done
+		Reason										: org.junit.ComparisonFailure: expected:[[User] not found] but was:[[Group] not found]
+													at group4.chapApplication.message.RemoveUserFromAGroupTestCase.testRemoveUserFromGroup_UserNotFound(RemoveUserFromAGroupTestCase.java:125)
+													at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+													at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+													(logic problem)
+
+13. SendMessageTestCase :
+	- testSendMessageSuccess 			: Not Done
+		Reaspon							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+
+	-testSendMessageWithAttachment_Success : Not Done
+		Reason							: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result maybe logic problem)
+

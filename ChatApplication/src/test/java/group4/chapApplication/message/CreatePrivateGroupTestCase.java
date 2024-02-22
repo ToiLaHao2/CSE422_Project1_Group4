@@ -1,6 +1,6 @@
 package group4.chapApplication.message;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,7 @@ import group4.chat.domains.User;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.users.CreatePrivateGroupUseCase;
+import group4.chat.usecases.users.CreatePublicGroupUseCase;
 
 class CreatePrivateGroupTestCase {
 
@@ -40,7 +41,7 @@ class CreatePrivateGroupTestCase {
 
 		_dataStorage.getUsers().add(creator);
 		_dataStorage.getUsers().add(member1);
-		_dataStorage.getUsers().add(member2);
+		_dataStorage.getUsers().add(member2);																								
 
 		CreatePrivateGroupUseCase.InputValues inputValues = new CreatePrivateGroupUseCase.InputValues(userIDs);
 
