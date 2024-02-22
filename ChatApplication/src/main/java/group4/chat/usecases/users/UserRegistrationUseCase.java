@@ -8,7 +8,7 @@ import group4.chat.usecases.adapters.Hasher;
 
 public class UserRegistrationUseCase
         extends UseCase<UserRegistrationUseCase.InputValues, UserRegistrationUseCase.OutputValues> {
-    
+
     private DataStorage _dataStorage;
     private Hasher _hasher;
 
@@ -19,9 +19,23 @@ public class UserRegistrationUseCase
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
-        _dataStorage.getUsers().add(user);
-        return new OutputValues(ResultCodes.SUCCESS, "You sign up sucessfully");
+        boolean check = true;
+        for (User u : _dataStorage.getAllUsers()) {
+            if (u.get_firstName().equals(input._username)) {
+                return new OutputValues(ResultCodes.FAILED, "Username already exists");
+            }
+            check = false;
+        }
+        int passwordStrength = input._password.length();
+        if (passwordStrength <= 8) {
+            return new OutputValues(ResultCodes.FAILED,"Invalid password. Password must be at least 8 characters long.");
+        }
+        if (check == true) {
+            User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
+            _dataStorage.getUsers().add(user);
+            return new OutputValues(ResultCodes.SUCCESS, "You sign up sucessfully");
+        }
+        return new OutputValues(ResultCodes.FAILED, "");
     }
 
     public static class InputValues {
@@ -43,11 +57,11 @@ public class UserRegistrationUseCase
             _resultCode = resultCode;
         }
 
-        public int getResultCode(){
+        public int getResultCode() {
             return _resultCode;
         }
 
-        public String getMessage(){
+        public String getMessage() {
             return _message;
         }
     }
