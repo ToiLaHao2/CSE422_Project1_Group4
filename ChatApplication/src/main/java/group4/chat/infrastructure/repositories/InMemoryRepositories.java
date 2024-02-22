@@ -28,7 +28,7 @@ public class InMemoryRepositories<T extends BaseEntity> implements Respository<T
     @Override
     public T getById(String id) {
         Optional<T> entity = enities.stream().filter(e -> e.getId().equals(id)).findFirst();
-        return entity.get();
+        return entity==null?null:entity.get();
     }
 
     @Override

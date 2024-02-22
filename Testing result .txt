@@ -1,0 +1,145 @@
+Testing result: 
+1. UserLoginTest:
+	
+	Done: 100%
+
+2. UserRegistration:
+	
+	- createUserSuccessfully 		: Done
+	
+	- createUserWithExistingUsername 	: Not Done
+		Reason				: function not found
+	
+	- createUserWithInvalidPassword 	: Not Done
+		Reason				: function not found
+
+3. CreatePrivateGroupTestCase:
+	
+	- testCreatePrivateGroup 		: Not Done
+		Reason				: java.util.NoSuchElementException: No value present
+
+4. CreatePublicGroupTestCase:
+	
+	- testCreatePublicGroup			: Not Done
+		Reason				: java.util.NoSuchElementException: No value present
+
+5. DeleteMessageTestCase:
+	
+	- testDeleteMessageSuccess		: Not Done
+		Reason				: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result)
+	
+	- testDeleteMessage_ConversationNotFound: Done
+
+6. FindUserNameTestCase:
+
+	- testFindUsernameSuccess		: Not Done
+		Reason				: org.opentest4j.AssertionFailedError: expected: [1] but was: [0](unexpeacted result)
+
+	- testFindUsernameNoUsersFound		: Not Done
+		Reason				: java.lang.NullPointerException: Cannot invoke "java.util.ArrayList.isEmpty()" because the return value of "group4.chat.usecases.users.FindUsernameUseCase$OutputValues.getFoundUsers()" is null
+ at group4.chapApplication.message.FindUsernameTestCase.testFindUsernameNoUsersFound(FindUsernameTestCase.java:58)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+7. InvitePrivateGroupTestUseCase :
+
+	- testUserInviteForPrivateGroupSuccess	: Not Done
+		Reason				: java.util.NoSuchElementException: No value present
+ at java.base/java.util.Optional.get(Optional.java:143)
+ at group4.chat.infrastructure.repositories.InMemoryRepositories.getById(InMemoryRepositories.java:31)
+ at group4.chat.usecases.users.UserInviteForPrivateGroupUseCase.execute(UserInviteForPrivateGroupUseCase.java:24)
+ at group4.chapApplication.message.InvitePrivateGroupTestCase.testUserInviteForPrivateGroupSuccess(InvitePrivateGroupTestCase.java:44)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+8. InvitePublicGroupTestCase:
+
+	- testUserInviteForPublicGroup_Succes	: Not Done
+		Reason				: java.util.NoSuchElementException: No value present
+ at java.base/java.util.Optional.get(Optional.java:143)
+ at group4.chat.infrastructure.repositories.InMemoryRepositories.getById(InMemoryRepositories.java:31)
+ at group4.chat.usecases.users.UserInviteForPrivateGroupUseCase.execute(UserInviteForPrivateGroupUseCase.java:24)
+ at group4.chapApplication.message.InvitePrivateGroupTestCase.testUserInviteForPrivateGroupSuccess(InvitePrivateGroupTestCase.java:44)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+	- testUserInviteForPublicGroup_UserAlreadyMember : Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.InvitePublicGroupTestCase
+ at group4.chapApplication.message.InvitePublicGroupTestCase.testUserInviteForPublicGroup_UserAlreadyMember(InvitePublicGroupTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+	- testUserInviteForPublicGroup_InvalidGroupID 	 : Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.InvitePublicGroupTestCase
+ at group4.chapApplication.message.InvitePublicGroupTestCase.testUserInviteForPublicGroup_InvalidGroupId(InvitePublicGroupTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+9. JoinGroupByCodeTestCase :
+
+	- testJoinGroupByJoinCodeSuccess 	: Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.JoinGroupByCodeTestCase
+ at group4.chapApplication.message.JoinGroupByCodeTestCase.testJoinGroupByJoinCodeSuccess(JoinGroupByCodeTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+	- testJoinGroupByJoinCodeInvalidJoinCode : Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.JoinGroupByCodeTestCase
+ at group4.chapApplication.message.JoinGroupByCodeTestCase.testJoinGroupByJoinCodeInvalidJoinCode(JoinGroupByCodeTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+	- testJoinGroupByJoinCodePublicGroupNotFound : Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.JoinGroupByCodeTestCase
+ at group4.chapApplication.message.JoinGroupByCodeTestCase.testJoinGroupByJoinCodePublicGroupNotFound(JoinGroupByCodeTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+10. LeaveGroupTestCase :
+	
+	- testLeavePublicGroupSuccess 		: Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.LeaveGroupTestCase
+ at group4.chapApplication.message.LeaveGroupTestCase.testLeavePublicGroupSuccess(LeaveGroupTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+	- testLeavePrivateGroupSuccess 		: Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.LeaveGroupTestCase
+ at group4.chapApplication.message.LeaveGroupTestCase.testLeavePublicGroupSuccess(LeaveGroupTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+- testLeaveGroupGroupNotFound			: Not Done
+		Reason				: java.lang.RuntimeException: Uncompilable code - cannot find symbol
+  symbol:   method assertEquals(int,int)
+  location: class group4.chapApplication.message.LeaveGroupTestCase
+ at group4.chapApplication.message.LeaveGroupTestCase.testLeaveGroupGroupNotFound(LeaveGroupTestCase.java:1)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+11. ListGroupsContainUserTestCase:
+
+	- testListGroupsContainUserSuccess	: Not Done
+		Reason				: java.util.NoSuchElementException: No value present
+ at java.base/java.util.Optional.get(Optional.java:143)
+ at group4.chat.infrastructure.repositories.InMemoryRepositories.getById(InMemoryRepositories.java:31)
+ at group4.chat.usecases.users.ListGroupsContainUserUseCase.execute(ListGroupsContainUserUseCase.java:22)
+ at group4.chapApplication.message.ListGroupsContainUserTestCase.testListGroupsContainUserSuccess(ListGroupsContainUserTestCase.java:55)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+ at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
+
+	- testListGroupsContainUser_UserNotInAnyGroups
