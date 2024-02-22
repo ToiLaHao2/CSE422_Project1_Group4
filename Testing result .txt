@@ -7,11 +7,9 @@ Testing result:
 	
 	- createUserSuccessfully 			: Done
 	
-	- createUserWithExistingUsername 	: Not Done
-		Reason							: java.lang.AssertionError: expected:[0] but was:[1]
+	- createUserWithExistingUsername 	: Done
 	
-	- createUserWithInvalidPassword 	: Not Done
-		Reason							: java.lang.AssertionError: expected:[0] but was:[1]
+	- createUserWithInvalidPassword 	: Done
 
 3. CreatePrivateGroupTestCase:
 	
