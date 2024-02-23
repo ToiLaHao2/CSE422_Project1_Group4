@@ -29,18 +29,16 @@ class JoinGroupByCodeTestCase {
 		String publicGroupId = "group1";
 
 		User user = new User(userId, "123");
-		dataStorage.getUsers().add(user);
+    	dataStorage.getUsers().add(user);
 
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		dataStorage.getPublicGroup().add(publicGroup);
-
-		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode,
-				userId, publicGroupId);
-
+		
+		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode, userId, publicGroupId);
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("User has been added to the group", outputValues.getMessage());
+    	assertEquals("User has been added to the group", outputValues.getMessage());
 
 		assertTrue(publicGroup.getGroupUsers().contains(user), "User should be added to the group");
 	}

@@ -71,6 +71,9 @@ public class InMemoryDataStorage implements DataStorage {
     public Conversation getConversation(String conversationId) {
         return _conversations.get(conversationId);
     }
+    public Map<String, Conversation> getConversations() {
+        return _conversations;
+    }
 
     
 }

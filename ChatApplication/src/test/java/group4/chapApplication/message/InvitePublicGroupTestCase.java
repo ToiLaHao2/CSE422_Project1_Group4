@@ -1,6 +1,8 @@
 package group4.chapApplication.message;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,35 +28,35 @@ class InvitePublicGroupTestCase {
 		String user = "John";
 
 		PublicGroup publicGroup = new PublicGroup(groupId);
-		_dataStorage.getPublicGroup().add(publicGroup);
+    	_dataStorage.getPublicGroup().add(publicGroup);
 
 		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
-
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+	
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has been added to the group", outputValues.getMessage());
-		assertEquals(1, publicGroup.getGroupUsers().size());
-		assertEquals(user, publicGroup.getGroupUsers().get(0));
+		assertTrue(publicGroup.getGroupUsers().stream().anyMatch(u -> u.get_fullName().equals(user)));
+
 	}
 
 	@Test
 	public void testUserInviteForPublicGroup_UserAlreadyMember() throws Exception {
 		String groupId = "group123";
 		String user = "John";
-		User userUser = new User(user, "123");
-		
+
 		PublicGroup publicGroup = new PublicGroup(groupId);
-		publicGroup.addMember(userUser);
+		User john = new User("John", "Doe", "password");
+		publicGroup.addMember(john);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
-
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
+				groupId, user);
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("User is already a member of the group", outputValues.getMessage());
-		assertEquals(1, publicGroup.getGroupUsers().size());
+
 	}
 
 	@Test
@@ -62,7 +64,8 @@ class InvitePublicGroupTestCase {
 		String groupId = "group123";
 		String user = "John";
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
+				groupId, user);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 

@@ -52,12 +52,14 @@ public class FindUsernameUseCase
         public OutputValues(int resultCode, String message, ArrayList<User> foundUsers) {
             this.resultCode = resultCode;
             this.message = message;
-            this.foundUsers = foundUsers;
+            this.foundUsers = foundUsers != null ? foundUsers : new ArrayList<>();
         }
 
         public OutputValues(int resultCode, String message) {
             this.resultCode = resultCode;
             this.message = message;
+            this.foundUsers = new ArrayList<>();
+
         }
 
         public int getResultCode() {

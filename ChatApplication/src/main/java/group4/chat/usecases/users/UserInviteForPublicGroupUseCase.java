@@ -22,14 +22,14 @@ public class UserInviteForPublicGroupUseCase
         PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupId);
 
         if (publicGroup != null) {
-            if (!publicGroup.getGroupUsers().contains(user)) {
+            if (publicGroup.getGroupUsers().contains(user)) {
+                return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
+            } else {
                 publicGroup.addMember(user);
                 return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
-            } else {
-                return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
             }
         } else {
-            return new OutputValues(ResultCodes.FAILED, "Invalid group ID. Unable to add user to the group");
+            return new OutputValues(ResultCodes.FAILED, "Group ID not found");
         }
     }
 

@@ -32,6 +32,9 @@ public class Conversation {
    
 	
 	public void addMessage(String sender, String receiver, String content, ArrayList<String> attachments) {
+        if (attachments == null) {
+            attachments = new ArrayList<>();
+        }
         int messageId = _messages.size() + 1;
         Message message = new Message(messageId, sender, receiver, content, attachments);
         _messages.add(message);

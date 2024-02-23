@@ -1,5 +1,6 @@
 package group4.chapApplication.message;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
@@ -25,21 +26,21 @@ class DeleteMessageTestCase {
 
 	@Test
 	public void testDeleteMessageSuccess() throws Exception {
-		String conversationId = "testConversation";
+		String conversationId = "existingConversation";
+		Conversation conversation = new Conversation(null, null, conversationId);
+		Message message = new Message(1, "sender", "receiver", "Sample message");
+		conversation.addMessage("sender", "receiver", "Sample message",null);
+
+		InMemoryDataStorage.getInstance().getConversations().put(conversationId, conversation);
 		int messageId = 1;
-		ArrayList<String> attachments = new ArrayList<>();
-
-		Conversation conversation = new Conversation("user1", "user2", conversationId);
-		Message message = new Message(messageId, "Sender", "Receiver", "Content");
-		conversation.addMessage("Sender", "Receiver", "Content", attachments);
-
 		DeleteMessageUseCase.InputValues inputValues = new DeleteMessageUseCase.InputValues(conversationId, messageId);
 
 		DeleteMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
-
+		
 		assertEquals(DeleteMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("Message deleted successfully", outputValues.getMessage());
-		assertEquals(conversation.getMessageById(messageId), "Conversation should not have any messages");
+		
+		assertNull(conversation.getMessageById(messageId));
 	}
 
 	@Test

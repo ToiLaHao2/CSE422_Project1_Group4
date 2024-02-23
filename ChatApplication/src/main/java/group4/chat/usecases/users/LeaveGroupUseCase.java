@@ -18,20 +18,21 @@ public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, Le
     public OutputValues execute(InputValues input) throws Exception {
         User user = dataStorage.getUsers().getById(input.userID);
         String groupID = input.getGroupID();
-
+    
         PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupID);
         if (publicGroup != null) {
             publicGroup.removeMember(user);
             return new OutputValues(ResultCodes.SUCCESS, "User has left the group");
         }
-
+    
         PrivateGroup privateGroup = dataStorage.getPrivateGroup().getById(groupID);
         if (privateGroup != null) {
             privateGroup.removeMember(user);
             return new OutputValues(ResultCodes.SUCCESS, "User has left the group");
         }
-
+    
         return new OutputValues(ResultCodes.FAILED, "Group not found");
+    
     }
 
     public static class InputValues {

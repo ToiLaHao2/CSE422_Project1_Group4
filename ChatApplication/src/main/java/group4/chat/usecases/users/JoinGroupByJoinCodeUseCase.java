@@ -16,15 +16,21 @@ public class JoinGroupByJoinCodeUseCase
     @Override
     public OutputValues execute(InputValues input) throws Exception {
         String joinCode = input.getJoinCode();
-        User user = dataStorage.getUsers().getById(input.getUserID());
-        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(input.publicGroupID);
-        if (publicGroup != null) {
-            if (publicGroup.getJoinCode().equals(joinCode)) {
+        String userId = input.getUserID();
+        String publicGroupId = input.getPublicGroupID();
+       
+        User user = dataStorage.getUsers().getById(userId);
+        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(publicGroupId);
+        if (user != null && publicGroup != null && publicGroup.getJoinCode().equals(joinCode)) {
+            if (!publicGroup.getGroupUsers().contains(user)) {
                 publicGroup.addMember(user);
                 return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
+            } else {
+                return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
             }
+        } else {
+            return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
         }
-        return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
     }
 
     public static class InputValues {
