@@ -6,6 +6,7 @@ import group4.chat.domains.User;
 import group4.chat.domains.groupUser.GroupUsers;
 
 public class PublicGroup extends GroupUsers {
+    
     private String _joinCode;
     protected List<User> _listUsers;
 
