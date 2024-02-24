@@ -5,6 +5,7 @@ import group4.chat.domains.User;
 import group4.chat.domains.User.UserBuilder;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
+import group4.chat.usecases.adapters.Respository;
 
 public class UserRegistrationUseCase
         extends UseCase<UserRegistrationUseCase.InputValues, UserRegistrationUseCase.OutputValues> {
@@ -20,11 +21,10 @@ public class UserRegistrationUseCase
     @Override
     public OutputValues execute(InputValues input) throws Exception {
         boolean check = true;
-        for (User u : _dataStorage.getAllUsers()) {
-            if (u.get_firstName().equals(input._username)) {
-                return new OutputValues(ResultCodes.FAILED, "Username already exists");
-            }
-            check = false;
+        Respository<User> userRepository = _dataStorage.getUsers();
+        for (User u:userRepository.getAll()) {
+            if(u.get_firstName().equals(input._username))
+            return new OutputValues(ResultCodes.FAILED, "Username already exists");
         }
         int passwordStrength = input._password.length();
         if (passwordStrength <= 8) {

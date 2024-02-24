@@ -11,7 +11,7 @@ import group4.chat.usecases.UseCase;
 public class DeleteMessageUseCase extends UseCase<DeleteMessageUseCase.InputValues, DeleteMessageUseCase.OutputValues> {
 
     public DeleteMessageUseCase() {
-
+        
     }
 
     @Override

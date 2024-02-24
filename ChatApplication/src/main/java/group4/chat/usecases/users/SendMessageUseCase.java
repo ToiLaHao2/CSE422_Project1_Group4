@@ -1,6 +1,7 @@
 package group4.chat.usecases.users;
 
 import group4.chat.usecases.adapters.DataStorage;
+import group4.chat.usecases.adapters.Respository;
 
 import java.io.FileOutputStream;
 import java.util.UUID;
@@ -18,8 +19,9 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        User sender = dataStorage.getUsers().getById(input.getSenderID());
-        User receiver = dataStorage.getUsers().getById(input.getReceiverId());
+        Respository<User> uRespository = dataStorage.getUsers();
+        User sender = findUser(input.getSenderID(), uRespository);
+        User receiver = findUser(input.getReceiverId(), uRespository);
         if (sender == null || receiver == null) {
             return new OutputValues(ResultCodes.FAILED, "Sender or receiver not found");
         }
@@ -31,6 +33,15 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
             sendMessage(input.messageId, input.senderID, input.receiverId, input.content);
         }
         return new OutputValues(ResultCodes.SUCCESS, "Sending message successful");
+    }
+
+    private User findUser(String userId, Respository<User> usersRepository) {
+        for (User u : usersRepository.getAll()) {
+            if (u.get_firstName().equals(userId)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     private String saveAttachment(byte[] attachment) throws Exception {

@@ -32,7 +32,7 @@ class InvitePublicGroupTestCase {
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getMessage());
 		assertEquals("User has been added to the group", outputValues.getMessage());
 		assertEquals(1, publicGroup.getGroupUsers().size());
 		assertEquals(user, publicGroup.getGroupUsers().get(0));
