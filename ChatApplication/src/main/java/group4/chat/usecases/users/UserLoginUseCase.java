@@ -20,6 +20,7 @@ public class UserLoginUseCase extends UseCase<UserLoginUseCase.InputValues, User
 		String password = input._password;
 
 		User user = _dataStorage.getUsers().getFirst(u -> u.get_firstName().equals(username));
+
 		if (user != null) {
 			try {
 				String hashedPassword = _hasher.hash(password);
