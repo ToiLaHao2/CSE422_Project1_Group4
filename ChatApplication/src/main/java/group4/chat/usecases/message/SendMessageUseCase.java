@@ -1,4 +1,4 @@
-package group4.chat.usecases.users;
+package group4.chat.usecases.message;
 
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.adapters.Respository;

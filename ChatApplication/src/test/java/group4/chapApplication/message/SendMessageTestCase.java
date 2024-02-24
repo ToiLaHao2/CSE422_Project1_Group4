@@ -10,7 +10,7 @@ import group4.chat.domains.User;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Message;
 import group4.chat.usecases.adapters.DataStorage;
-import group4.chat.usecases.users.SendMessageUseCase;
+import group4.chat.usecases.message.SendMessageUseCase;
 
 class SendMessageTestCase {
 
