@@ -11,7 +11,7 @@ import group4.chat.usecases.UseCase;
 public class ViewFilesUseCase extends UseCase<ViewFilesUseCase.InputValues, ViewFilesUseCase.OutputValues> {
 
 	public ViewFilesUseCase() {
-
+		
 	}
 
 	@Override
