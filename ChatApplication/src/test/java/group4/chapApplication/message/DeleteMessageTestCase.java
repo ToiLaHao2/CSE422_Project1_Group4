@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Conversation;
 import group4.chat.message.Message;
-import group4.chat.usecases.users.DeleteMessageUseCase;
+import group4.chat.usecases.message.DeleteMessageUseCase;
 
 class DeleteMessageTestCase {
 
@@ -36,8 +36,8 @@ class DeleteMessageTestCase {
 		DeleteMessageUseCase.InputValues inputValues = new DeleteMessageUseCase.InputValues(conversationId, messageId);
 
 		DeleteMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
-		
-		assertEquals(DeleteMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+
+		assertEquals(DeleteMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
 		assertEquals("Message deleted successfully", outputValues.getMessage());
 		
 		assertNull(conversation.getMessageById(messageId));

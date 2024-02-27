@@ -32,7 +32,7 @@ public class InMemoryDataStorage implements DataStorage {
         _users = new InMemoryRepositories<User>();
         _publicGroups = new InMemoryRepositories<PublicGroup>();
         _privateGroups = new InMemoryRepositories<PrivateGroup>();
-         _conversations = new HashMap<>();
+        _conversations = new HashMap<>();
     }
 
     public static InMemoryDataStorage getInstance() {
@@ -60,10 +60,6 @@ public class InMemoryDataStorage implements DataStorage {
 
     public Respository<PrivateGroup> getPrivateGroup() {
         return _privateGroups;
-    }
-    @Override
-    public List<User> getAllUsers() {
-        return _users.getAll();
     }
      public List<Conversation> getAllConversations() {
         return new ArrayList<>(_conversations.values());

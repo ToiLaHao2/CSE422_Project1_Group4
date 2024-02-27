@@ -10,7 +10,7 @@ import group4.chat.domains.User;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Message;
 import group4.chat.usecases.adapters.DataStorage;
-import group4.chat.usecases.users.SendMessageUseCase;
+import group4.chat.usecases.message.SendMessageUseCase;
 
 class SendMessageTestCase {
 
@@ -39,7 +39,7 @@ class SendMessageTestCase {
 
         SendMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
         assertEquals("Sending message successful", outputValues.getMessage());
 
         Message sentMessage = new Message(123, senderId, receiverId, content);

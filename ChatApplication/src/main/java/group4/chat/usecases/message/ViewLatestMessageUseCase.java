@@ -1,4 +1,4 @@
-package group4.chat.usecases.users;
+package group4.chat.usecases.message;
 
 public class ViewLatestMessageUseCase {
     

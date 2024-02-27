@@ -19,7 +19,7 @@ public class FindUsernameUseCase
         String searchString = input.getSearchString();
         ArrayList<User> foundUsers = new ArrayList<>();
         for (User user : dataStorage.getUsers().getAll()) {
-            if (user.get_fullName().toLowerCase().contains(searchString.toLowerCase())) {
+            if (user.get_firstName().equals(searchString)) {
                 foundUsers.add(user);
             }
         }
@@ -79,4 +79,5 @@ public class FindUsernameUseCase
         public static final int SUCCESS = 1;
         public static final int FAILED = 0;
     }
+
 }

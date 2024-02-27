@@ -1,5 +1,4 @@
-package group4.chat.usecases.users;
-
+package group4.chat.usecases.message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +9,8 @@ import group4.chat.message.Message;
 import group4.chat.usecases.UseCase;
 
 public class ViewFilesUseCase extends UseCase<ViewFilesUseCase.InputValues, ViewFilesUseCase.OutputValues> {
-    
+
     public ViewFilesUseCase() {
-        
 
     }
 
@@ -31,10 +29,7 @@ public class ViewFilesUseCase extends UseCase<ViewFilesUseCase.InputValues, View
         } else {
             return new OutputValues(ResultCodes.FAILED, "Conversation not found");
         }
-        }
-    
-
-   
+    }
 
     public static class InputValues {
         private String groupId;
@@ -53,11 +48,11 @@ public class ViewFilesUseCase extends UseCase<ViewFilesUseCase.InputValues, View
         private List<String> files;
         private String _message;
 
-
         public OutputValues(int resultCode, List<String> files) {
             this._resultCode = resultCode;
             this.files = files;
         }
+
         public OutputValues(int resultCode, String message) {
             _message = message;
             _resultCode = resultCode;
@@ -70,6 +65,7 @@ public class ViewFilesUseCase extends UseCase<ViewFilesUseCase.InputValues, View
         public List<String> getFiles() {
             return files;
         }
+
         public String get_message() {
             return _message;
         }

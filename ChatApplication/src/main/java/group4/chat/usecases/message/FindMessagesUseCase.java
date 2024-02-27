@@ -1,4 +1,4 @@
-package group4.chat.usecases.users;
+package group4.chat.usecases.message;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,8 @@ import group4.chat.message.Conversation;
 import group4.chat.message.Message;
 import group4.chat.usecases.UseCase;
 
-public class FindMessagesUseCase 
-    extends UseCase<FindMessagesUseCase.InputValues, FindMessagesUseCase.OutputValues> {
+public class FindMessagesUseCase
+        extends UseCase<FindMessagesUseCase.InputValues, FindMessagesUseCase.OutputValues> {
 
     public FindMessagesUseCase() {
 
@@ -32,10 +32,7 @@ public class FindMessagesUseCase
         } else {
             return new OutputValues(ResultCodes.FAILED, "No conversations found");
         }
-        }
-    
-
-   
+    }
 
     public static class InputValues {
         private final String keyword;
@@ -58,6 +55,7 @@ public class FindMessagesUseCase
             this._resultCode = resultCode;
             this.foundMessages = foundMessages;
         }
+
         public OutputValues(int resultCode, String message) {
             _message = message;
             _resultCode = resultCode;
@@ -66,11 +64,11 @@ public class FindMessagesUseCase
         public int getResultCode() {
             return _resultCode;
         }
-        
 
         public String get_message() {
             return _message;
         }
+
         public List<Message> getFoundMessages() {
             return foundMessages;
         }

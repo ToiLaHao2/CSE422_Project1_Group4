@@ -53,26 +53,41 @@ public class PrivateGroup extends GroupUsers {
     public String getGroupID() {
         return _groupID;
     }
+
     public List<User> getGroupAdmins() {
         return _listAdmins;
     }
+
+    public boolean findAdmin(User admin) {
+        if (_firstAdmin.getId() == admin.getId()) {
+            return true;
+        }
+        for (User user : _listAdmins) {
+            if (user.getId() == admin.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<User> getGroupUsers() {
         return _groupUsers;
     }
+
     public boolean isAdmin(User user) {
         return _listAdmins.contains(user);
     }
-    
+
     public int getSize() {
-    	return _groupUsers.size();
+        return _groupUsers.size();
     }
-    
+
     public User getUser(User user) {
-    	for (int i = 0; i < _groupUsers.size(); i++) {
-    		if(_groupUsers.get(i) == user) {
-    			return user;
-    		}
-    	}
-    	return null;
+        for (int i = 0; i < _groupUsers.size(); i++) {
+            if (_groupUsers.get(i) == user) {
+                return user;
+            }
+        }
+        return null;
     }
 }

@@ -4,8 +4,10 @@ import group4.chat.domains.User;
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
+import group4.chat.usecases.adapters.Respository;
 
 public class UserInviteForPublicGroupUseCase
+
         extends UseCase<UserInviteForPublicGroupUseCase.InputValues, UserInviteForPublicGroupUseCase.OutputValues> {
     private InMemoryDataStorage dataStorage;
 
@@ -31,6 +33,15 @@ public class UserInviteForPublicGroupUseCase
         } else {
             return new OutputValues(ResultCodes.FAILED, "Group ID not found");
         }
+    }
+
+    private User findUser(String userId, Respository<User> usersRepository) {
+        for (User u : usersRepository.getAll()) {
+            if (u.get_firstName().equals(userId)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     public static class InputValues {

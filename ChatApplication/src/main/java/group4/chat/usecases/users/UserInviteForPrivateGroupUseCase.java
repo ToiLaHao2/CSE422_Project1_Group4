@@ -7,6 +7,7 @@ import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Respository;
 
 public class UserInviteForPrivateGroupUseCase
+
         extends UseCase<UserInviteForPrivateGroupUseCase.InputValues, UserInviteForPrivateGroupUseCase.OutputValues> {
     private DataStorage dataStorage;
 
@@ -21,20 +22,34 @@ public class UserInviteForPrivateGroupUseCase
         String groupId = input.getGroupId();
         Respository<User> userRepository = dataStorage.getUsers();
         Respository<PrivateGroup> privateGroupRepository = dataStorage.getPrivateGroup();
-        User admin = userRepository.getById(adminID);
-        User user = userRepository.getById(userId);
-        PrivateGroup privateGroup = privateGroupRepository.getById(groupId);
-
+        User admin = findUser(adminID, userRepository);
+        User user = findUser(userId, userRepository);
+        PrivateGroup privateGroup = null;
+        for (PrivateGroup privateGroup_found : privateGroupRepository.getAll()) {
+            if (privateGroup_found.getGroupID().equals(groupId)) {
+                privateGroup = privateGroup_found;
+                break;
+            }
+        }
         if (admin == null || privateGroup == null || user == null) {
             return new OutputValues(ResultCodes.FAILED, "User or group not found");
         }
-        if (!privateGroup.getGroupAdmins().contains(admin)) {
+        if (privateGroup.findAdmin(admin) == false) {
             return new OutputValues(ResultCodes.FAILED, "User is not an admin of the group");
         }
         String inviteMessage = "You have been invited to join the private group: " + privateGroup.getGroupID();
         user.receiveGroupInvite(inviteMessage);
         privateGroup.addMember(user);
         return new OutputValues(ResultCodes.SUCCESS, "User has been invited to join the group");
+    }
+
+    private User findUser(String userId, Respository<User> usersRepository) {
+        for (User u : usersRepository.getAll()) {
+            if (u.get_firstName().equals(userId)) {
+                return u;
+            }
+        }
+        return null;
     }
 
     public static class InputValues {
