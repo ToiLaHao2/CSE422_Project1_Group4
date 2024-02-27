@@ -18,6 +18,7 @@ public class Message {
 		this._receiver = receiver;
 		this._timestamp = LocalDateTime.now();
 		this._content = content;
+		
 		if (attachments == null) {
 			this._attachments = new ArrayList<>(attachments);
 		} else {
