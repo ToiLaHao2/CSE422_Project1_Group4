@@ -36,7 +36,6 @@ public class InMemoryDataStorage implements DataStorage {
 		_privateGroups = new InMemoryRepositories<PrivateGroup>();
 		_conversations = new HashMap<>();
 	}
-
 	public static InMemoryDataStorage getInstance() {
 		if (storage == null) {
 			storage = new InMemoryDataStorage();
@@ -59,6 +58,7 @@ public class InMemoryDataStorage implements DataStorage {
 	public Respository<PublicGroup> getPublicGroup() {
 		return _publicGroups;
 	}
+
 
 	public Respository<PrivateGroup> getPrivateGroup() {
 		return _privateGroups;

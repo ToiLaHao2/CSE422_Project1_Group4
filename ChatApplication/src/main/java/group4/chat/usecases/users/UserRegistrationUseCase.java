@@ -5,6 +5,7 @@ import group4.chat.domains.User;
 import group4.chat.domains.User.UserBuilder;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.Hasher;
+import group4.chat.usecases.adapters.Respository;
 
 public class UserRegistrationUseCase
 		extends UseCase<UserRegistrationUseCase.InputValues, UserRegistrationUseCase.OutputValues> {
@@ -20,21 +21,16 @@ public class UserRegistrationUseCase
 	@Override
 	public OutputValues execute(InputValues input) throws Exception {
 		boolean check = true;
-
-		for (User u : _dataStorage.getAllUsers()) {
-			if (u.get_firstName().equals(input._username)) {
+		Respository<User> userRepository = _dataStorage.getUsers();
+		for (User u : userRepository.getAll()) {
+			if (u.get_firstName().equals(input._username))
 				return new OutputValues(ResultCodes.FAILED, "Username already exists");
-			}
-			check = false;
 		}
-
 		int passwordStrength = input._password.length();
-
 		if (passwordStrength <= 8) {
 			return new OutputValues(ResultCodes.FAILED,
 					"Invalid password. Password must be at least 8 characters long.");
 		}
-
 		if (check == true) {
 			User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
 			_dataStorage.getUsers().add(user);
@@ -75,4 +71,5 @@ public class UserRegistrationUseCase
 		public static final int SUCCESS = 1;
 		public static final int FAILED = 0;
 	}
+
 }

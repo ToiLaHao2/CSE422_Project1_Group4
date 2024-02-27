@@ -39,7 +39,7 @@ class SendMessageTestCase {
 
         SendMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
         assertEquals("Sending message successful", outputValues.getMessage());
 
         Message sentMessage = new Message(123, senderId, receiverId, content);
