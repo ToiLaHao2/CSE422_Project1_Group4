@@ -3,7 +3,6 @@ package group4.chapApplication.useCases;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,17 +25,21 @@ class LeaveGroupTestCase {
 
 	@Test
 	public void testLeavePublicGroupSuccess() throws Exception {
-		String userId = "user1";
-		String publicGroupId = "publicGroup1";
+		String joinCode = "group123";
+		String userName = "John";
+		String groupId = "Mai123";
+		String userId = "Mai123";
 
-		User user = new User(userId, "123");
-		PublicGroup publicGroup = new PublicGroup(publicGroupId);
+		User user = new User(userName, "123");
+		user.setId(userId);
+		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
 
 		publicGroup.addMember(user);
 		_dataStorage.getPublicGroup().add(publicGroup);
 		_dataStorage.getUsers().add(user);
 
-		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, publicGroupId);
+		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
 		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
@@ -48,17 +51,21 @@ class LeaveGroupTestCase {
 
 	@Test
 	public void testLeavePrivateGroupSuccess() throws Exception {
-		String userId = "user1";
-		String privateGroupId = "privateGroup1";
+		String userName = "John";
+		String groupId = "Mai123";
+		String userId = "Mai123";
 
-		User user = new User(userId, "123");
-		PrivateGroup privateGroup = new PrivateGroup(user, privateGroupId);
+
+		User user = new User(userName, "123");
+		user.setId(userId);
+		PrivateGroup privateGroup = new PrivateGroup(user);
+		privateGroup.setId(groupId);
 
 		privateGroup.addMember(user);
 		_dataStorage.getPrivateGroup().add(privateGroup);
 		_dataStorage.getUsers().add(user);
 
-		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, privateGroupId);
+		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
 		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 

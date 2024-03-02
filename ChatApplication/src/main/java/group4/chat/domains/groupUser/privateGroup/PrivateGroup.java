@@ -7,16 +7,14 @@ import group4.chat.domains.groupUser.GroupUsers;
 
 public class PrivateGroup extends GroupUsers {
 
-    private String _groupID;
     private User _firstAdmin;
     protected List<User> _listAdmins;
 
-    public PrivateGroup(User admin, String groupID) {
+    public PrivateGroup(User admin) {
         super();
         this._firstAdmin = admin;
         this._listAdmins = new ArrayList<>();
         this._groupUsers.add(admin);
-        this._groupID = groupID;
     }
 
     public void addAdmin(User user) {
@@ -48,10 +46,6 @@ public class PrivateGroup extends GroupUsers {
         if (_listAdmins.contains(user)) {
             _listAdmins.remove(user);
         }
-    }
-
-    public String getGroupID() {
-        return _groupID;
     }
 
     public List<User> getGroupAdmins() {

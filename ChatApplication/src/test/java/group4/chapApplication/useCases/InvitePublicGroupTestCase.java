@@ -54,6 +54,7 @@ class InvitePublicGroupTestCase {
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
 		publicGroup.addMember(userUser);
+		_dataStorage.getUsers().add(userUser);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
 		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
@@ -68,11 +69,21 @@ class InvitePublicGroupTestCase {
 
 	@Test
 	public void testUserInviteForPublicGroup_InvalidGroupId() throws Exception {
-		String groupId = "group123";
+		String joinCode = "group123";
 		String user = "John";
+		String groupId = "Mai123";
+		String groupIdTest = "Mai456";
+		String userId = "Mai123";
+		User userUser = new User(user, "123");
+		userUser.setId(userId);
+		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
+		publicGroup.addMember(userUser);
+		_dataStorage.getUsers().add(userUser);
+		_dataStorage.getPublicGroup().add(publicGroup);
 
 		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
-				groupId, user);
+				groupIdTest, userId);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
