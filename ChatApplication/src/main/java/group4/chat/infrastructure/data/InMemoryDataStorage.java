@@ -64,11 +64,6 @@ public class InMemoryDataStorage implements DataStorage {
 		return _privateGroups;
 	}
 
-	@Override
-	public List<User> getAllUsers() {
-		return _users.getAll();
-	}
-
 	public List<Conversation> getAllConversations() {
 		return new ArrayList<>(_conversations.values());
 	}
