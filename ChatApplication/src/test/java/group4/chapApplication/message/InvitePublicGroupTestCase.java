@@ -22,33 +22,42 @@ class InvitePublicGroupTestCase {
 
 	@Test
 	public void testUserInviteForPublicGroup_Success() throws Exception {
-		String groupId = "group123";
+		String joinCode = "group123";
 		String user = "John";
-
-		PublicGroup publicGroup = new PublicGroup(groupId);
+		String groupId = "Mai123";
+		String userId = "Mai123";
+		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
+		User userUser = new User(user, "123");
+		userUser.setId(userId);
 		_dataStorage.getPublicGroup().add(publicGroup);
-
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
+		_dataStorage.getUsers().add(userUser);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
+				groupId, userId);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getMessage());
-		assertEquals("User has been added to the group", outputValues.getMessage());
+		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+		assertEquals("User has been added to the group", outputValues.getResultCode(), outputValues.getResultCode());
 		assertEquals(1, publicGroup.getGroupUsers().size());
-		assertEquals(user, publicGroup.getGroupUsers().get(0));
+		assertEquals(userUser, publicGroup.getGroupUsers().get(0));
 	}
 
 	@Test
 	public void testUserInviteForPublicGroup_UserAlreadyMember() throws Exception {
-		String groupId = "group123";
+		String joinCode = "group123";
 		String user = "John";
+		String groupId = "Mai123";
+		String userId = "Mai123";
 		User userUser = new User(user, "123");
-		
-		PublicGroup publicGroup = new PublicGroup(groupId);
+		userUser.setId(userId);
+		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
 		publicGroup.addMember(userUser);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
+				groupId, userId);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
@@ -62,7 +71,8 @@ class InvitePublicGroupTestCase {
 		String groupId = "group123";
 		String user = "John";
 
-		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(groupId, user);
+		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
+				groupId, user);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
