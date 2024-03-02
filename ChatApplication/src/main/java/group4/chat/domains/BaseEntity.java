@@ -1,4 +1,5 @@
 package group4.chat.domains;
+
 import java.util.UUID;
 
 public abstract class BaseEntity {
@@ -8,9 +9,12 @@ public abstract class BaseEntity {
         return id;
     }
 
-   public BaseEntity(){
+    public BaseEntity() {
         id = UUID.randomUUID().toString();
-   }
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 }
-
-
