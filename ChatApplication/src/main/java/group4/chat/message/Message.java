@@ -41,6 +41,12 @@ public class Message {
 		this._attachment = _attachment;
 	}
 
+	public Message(int _messageId, String _content) {
+		super();
+		this._messageId = _messageId;
+		this._content = _content;
+	}
+
 	public ArrayList<String> get_attachments() {
 		return _attachments;
 	}
