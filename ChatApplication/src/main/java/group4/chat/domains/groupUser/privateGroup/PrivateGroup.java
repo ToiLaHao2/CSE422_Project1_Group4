@@ -9,12 +9,21 @@ public class PrivateGroup extends GroupUsers {
 
     private User _firstAdmin;
     protected List<User> _listAdmins;
+    private List<GroupRequest> _groupRequests;
+
 
     public PrivateGroup(User admin) {
         super();
         this._firstAdmin = admin;
         this._listAdmins = new ArrayList<>();
         this._groupUsers.add(admin);
+    }
+    
+    public PrivateGroup(String groupId) {
+        this._groupID = groupId;
+        this._groupUsers = new ArrayList<>();
+        this._listAdmins = new ArrayList<>();
+        this._groupRequests = new ArrayList<>();
     }
 
     public void addAdmin(User user) {
@@ -83,5 +92,27 @@ public class PrivateGroup extends GroupUsers {
             }
         }
         return null;
+    }
+    
+    public void requestToJoin(User user) {
+        GroupRequest request = new GroupRequest(user, this);
+        _groupRequests.add(request);
+    }
+
+    public void approveRequest(GroupRequest request) {
+        if (_groupRequests.contains(request) && _listAdmins.contains(request.getAdmin())) {
+            _groupUsers.add(request.getRequestingUser());
+            _groupRequests.remove(request);
+        }
+    }
+
+    public void rejectRequest(GroupRequest request) {
+        if (_groupRequests.contains(request) && _listAdmins.contains(request.getAdmin())) {
+            _groupRequests.remove(request);
+        }
+    }
+    
+    public List<GroupRequest> getGroupRequests() {
+        return _groupRequests;
     }
 }
