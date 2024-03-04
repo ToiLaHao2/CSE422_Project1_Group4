@@ -1,5 +1,6 @@
 package group4.chat.message;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,9 @@ public class Conversation {
 			throw new IllegalArgumentException("Invalid conversation");
 		}
 	}
+    public Conversation() {
+        this._messages=new ArrayList<>();
+    }
     public Conversation(String conversationId) {
         this.conversationId = conversationId;
         this.messageHistory = new ArrayList<>();
@@ -67,6 +71,21 @@ public class Conversation {
     }
     public ArrayList<Message> get_messages() {
         return _messages;
+    }
+     public List<Message> getLatestMessages(int k, long timestamp) {
+        List<Message> latestMessages = new ArrayList<>();
+        LocalDateTime stampTime = LocalDateTime.now().minusSeconds(timestamp);
+
+        for (int i = _messages.size() - 1; i >= 0; i--) {
+            Message message = _messages.get(i);
+            if (message.getTimestamp().isAfter(stampTime)) {
+                latestMessages.add(message);
+            }
+            if (latestMessages.size() >= k) {
+                break;
+            }
+        }
+        return latestMessages;
     }
 
 }
