@@ -37,7 +37,7 @@ class DeleteMessageTestCase {
 
 		DeleteMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-		assertEquals(DeleteMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
+		assertEquals(DeleteMessageUseCase.ResultCodes.SUCCESS, outputValues.getMessage());
 		assertEquals("Message deleted successfully", outputValues.getMessage());
 		
 		assertNull(conversation.getMessageById(messageId));

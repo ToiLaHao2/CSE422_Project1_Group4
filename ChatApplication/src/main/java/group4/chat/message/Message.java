@@ -18,6 +18,7 @@ public class Message {
 		this._receiver = receiver;
 		this._timestamp = LocalDateTime.now();
 		this._content = content;
+		
 		if (attachments == null) {
 			this._attachments = new ArrayList<>(attachments);
 		} else {
@@ -38,6 +39,12 @@ public class Message {
 		this._receiver = _receiver;
 		this._content = _content;
 		this._attachment = _attachment;
+	}
+
+	public Message(int _messageId, String _content) {
+		super();
+		this._messageId = _messageId;
+		this._content = _content;
 	}
 
 	public ArrayList<String> get_attachments() {

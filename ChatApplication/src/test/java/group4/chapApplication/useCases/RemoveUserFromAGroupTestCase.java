@@ -1,4 +1,4 @@
-package group4.chapApplication.message;
+package group4.chapApplication.useCases;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -27,13 +27,18 @@ class RemoveUserFromAGroupTestCase {
 	public void testRemoveUserFromGroupSuccess() {
 		// Arrange
 		String adminId = "admin1";
-		String userIdToRemove = "userToRemove";
+		String adminName = "admin";
+		String userIdToRemove = "userToRemove1";
+		String userNameToRemove = "userToRemove";
 		String groupId = "privateGroup1";
 
-		User admin = new User(adminId, "123");
-		User userToRemove = new User(userIdToRemove, "123");
+		User admin = new User(adminName, "123");
+		admin.setId(adminId);
+		User userToRemove = new User(userNameToRemove, "123");
+		userToRemove.setId(userIdToRemove);
 
-		PrivateGroup privateGroup = new PrivateGroup(admin, groupId);
+		PrivateGroup privateGroup = new PrivateGroup(admin);
+		privateGroup.setId(groupId);
 		privateGroup.addAdmin(admin);
 		privateGroup.addMember(userToRemove);
 
@@ -55,18 +60,28 @@ class RemoveUserFromAGroupTestCase {
 
 	@Test
 	public void testRemoveUserFromGroupAdminNotAdminOfGroup() {
-		String nonAdminId = "nonAdmin";
-		String userIdToRemove = "userToRemove";
+		String nonAdminId = "nonAdmin1";
+		String nonAdminName = "nonAdmin";
+		String adminId = "admin1";
+		String adminName = "admin";
+		String userIdToRemove = "userToRemove1";
+		String userNameToRemove = "userToRemove";
 		String groupId = "privateGroup1";
 
-		User nonAdmin = new User(nonAdminId, "123");
-		User userToRemove = new User(userIdToRemove, "123");
+		User admin = new User(adminName, "123");
+		admin.setId(adminId);
+		User userToRemove = new User(userNameToRemove, "123");
+		userToRemove.setId(userIdToRemove);
+		User nonAdmin = new User(nonAdminName, "123");
+		nonAdmin.setId(nonAdminId);
 
-		PrivateGroup privateGroup = new PrivateGroup(nonAdmin, groupId);
-		privateGroup.addAdmin(nonAdmin);
+		PrivateGroup privateGroup = new PrivateGroup(admin);
+		privateGroup.setId(groupId);
+		privateGroup.addAdmin(admin);
 		privateGroup.addMember(userToRemove);
 
 		dataStorage.getUsers().add(nonAdmin);
+		dataStorage.getUsers().add(admin);
 		dataStorage.getUsers().add(userToRemove);
 		dataStorage.getPrivateGroup().add(privateGroup);
 
@@ -105,16 +120,19 @@ class RemoveUserFromAGroupTestCase {
 
 	@Test
 	public void testRemoveUserFromGroup_UserNotFound() {
-		String adminId = "admin1";
 		String nonExistentUserId = "nonExistentUser";
+		String adminId = "admin1";
+		String adminName = "admin";
 		String groupId = "privateGroup1";
 
-		User admin = new User(adminId, "123");
+		User admin = new User(adminName, "123");
+		admin.setId(adminId);
 
-		PrivateGroup privateGroup = new PrivateGroup(admin, groupId);
-		privateGroup.addAdmin(admin);
+		PrivateGroup privateGroup = new PrivateGroup(admin);
+		privateGroup.setId(groupId);
 
 		dataStorage.getUsers().add(admin);
+		dataStorage.getPrivateGroup().add(privateGroup);
 
 		RemoveUserFromAGroupUseCase.InputValues inputValues = new RemoveUserFromAGroupUseCase.InputValues(groupId,
 				nonExistentUserId, adminId);

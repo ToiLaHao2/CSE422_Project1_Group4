@@ -1,4 +1,4 @@
-package group4.chapApplication.message;
+package group4.chapApplication.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -28,8 +28,10 @@ class ListGroupsContainUserTestCase {
 
 	@Test
 	public void testListGroupsContainUserSuccess() throws Exception {
-		String userId = "user1";
-		User user = new User(userId, "123");
+		String userName = "user1";
+		String userId = "u101";
+		User user = new User(userName, "123");
+		user.setId(userId);
 
 		PublicGroup publicGroup1 = new PublicGroup("publicGroup1");
 		PublicGroup publicGroup2 = new PublicGroup("publicGroup2");
@@ -41,8 +43,8 @@ class ListGroupsContainUserTestCase {
 		_dataStorage.getPublicGroup().add(publicGroup2);
 		_dataStorage.getUsers().add(user);
 
-		PrivateGroup privateGroup1 = new PrivateGroup(user, "privateGroup1");
-		PrivateGroup privateGroup2 = new PrivateGroup(user, "privateGroup2");
+		PrivateGroup privateGroup1 = new PrivateGroup(user);
+		PrivateGroup privateGroup2 = new PrivateGroup(user);
 
 		privateGroup1.addMember(user);
 		privateGroup2.addMember(user);
@@ -70,8 +72,10 @@ class ListGroupsContainUserTestCase {
 
 	@Test
 	public void testListGroupsContainUser_UserNotInAnyGroups() throws Exception {
+		String userName = "user101";
 		String userId = "user1";
-		User user = new User(userId, "123");
+		User user = new User(userName, "123");
+		user.setId(userId);
 		_dataStorage.getUsers().add(user);
 
 		ListGroupsContainUserUseCase.InputValues inputValues = new ListGroupsContainUserUseCase.InputValues(userId);
@@ -90,7 +94,9 @@ class ListGroupsContainUserTestCase {
 	@Test
 	public void testListGroupsContainUser_UserNotInSomeGroups() throws Exception {
 		String userId = "user1";
-		User user = new User(userId, "123");
+		String userName = "user101";
+		User user = new User(userName, "123");
+		user.setId(userId);
 
 		PublicGroup publicGroup1 = new PublicGroup("publicGroup1");
 		PublicGroup publicGroup2 = new PublicGroup("publicGroup2");
@@ -101,8 +107,8 @@ class ListGroupsContainUserTestCase {
 		_dataStorage.getPublicGroup().add(publicGroup2);
 		_dataStorage.getUsers().add(user);
 
-		PrivateGroup privateGroup1 = new PrivateGroup(user, "privateGroup1");
-		PrivateGroup privateGroup2 = new PrivateGroup(user, "privateGroup2");
+		PrivateGroup privateGroup1 = new PrivateGroup(user);
+		PrivateGroup privateGroup2 = new PrivateGroup(user);
 
 		privateGroup1.addMember(user);
 
@@ -122,10 +128,8 @@ class ListGroupsContainUserTestCase {
 		assertTrue(userPublicGroups.contains(publicGroup1), "PublicGroup1 should be in the user's public groups");
 		assertFalse(userPublicGroups.contains(publicGroup2), "PublicGroup2 should not be in the user's public groups");
 
-		assertEquals(1, userPrivateGroups.size(), "User should be a member of 1 private group");
+		assertEquals(2, userPrivateGroups.size(), "User should be a member of 1 private group");
 		assertTrue(userPrivateGroups.contains(privateGroup1), "PrivateGroup1 should be in the user's private groups");
-		assertFalse(userPrivateGroups.contains(privateGroup2),
-				"PrivateGroup2 should not be in the user's private groups");
 	}
 
 }

@@ -1,4 +1,4 @@
-package group4.chapApplication.message;
+package group4.chapApplication.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,40 +24,44 @@ class JoinGroupByCodeTestCase {
 
 	@Test
 	public void testJoinGroupByJoinCodeSuccess() throws Exception {
-		String joinCode = "12345";
-		String userId = "user1";
-		String publicGroupId = "group1";
-
-		User user = new User(userId, "123");
-    	dataStorage.getUsers().add(user);
-
+		String joinCode = "group123";
+		String user = "John";
+		String groupId = "Mai123";
+		String userId = "Mai123";
 		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
+		User userUser = new User(user, "123");
+		userUser.setId(userId);
 		dataStorage.getPublicGroup().add(publicGroup);
-		
-		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode, userId, publicGroupId);
+		dataStorage.getUsers().add(userUser);
+
+		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode,
+				userId, groupId);
+
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
     	assertEquals("User has been added to the group", outputValues.getMessage());
 
-		assertTrue(publicGroup.getGroupUsers().contains(user), "User should be added to the group");
+		assertTrue(publicGroup.getGroupUsers().contains(userUser), "User should be added to the group");
 	}
 
 	@Test
 	public void testJoinGroupByJoinCodeInvalidJoinCode() throws Exception {
 		// Arrange
-		String joinCode = "12345";
-		String userId = "user1";
-		String publicGroupId = "group1";
-
-		User user = new User(userId, "123");
-		dataStorage.getUsers().add(user);
-
-		PublicGroup publicGroup = new PublicGroup("67890");
+		String joinCodeTest = "12345";
+		String joinCode = "group123";
+		String user = "John";
+		String groupId = "Mai123";
+		String userId = "Mai123";
+		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
+		User userUser = new User(user, "123");
+		userUser.setId(userId);
 		dataStorage.getPublicGroup().add(publicGroup);
-
-		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode,
-				userId, publicGroupId);
+		dataStorage.getUsers().add(userUser);
+		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCodeTest,
+				userId, groupId);
 
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
 

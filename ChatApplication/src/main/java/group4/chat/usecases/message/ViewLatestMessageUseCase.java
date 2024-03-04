@@ -1,94 +1,97 @@
 package group4.chat.usecases.message;
 
+import group4.chat.usecases.UseCase;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-import group4.chat.domains.User;
+import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Conversation;
 import group4.chat.message.Message;
-import group4.chat.usecases.UseCase;
-import group4.chat.usecases.adapters.DataStorage;
-import group4.chat.usecases.adapters.Hasher;
 
-public class ViewLatestMessageUseCase extends UseCase<ViewLatestMessageUseCase.InputValues, ViewLatestMessageUseCase.OutputValues> {
-    private DataStorage dataStorage;
+public class ViewLatestMessageUseCase
+		extends UseCase<ViewLatestMessageUseCase.InputValues, ViewLatestMessageUseCase.OutputValues> {
+	private String _conversationID;
 
-	public ViewLatestMessageUseCase(DataStorage dataStorage) {
-        this.dataStorage=dataStorage;
+	public void set_conversationID(String _conversationID) {
+		this._conversationID = _conversationID;
 	}
 
-	@Override
-	public OutputValues execute(InputValues input) {
-		try {
-            String userId = input.getUserId();
-            String conversationId = input.getConversationId();
-            int k = input.getK();
-            long timestamp = input.getTimestamp();
+	public ViewLatestMessageUseCase() {
 
-            Conversation conversation = dataStorage.getConversation(conversationId);
-
-            if (conversation == null) {
-                return new OutputValues(ResultCodes.FAILED, "Conversation not found");
-            }
-
-            List<Message> latestMessages = conversation.getLatestMessages(k, timestamp);
-
-            return new OutputValues(ResultCodes.SUCCESS, latestMessages);
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return new OutputValues(ResultCodes.FAILED, "Error retrieving latest messages");
-        }
-		}
+	}
 
 	public static class InputValues {
-        private final String userId;
-        private final String conversationId;
-        private final int k;
-        private final long timestamp;
+		private int _numberOfLatestMessage;
+		private LocalDateTime _upToTime;
 
-        public InputValues(String userId, String conversationId, int k, long timestamp) {
-            this.userId = userId;
-            this.conversationId = conversationId;
-            this.k = k;
-            this.timestamp = timestamp;
-        }
+		public InputValues(int _numberOfLatestMessage, LocalDateTime _upToTime) {
+			super();
+			this._numberOfLatestMessage = _numberOfLatestMessage;
+			this._upToTime = _upToTime;
+		}
 
-        public String getUserId() {
-            return userId;
-        }
+		public int get_numberOfLatestMessage() {
+			return _numberOfLatestMessage;
+		}
 
-        public String getConversationId() {
-            return conversationId;
-        }
+		public void set_numberOfLatestMessage(int _numberOfLatestMessage) {
+			this._numberOfLatestMessage = _numberOfLatestMessage;
+		}
 
-        public int getK() {
-            return k;
-        }
+		public LocalDateTime get_upToTime() {
+			return _upToTime;
+		}
 
-        public long getTimestamp() {
-            return timestamp;
-        }
+		public void set_upToTime(LocalDateTime _upToTime) {
+			this._upToTime = _upToTime;
+		}
+
 	}
 
 	public static class OutputValues {
-		private final int resultCode;
-        private final Object resultData;
+		private List<String> messages;
+		private int _resultCode;
 
-        public OutputValues(int resultCode, Object resultData) {
-            this.resultCode = resultCode;
-            this.resultData = resultData;
-        }
+		public OutputValues(List<String> messages, int _resultCode) {
+			super();
+			this.messages = messages;
+			this._resultCode = _resultCode;
+		}
 
-        public int getResultCode() {
-            return resultCode;
-        }
+		public List<String> getMessages() {
+			return messages;
+		}
 
-        public Object getResultData() {
-            return resultData;
-        }
-    }
+		public int get_resultCode() {
+			return _resultCode;
+		}
 
-    public static class ResultCodes {
-        public static final int SUCCESS = 1;
-        public static final int FAILED = 0;
-    }
+	}
+
+	@Override
+	public OutputValues execute(InputValues input) throws Exception {
+		InMemoryDataStorage dataStorage = InMemoryDataStorage.getInstance();
+		List<String> messages = new ArrayList<>();
+		Conversation conversation = dataStorage.getConversation(_conversationID);
+
+		if (conversation != null) {
+			List<Message> latestMessages = conversation.getLatestMessage(input.get_numberOfLatestMessage(),
+					input.get_upToTime());
+
+			for (Message message : latestMessages) {
+				messages.add(message.get_content());
+			}
+			return new OutputValues(messages, ResultCodes.SUCCESS);
+		} else {
+			return new OutputValues(messages, ResultCodes.FAILED);
+		}
+	}
+
+	public static class ResultCodes {
+		public static final int SUCCESS = 1;
+		public static final int FAILED = 0;
+	}
+
 }

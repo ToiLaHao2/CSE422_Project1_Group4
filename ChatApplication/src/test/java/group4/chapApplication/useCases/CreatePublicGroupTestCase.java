@@ -1,4 +1,4 @@
-package group4.chapApplication.message;
+package group4.chapApplication.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

@@ -14,7 +14,7 @@ import group4.chat.usecases.message.SendMessageUseCase;
 
 class SendMessageTestCase {
 
-	private DataStorage _dataStorage;
+    private DataStorage _dataStorage;
     private SendMessageUseCase _useCase;
 
     @BeforeEach
@@ -30,16 +30,19 @@ class SendMessageTestCase {
         String content = "Hii";
 
         User sender = new User(senderId, "123");
+        sender.setId(senderId);
         User receiver = new User(receiverId, "123");
-
+        receiver.setId(receiverId);
+        
         _dataStorage.getUsers().add(sender);
         _dataStorage.getUsers().add(receiver);
 
-        SendMessageUseCase.InputValues inputValues = new SendMessageUseCase.InputValues(null, receiverId, content, 1, senderId);
+        SendMessageUseCase.InputValues inputValues = new SendMessageUseCase.InputValues(null, receiverId, content, 1,
+                senderId);
 
         SendMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
+        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(), outputValues.getMessage());
         assertEquals("Sending message successful", outputValues.getMessage());
 
         Message sentMessage = new Message(123, senderId, receiverId, content);
@@ -63,7 +66,8 @@ class SendMessageTestCase {
         _dataStorage.getUsers().add(sender);
         _dataStorage.getUsers().add(receiver);
 
-        SendMessageUseCase.InputValues inputValues = new SendMessageUseCase.InputValues(attachment, receiverId, content, 1, senderId);
+        SendMessageUseCase.InputValues inputValues = new SendMessageUseCase.InputValues(attachment, receiverId, content,
+                1, senderId);
 
         SendMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
