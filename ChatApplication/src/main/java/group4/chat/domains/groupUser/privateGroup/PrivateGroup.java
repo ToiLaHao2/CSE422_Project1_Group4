@@ -20,7 +20,7 @@ public class PrivateGroup extends GroupUsers {
     }
     
     public PrivateGroup(String groupId) {
-        this._groupID = groupId;
+        //this._groupID = groupId;
         this._groupUsers = new ArrayList<>();
         this._listAdmins = new ArrayList<>();
         this._groupRequests = new ArrayList<>();
