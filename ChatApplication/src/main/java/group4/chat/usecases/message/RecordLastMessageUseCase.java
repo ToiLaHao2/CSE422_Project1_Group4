@@ -1,42 +1,47 @@
-package group4.chat.usecases.users;
+package group4.chat.usecases.message;
 
-import java.util.ArrayList;
-
-import group4.chat.domains.User;
-import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
+import group4.chat.message.Conversation;
+import group4.chat.message.Message;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;
 
 public class RecordLastMessageUseCase
 		extends UseCase<RecordLastMessageUseCase.InputValues, RecordLastMessageUseCase.OutputValues> {
-	private DataStorage _dataStorage;
+	private DataStorage dataStorage;
 
-	public CreatePrivateGroupUseCase(DataStorage dataStorage) {
-		_dataStorage = dataStorage;
+	public RecordLastMessageUseCase(DataStorage dataStorage) {
+		this.dataStorage = dataStorage;
 	}
 
 	@Override
-	public OutputValues execute(InputValues input) {
-		ArrayList<String> userIDs = input.getUserIDs();
-		User creator = _dataStorage.getUsers().getById(userIDs.get(0));
-		PrivateGroup privateGroup = new PrivateGroup(creator);
-		for (int i = 1; i < userIDs.size(); i++) {
-			User member = _dataStorage.getUsers().getById(userIDs.get(i));
-			privateGroup.addMember(member);
+	public OutputValues execute(InputValues input) throws Exception {
+		String userId = input.getUserId();
+		String conversationId = input.getConversationId();
+		Conversation conversation = dataStorage.getConversation(conversationId);
+		if (conversation == null) {
+			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
 		}
-		_dataStorage.getPrivateGroup().add(privateGroup);
-		return new OutputValues(ResultCodes.SUCCESS, "Private group created successfully");
+		Message lastMessage = conversation.get_messages().get(conversation.get_messages().size() - 1);
+		dataStorage.updateLastReadMessage(userId, conversationId, lastMessage);
+
+		return new OutputValues(ResultCodes.SUCCESS, "Last message recorded successfully");
 	}
 
 	public static class InputValues {
-		private ArrayList<String> userIDs;
+		private String userId;
+		private String conversationId;
 
-		public InputValues(ArrayList<String> userIDs) {
-			this.userIDs = userIDs;
+		public InputValues(String userId, String conversationId) {
+			this.userId = userId;
+			this.conversationId = conversationId;
 		}
 
-		public ArrayList<String> getUserIDs() {
-			return userIDs;
+		public String getUserId() {
+			return userId;
+		}
+
+		public String getConversationId() {
+			return conversationId;
 		}
 
 	}

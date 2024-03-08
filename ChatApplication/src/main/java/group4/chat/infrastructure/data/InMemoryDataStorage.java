@@ -75,5 +75,20 @@ public class InMemoryDataStorage implements DataStorage {
     public void addConversation(Conversation conversation) {
         _conversations.put(conversation.getConversationId(), conversation);
     }
+	public void updateLastReadMessage(String userId, String conversationId, Message lastMessage) throws Exception {
 
+        Conversation conversation = getConversation(conversationId);
+        if (conversation != null) {
+            conversation.setLastReadMessage(userId, lastMessage);
+        } else {
+            throw new Exception("Conversation not found");
+        }
+    }
+	public void updateConversation(Conversation conversation) {
+        if (conversation != null && conversation.getConversationId() != null) {
+            _conversations.put(conversation.getConversationId(), conversation);
+        }
+    }
 }
+
+
