@@ -6,23 +6,23 @@ import java.util.List;
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
-import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
+import group4.chat.usecases.adapters.DataStorage;
 
 public class ListGroupsContainUserUseCase
 		extends UseCase<ListGroupsContainUserUseCase.InputValues, ListGroupsContainUserUseCase.OutputValues> {
-	private InMemoryDataStorage dataStorage;
+	private DataStorage _dataStorage;
 
-	public ListGroupsContainUserUseCase(InMemoryDataStorage dataStorage) {
-		this.dataStorage = dataStorage;
+	public ListGroupsContainUserUseCase(DataStorage dataStorage) {
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) throws Exception {
-		User user = dataStorage.getUsers().getById(input.userID);
+		User user = _dataStorage.getUsers().getById(input.userID);
 
-		List<PublicGroup> publicGroups = dataStorage.getPublicGroup().getAll();
-		List<PrivateGroup> privateGroups = dataStorage.getPrivateGroup().getAll();
+		List<PublicGroup> publicGroups = _dataStorage.getPublicGroup().getAll();
+		List<PrivateGroup> privateGroups = _dataStorage.getPrivateGroup().getAll();
 
 		List<PublicGroup> userPublicGroups = new ArrayList<>();
 		List<PrivateGroup> userPrivateGroups = new ArrayList<>();
