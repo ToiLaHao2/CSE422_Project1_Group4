@@ -27,7 +27,7 @@ class LeaveGroupTestCase {
 	public void testLeavePublicGroupSuccess() throws Exception {
 		String joinCode = "group123";
 		String userName = "John";
-		String groupId = "Mai123";
+		String groupId = "Mai1234";
 		String userId = "Mai123";
 
 		User user = new User(userName, "123");
@@ -35,8 +35,8 @@ class LeaveGroupTestCase {
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
 
-		PublicGroup publicGroup = new PublicGroup("12345");
 		publicGroup.addMember(user);
+		_dataStorage.getUsers().add(user);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
@@ -46,7 +46,7 @@ class LeaveGroupTestCase {
 		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has left the group", outputValues.getMessage());
 		assertFalse(publicGroup.getGroupUsers().contains(user), "User should be removed from the group");
-	
+
 	}
 
 	@Test
@@ -55,22 +55,20 @@ class LeaveGroupTestCase {
 		String groupId = "Mai123";
 		String userId = "Mai123";
 
-
 		User user = new User(userName, "123");
 		user.setId(userId);
 		PrivateGroup privateGroup = new PrivateGroup(user);
 		privateGroup.setId(groupId);
-
-	PrivateGroup privateGroup = new PrivateGroup(user, "privateGroup1");
-    _dataStorage.getPrivateGroup().add(privateGroup);
+		_dataStorage.getUsers().add(user);
+		_dataStorage.getPrivateGroup().add(privateGroup);
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
-	LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-	assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-    assertEquals("User has left the group", outputValues.getMessage());
-    assertFalse(privateGroup.getGroupUsers().contains(user), "User should be removed from the group");
+		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+		assertEquals("User has left the group", outputValues.getMessage());
+		assertFalse(privateGroup.getGroupUsers().contains(user), "User should be removed from the group");
 	}
 
 	@Test

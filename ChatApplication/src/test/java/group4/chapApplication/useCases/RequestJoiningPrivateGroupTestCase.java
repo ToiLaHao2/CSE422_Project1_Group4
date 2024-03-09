@@ -25,7 +25,7 @@ class RequestJoiningPrivateGroupTestCase {
 		User admin = new User("Admin1", "123");
 		User user = new User("User1", "123");
 
-		PrivateGroup group = new PrivateGroup("Group1");
+		PrivateGroup group = new PrivateGroup(admin);
 		group.addAdmin(admin);
 
 		RequestToJoinPrivateGroupUseCase.InputValues inputValues = new RequestToJoinPrivateGroupUseCase.InputValues(
