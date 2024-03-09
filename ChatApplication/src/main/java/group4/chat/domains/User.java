@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import group4.chat.message.Conversation;
+
 public class User extends BaseEntity {
 	private String _firstName;
 	private String _lastName;
@@ -12,6 +14,7 @@ public class User extends BaseEntity {
 	private Gender _gender;
 	private Date _dateOfBirth;
 	private List<String> _listGroupOfUser;
+	private List<Conversation> _listConversations;
 
 	public enum Gender {
 		MALE, FEMALE, OTHER
@@ -55,6 +58,10 @@ public class User extends BaseEntity {
 	public Date get_dateOfBirth() {
 		return _dateOfBirth;
 	}
+	
+    public List<Conversation> getConversations() {
+        return new ArrayList<>();
+    }
 
 	public static class UserBuilder {
 		private String _firstName;
