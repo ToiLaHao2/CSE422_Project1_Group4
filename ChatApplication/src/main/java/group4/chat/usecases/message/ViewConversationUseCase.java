@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import group4.chat.domains.User;
-import group4.chat.domains.groupUser.publicGroup.PublicGroup;
 import group4.chat.message.Conversation;
 import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;

@@ -1,8 +1,6 @@
 package group4.chat.usecases.message;
 
-
 import java.util.Set;
-
 
 import group4.chat.message.Conversation;
 import group4.chat.usecases.UseCase;

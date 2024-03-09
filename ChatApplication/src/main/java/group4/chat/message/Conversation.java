@@ -35,6 +35,7 @@ public class Conversation {
 	}
 
 	public Conversation(String user1, String user2, String group, String conversationID) {
+
 		this._messages = new ArrayList<>();
 		this.messageReaders = new HashMap<>();
 
@@ -70,6 +71,22 @@ public class Conversation {
 		this._conversationId = conversationId;
 		this._participants = new ArrayList<>(participants);
 		this._messages = new ArrayList<>();
+	}
+
+	public void set_user1(String _user1) {
+		this._user1 = _user1;
+	}
+
+	public void set_user2(String _user2) {
+		this._user2 = _user2;
+	}
+
+	public void set_group(String _group) {
+		this._group = _group;
+	}
+
+	public void set_conversationId(String _conversationId) {
+		this._conversationId = _conversationId;
 	}
 
 	public List<User> getParticipants() {
