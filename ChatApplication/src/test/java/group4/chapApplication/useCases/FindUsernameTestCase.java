@@ -1,13 +1,8 @@
-package group4.chapApplication.message;
+package group4.chapApplication.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,7 +37,6 @@ class FindUsernameTestCase {
 		assertEquals(FindUsernameUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
 		assertEquals("Users found", outputValues.getMessage());
 		assertTrue(outputValues.getFoundUsers().contains(user1));
-		// assertTrue(outputValues.getFoundUsers().contains(user2));
 	}
 
 	@Test
@@ -55,7 +49,6 @@ class FindUsernameTestCase {
 
 		assertEquals(FindUsernameUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("No users found", outputValues.getMessage());
-		// assertTrue(outputValues.getFoundUsers().isEmpty());
 	}
 
 }
