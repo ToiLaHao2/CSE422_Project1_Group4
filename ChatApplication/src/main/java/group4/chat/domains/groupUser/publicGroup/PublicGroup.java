@@ -9,7 +9,6 @@ public class PublicGroup extends GroupUsers {
 
     private String _joinCode;
     protected List<User> _listUsers;
-    private String _name;
 
     public PublicGroup(String joincode) {
         super();
@@ -19,7 +18,7 @@ public class PublicGroup extends GroupUsers {
     public PublicGroup(String joincode, String name) {
         super();
         this._joinCode = joincode;
-        this._name = name;
+        this._groupName = name;
     }
 
     
@@ -65,8 +64,4 @@ public class PublicGroup extends GroupUsers {
         check = false;
         return check;
     }
-    public String getName() {
-        return _name;
-    }
-
 }
