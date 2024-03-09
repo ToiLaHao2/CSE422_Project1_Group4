@@ -53,7 +53,7 @@ public class RequestToJoinPrivateGroupUseCase
         User requestingUser = input.getRequestingUser();
         
 		User user = _dataStorage.getUsers().getById(input._requestingUser.getId());
-		PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(input.getGroup().getGroupID());
+		PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(input.getGroup().getId());
 
         if (group.getGroupUsers().contains(requestingUser)) {
             return new OutputValues(false, ResultCodes.FAILED);

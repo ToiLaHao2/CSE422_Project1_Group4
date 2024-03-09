@@ -7,11 +7,13 @@ import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Conversation;
 import group4.chat.message.Message;
 import group4.chat.usecases.UseCase;
+import group4.chat.usecases.adapters.DataStorage;
 
 public class DeleteMessageUseCase extends UseCase<DeleteMessageUseCase.InputValues, DeleteMessageUseCase.OutputValues> {
+    // private DataStorage dataStorage;
 
     public DeleteMessageUseCase() {
-
+        // this.dataStorage = dataStorage;
     }
 
     @Override

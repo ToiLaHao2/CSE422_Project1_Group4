@@ -19,7 +19,6 @@ public class Conversation {
 	private String _conversationId;
 	private List<Message> _messageHistory;
 	private List<User> _participants;
-
 	private Map<Integer, Set<String>> messageReaders;
 	private Map<String, Message> lastReadMessages;
 
@@ -35,23 +34,8 @@ public class Conversation {
 		return _group;
 	}
 
-	public void set_user1(String _user1) {
-		this._user1 = _user1;
-	}
+	public Conversation(String user1, String user2, String group, String conversationID) {
 
-	public void set_user2(String _user2) {
-		this._user2 = _user2;
-	}
-
-	public void set_group(String _group) {
-		this._group = _group;
-	}
-
-	public void set_conversationId(String _conversationId) {
-		this._conversationId = _conversationId;
-	}
-
-	public Conversation(String user1, String user2, String group) {
 		this._messages = new ArrayList<>();
 		this.messageReaders = new HashMap<>();
 
@@ -67,6 +51,7 @@ public class Conversation {
 		} else {
 			throw new IllegalArgumentException("Invalid conversation");
 		}
+		this._conversationId = conversationID;
 	}
 
 	public Conversation() {
@@ -88,6 +73,22 @@ public class Conversation {
 		this._messages = new ArrayList<>();
 	}
 
+	public void set_user1(String _user1) {
+		this._user1 = _user1;
+	}
+
+	public void set_user2(String _user2) {
+		this._user2 = _user2;
+	}
+
+	public void set_group(String _group) {
+		this._group = _group;
+	}
+
+	public void set_conversationId(String _conversationId) {
+		this._conversationId = _conversationId;
+	}
+
 	public List<User> getParticipants() {
 		return _participants;
 	}
@@ -107,9 +108,7 @@ public class Conversation {
 		return _conversationId;
 	}
 
-	public void addMessage(String sender, String receiver, String content, ArrayList<String> attachments) {
-		int messageId = _messages.size() + 1;
-		Message message = new Message(messageId, sender, receiver, content, attachments);
+	public void addNewSendingMessage(Message message) {
 		_messages.add(message);
 	}
 
