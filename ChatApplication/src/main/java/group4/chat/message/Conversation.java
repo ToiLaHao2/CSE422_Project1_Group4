@@ -3,7 +3,11 @@ package group4.chat.message;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import group4.chat.domains.User;
 
@@ -16,8 +20,22 @@ public class Conversation {
 	private List<Message> _messageHistory;
 	private List<User> _participants;
 
+	private Map<Integer, Set<String>> messageReaders;
+	private Map<String, Message> lastReadMessages;
+
+
+	public String get_user1() {
+		return _user1;
+	}
+	public String get_user2() {
+		return _user2;
+	}
+	public String get_group() {
+		return _group;
+	}
 	public Conversation(String user1, String user2, String group) {
 		this._messages = new ArrayList<>();
+		 this.messageReaders = new HashMap<>();
 
 		if (user1 != null && user2 != null) {
 
@@ -32,6 +50,9 @@ public class Conversation {
 			throw new IllegalArgumentException("Invalid conversation");
 		}
 	}
+	public Conversation() {
+        this.lastReadMessages = new HashMap<>();
+    }
 
 	public Conversation(String conversationId) {
 		this._conversationId = conversationId;
@@ -123,5 +144,17 @@ public class Conversation {
 
 		return latestMessages;
 	}
+	public void markMessageAsRead(int messageId, String userId) {
+    messageReaders.computeIfAbsent(messageId, k -> new HashSet<>()).add(userId);
+}
+public Set<String> getUsersWhoReadMessage(int messageId) {
+    return messageReaders.getOrDefault(messageId, Collections.emptySet());
+}
+public void setLastReadMessage(String userId, Message lastMessage) {
+	lastReadMessages.put(userId, lastMessage);
+}
+public Message getLastReadMessage(String userId) {
+	return lastReadMessages.get(userId);
+}
 
 }

@@ -4,7 +4,6 @@ import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.usecases.UseCase;
-import group4.chat.usecases.adapters.Respository;
 
 public class UserInviteForPrivateGroupUseCase
 
@@ -20,35 +19,20 @@ public class UserInviteForPrivateGroupUseCase
         String adminID = input.getAdminID();
         String userId = input.getUserId();
         String groupId = input.getGroupId();
-        Respository<User> userRepository = dataStorage.getUsers();
-        Respository<PrivateGroup> privateGroupRepository = dataStorage.getPrivateGroup();
-        User admin = findUser(adminID, userRepository);
-        User user = findUser(userId, userRepository);
-        PrivateGroup privateGroup = null;
-        for (PrivateGroup privateGroup_found : privateGroupRepository.getAll()) {
-            if (privateGroup_found.getGroupID().equals(groupId)) {
-                privateGroup = privateGroup_found;
-                break;
-            }
-        }
+        User admin = dataStorage.getUsers().getById(adminID);
+        User user = dataStorage.getUsers().getById(userId);
+        PrivateGroup privateGroup = dataStorage.getPrivateGroup().getById(groupId);
+
         if (admin == null || privateGroup == null || user == null) {
             return new OutputValues(ResultCodes.FAILED, "User or group not found");
         }
         if (privateGroup.findAdmin(admin) == false) {
             return new OutputValues(ResultCodes.FAILED, "User is not an admin of the group");
         }
-        String inviteMessage = "You have been invited to join the private group: " + privateGroup.getGroupID();
+        String inviteMessage = "You have been invited to join the private group: " + privateGroup.getId();
         user.receiveGroupInvite(inviteMessage);
+        privateGroup.addMember(user);
         return new OutputValues(ResultCodes.SUCCESS, "User has been invited to join the group");
-    }
-
-    private User findUser(String userId, Respository<User> usersRepository) {
-        for (User u : usersRepository.getAll()) {
-            if (u.get_firstName().equals(userId)) {
-                return u;
-            }
-        }
-        return null;
     }
 
     public static class InputValues {

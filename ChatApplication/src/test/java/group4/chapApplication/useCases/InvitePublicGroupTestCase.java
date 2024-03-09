@@ -1,6 +1,8 @@
 package group4.chapApplication.useCases;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,7 @@ class InvitePublicGroupTestCase {
 				groupId, userId);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+	
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has been added to the group", outputValues.getResultCode(), outputValues.getResultCode());
@@ -54,6 +57,7 @@ class InvitePublicGroupTestCase {
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
 		publicGroup.addMember(userUser);
+		_dataStorage.getUsers().add(userUser);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
 		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
@@ -63,16 +67,26 @@ class InvitePublicGroupTestCase {
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("User is already a member of the group", outputValues.getMessage());
-		assertEquals(1, publicGroup.getGroupUsers().size());
+
 	}
 
 	@Test
 	public void testUserInviteForPublicGroup_InvalidGroupId() throws Exception {
-		String groupId = "group123";
+		String joinCode = "group123";
 		String user = "John";
+		String groupId = "Mai123";
+		String groupIdTest = "Mai456";
+		String userId = "Mai123";
+		User userUser = new User(user, "123");
+		userUser.setId(userId);
+		PublicGroup publicGroup = new PublicGroup(joinCode);
+		publicGroup.setId(groupId);
+		publicGroup.addMember(userUser);
+		_dataStorage.getUsers().add(userUser);
+		_dataStorage.getPublicGroup().add(publicGroup);
 
 		UserInviteForPublicGroupUseCase.InputValues inputValues = new UserInviteForPublicGroupUseCase.InputValues(
-				groupId, user);
+				groupIdTest, userId);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 

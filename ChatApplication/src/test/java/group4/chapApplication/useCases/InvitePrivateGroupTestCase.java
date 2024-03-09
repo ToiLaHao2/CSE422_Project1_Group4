@@ -24,13 +24,18 @@ class InvitePrivateGroupTestCase {
 
 	@Test
 	public void testUserInviteForPrivateGroupSuccess() throws Exception {
-		String adminId = "adminUser";
+		String adminId = "adminUser1";
+		String adminName = "admin";
 		String userId = "invitedUser";
+		String userName = "user";
 		String groupId = "privateGroup";
 
-		User admin = new User(adminId, "123");
-		User user = new User(userId, "123");
-		PrivateGroup privateGroup = new PrivateGroup(admin, groupId);
+		User admin = new User(adminName, "123");
+		admin.setId(adminId);
+		User user = new User(userName, "123");
+		user.setId(userId);
+		PrivateGroup privateGroup = new PrivateGroup(admin);
+		privateGroup.setId(groupId);
 
 		_dataStorage.getUsers().add(admin);
 		_dataStorage.getUsers().add(user);
@@ -41,8 +46,7 @@ class InvitePrivateGroupTestCase {
 
 		UserInviteForPrivateGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-		assertEquals(UserInviteForPrivateGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),
-				outputValues.getMessage());
+		assertEquals(UserInviteForPrivateGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 	}
 
 }
