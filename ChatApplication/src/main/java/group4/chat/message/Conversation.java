@@ -23,19 +23,37 @@ public class Conversation {
 	private Map<Integer, Set<String>> messageReaders;
 	private Map<String, Message> lastReadMessages;
 
-
 	public String get_user1() {
 		return _user1;
 	}
+
 	public String get_user2() {
 		return _user2;
 	}
+
 	public String get_group() {
 		return _group;
 	}
+
+	public void set_user1(String _user1) {
+		this._user1 = _user1;
+	}
+
+	public void set_user2(String _user2) {
+		this._user2 = _user2;
+	}
+
+	public void set_group(String _group) {
+		this._group = _group;
+	}
+
+	public void set_conversationId(String _conversationId) {
+		this._conversationId = _conversationId;
+	}
+
 	public Conversation(String user1, String user2, String group) {
 		this._messages = new ArrayList<>();
-		 this.messageReaders = new HashMap<>();
+		this.messageReaders = new HashMap<>();
 
 		if (user1 != null && user2 != null) {
 
@@ -50,9 +68,10 @@ public class Conversation {
 			throw new IllegalArgumentException("Invalid conversation");
 		}
 	}
+
 	public Conversation() {
-        this.lastReadMessages = new HashMap<>();
-    }
+		this.lastReadMessages = new HashMap<>();
+	}
 
 	public Conversation(String conversationId) {
 		this._conversationId = conversationId;
@@ -68,21 +87,21 @@ public class Conversation {
 		this._participants = new ArrayList<>(participants);
 		this._messages = new ArrayList<>();
 	}
-	
-    public List<User> getParticipants() {
-        return _participants;
-    }
-    
-    public String getParticipantsAsString() {
-        StringBuilder participantsString = new StringBuilder();
-        for (User participant : _participants) {
-            participantsString.append(participant.getId()).append(", ");
-        }
-        if (participantsString.length() > 0) {
-            participantsString.delete(participantsString.length() - 2, participantsString.length());
-        }
-        return participantsString.toString();
-    }
+
+	public List<User> getParticipants() {
+		return _participants;
+	}
+
+	public String getParticipantsAsString() {
+		StringBuilder participantsString = new StringBuilder();
+		for (User participant : _participants) {
+			participantsString.append(participant.getId()).append(", ");
+		}
+		if (participantsString.length() > 0) {
+			participantsString.delete(participantsString.length() - 2, participantsString.length());
+		}
+		return participantsString.toString();
+	}
 
 	public String getConversationId() {
 		return _conversationId;
@@ -144,17 +163,21 @@ public class Conversation {
 
 		return latestMessages;
 	}
+
 	public void markMessageAsRead(int messageId, String userId) {
-    messageReaders.computeIfAbsent(messageId, k -> new HashSet<>()).add(userId);
-}
-public Set<String> getUsersWhoReadMessage(int messageId) {
-    return messageReaders.getOrDefault(messageId, Collections.emptySet());
-}
-public void setLastReadMessage(String userId, Message lastMessage) {
-	lastReadMessages.put(userId, lastMessage);
-}
-public Message getLastReadMessage(String userId) {
-	return lastReadMessages.get(userId);
-}
+		messageReaders.computeIfAbsent(messageId, k -> new HashSet<>()).add(userId);
+	}
+
+	public Set<String> getUsersWhoReadMessage(int messageId) {
+		return messageReaders.getOrDefault(messageId, Collections.emptySet());
+	}
+
+	public void setLastReadMessage(String userId, Message lastMessage) {
+		lastReadMessages.put(userId, lastMessage);
+	}
+
+	public Message getLastReadMessage(String userId) {
+		return lastReadMessages.get(userId);
+	}
 
 }
