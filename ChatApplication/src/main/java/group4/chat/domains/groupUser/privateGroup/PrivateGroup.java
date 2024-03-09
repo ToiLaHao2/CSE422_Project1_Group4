@@ -11,11 +11,12 @@ public class PrivateGroup extends GroupUsers {
     protected List<User> _listAdmins;
     private List<GroupRequest> _groupRequests;
 
-    public PrivateGroup(User admin) {
+    public PrivateGroup(User admin, String name) {
         super();
         this._firstAdmin = admin;
         this._listAdmins = new ArrayList<>();
         this._groupUsers.add(admin);
+        this._groupName = name;
     }
 
     public void addAdmin(User user) {
@@ -107,5 +108,4 @@ public class PrivateGroup extends GroupUsers {
     public List<GroupRequest> getGroupRequests() {
         return _groupRequests;
     }
-
 }

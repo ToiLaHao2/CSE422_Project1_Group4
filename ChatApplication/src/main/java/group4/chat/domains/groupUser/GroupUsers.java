@@ -8,6 +8,7 @@ import group4.chat.domains.User;
 public class GroupUsers extends BaseEntity {
 
     protected ArrayList<User> _groupUsers;
+    protected String _groupName;
 
     public GroupUsers() {
         super();
@@ -22,6 +23,10 @@ public class GroupUsers extends BaseEntity {
             }
         }
         return null;
+    }
+
+    public String getGroupName() {
+        return this._groupName;
     }
 
 }
