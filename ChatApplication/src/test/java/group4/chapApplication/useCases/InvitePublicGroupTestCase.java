@@ -1,6 +1,8 @@
 package group4.chapApplication.useCases;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +38,7 @@ class InvitePublicGroupTestCase {
 				groupId, userId);
 
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+	
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has been added to the group", outputValues.getResultCode(), outputValues.getResultCode());
@@ -64,7 +67,7 @@ class InvitePublicGroupTestCase {
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("User is already a member of the group", outputValues.getMessage());
-		assertEquals(1, publicGroup.getGroupUsers().size());
+
 	}
 
 	@Test

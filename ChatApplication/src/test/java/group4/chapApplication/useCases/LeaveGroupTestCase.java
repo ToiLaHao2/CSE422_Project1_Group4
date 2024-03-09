@@ -35,9 +35,9 @@ class LeaveGroupTestCase {
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
 
+		PublicGroup publicGroup = new PublicGroup("12345");
 		publicGroup.addMember(user);
 		_dataStorage.getPublicGroup().add(publicGroup);
-		_dataStorage.getUsers().add(user);
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
@@ -45,8 +45,8 @@ class LeaveGroupTestCase {
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has left the group", outputValues.getMessage());
-
-		assertFalse(publicGroup.getGroupUsers().contains(user), "User should be removed from the public group");
+		assertFalse(publicGroup.getGroupUsers().contains(user), "User should be removed from the group");
+	
 	}
 
 	@Test
@@ -61,18 +61,16 @@ class LeaveGroupTestCase {
 		PrivateGroup privateGroup = new PrivateGroup(user);
 		privateGroup.setId(groupId);
 
-		privateGroup.addMember(user);
-		_dataStorage.getPrivateGroup().add(privateGroup);
-		_dataStorage.getUsers().add(user);
+	PrivateGroup privateGroup = new PrivateGroup(user, "privateGroup1");
+    _dataStorage.getPrivateGroup().add(privateGroup);
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
-		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+	LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
 
-		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("User has left the group", outputValues.getMessage());
-
-		assertFalse(privateGroup.getGroupUsers().contains(user), "User should be removed from the private group");
+	assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+    assertEquals("User has left the group", outputValues.getMessage());
+    assertFalse(privateGroup.getGroupUsers().contains(user), "User should be removed from the group");
 	}
 
 	@Test

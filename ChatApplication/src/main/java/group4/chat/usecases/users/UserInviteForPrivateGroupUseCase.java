@@ -31,6 +31,7 @@ public class UserInviteForPrivateGroupUseCase
         }
         String inviteMessage = "You have been invited to join the private group: " + privateGroup.getId();
         user.receiveGroupInvite(inviteMessage);
+        privateGroup.addMember(user);
         return new OutputValues(ResultCodes.SUCCESS, "User has been invited to join the group");
     }
 

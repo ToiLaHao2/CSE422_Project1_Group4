@@ -6,6 +6,7 @@ import group4.chat.domains.User;
 import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
 import group4.chat.message.Conversation;
+import group4.chat.message.Message;
 
 public interface DataStorage {
 
@@ -20,4 +21,6 @@ public interface DataStorage {
 	List<Conversation> getAllConversations();
 
 	void cleanAll();
+	 void updateLastReadMessage(String userId, String conversationId, Message lastMessage) throws Exception;
+	 void updateConversation(Conversation conversation);
 }
