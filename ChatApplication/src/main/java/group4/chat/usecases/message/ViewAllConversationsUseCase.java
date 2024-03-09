@@ -41,14 +41,14 @@ public class ViewAllConversationsUseCase
 
 				if (privateGroup != null) {
 					messageBuilder.append("Conversation ID: ").append(conversation.getConversationId())
-							.append(", within group: ").append(privateGroup.getName()).append("\n");
+							.append(", within group: ").append(privateGroup.getGroupName()).append("\n");
 
 				} else {
 					PublicGroup publicGroup = dataStorage.getPublicGroup().getById(conversation.get_group());
 
 					if (publicGroup != null) {
 						messageBuilder.append("Conversation ID: ").append(conversation.getConversationId())
-								.append(", within group: ").append(publicGroup.getName()).append("\n");
+								.append(", within group: ").append(publicGroup.getGroupName()).append("\n");
 					}
 				}
 			}

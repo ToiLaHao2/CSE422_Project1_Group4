@@ -19,7 +19,7 @@ public class CreatePrivateGroupUseCase
 	public OutputValues execute(InputValues input) {
 		ArrayList<String> userIDs = input.getUserIDs();
 		User creator = _dataStorage.getUsers().getById(userIDs.get(0));
-		PrivateGroup privateGroup = new PrivateGroup(creator);
+		PrivateGroup privateGroup = new PrivateGroup(creator, null);
 		for (int i = 1; i < userIDs.size(); i++) {
 			User member = _dataStorage.getUsers().getById(userIDs.get(i));
 			privateGroup.addMember(member);
