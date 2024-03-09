@@ -11,16 +11,16 @@ public class PrivateGroup extends GroupUsers {
     protected List<User> _listAdmins;
     private List<GroupRequest> _groupRequests;
 
-
     public PrivateGroup(User admin) {
         super();
         this._firstAdmin = admin;
         this._listAdmins = new ArrayList<>();
         this._groupUsers.add(admin);
     }
-    
+
     public PrivateGroup(String groupId) {
-        this._groupID = groupId;
+        // this._groupID = groupId;
+        setId(groupId);
         this._groupUsers = new ArrayList<>();
         this._listAdmins = new ArrayList<>();
         this._groupRequests = new ArrayList<>();
@@ -93,7 +93,7 @@ public class PrivateGroup extends GroupUsers {
         }
         return null;
     }
-    
+
     public void requestToJoin(User user) {
         GroupRequest request = new GroupRequest(user, this);
         _groupRequests.add(request);
@@ -111,7 +111,7 @@ public class PrivateGroup extends GroupUsers {
             _groupRequests.remove(request);
         }
     }
-    
+
     public List<GroupRequest> getGroupRequests() {
         return _groupRequests;
     }

@@ -7,16 +7,17 @@ import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Conversation;
 import group4.chat.message.Message;
 import group4.chat.usecases.UseCase;
+import group4.chat.usecases.adapters.DataStorage;
 
 public class DeleteMessageUseCase extends UseCase<DeleteMessageUseCase.InputValues, DeleteMessageUseCase.OutputValues> {
+    private DataStorage dataStorage;
 
-    public DeleteMessageUseCase() {
-
+    public DeleteMessageUseCase(DataStorage dataStorage) {
+        this.dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) throws Exception {
-        InMemoryDataStorage dataStorage = InMemoryDataStorage.getInstance();
         Conversation conversation = dataStorage.getConversation(input.conversationId);
         if (conversation != null) {
             Message message = conversation.getMessageById(input.messageId);
