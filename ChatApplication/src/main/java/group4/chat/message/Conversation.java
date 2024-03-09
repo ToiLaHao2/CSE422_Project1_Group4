@@ -3,18 +3,39 @@ package group4.chat.message;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import group4.chat.domains.User;
 
 public class Conversation {
 	private String _user1;
 	private String _user2;
 	private String _group;
 	private ArrayList<Message> _messages;
-	private String conversationId;
-	private List<Message> messageHistory;
+	private String _conversationId;
+	private List<Message> _messageHistory;
+	private List<User> _participants;
 
+	private Map<Integer, Set<String>> messageReaders;
+	private Map<String, Message> lastReadMessages;
+
+
+	public String get_user1() {
+		return _user1;
+	}
+	public String get_user2() {
+		return _user2;
+	}
+	public String get_group() {
+		return _group;
+	}
 	public Conversation(String user1, String user2, String group) {
 		this._messages = new ArrayList<>();
+		 this.messageReaders = new HashMap<>();
 
 		if (user1 != null && user2 != null) {
 
@@ -29,14 +50,42 @@ public class Conversation {
 			throw new IllegalArgumentException("Invalid conversation");
 		}
 	}
+	public Conversation() {
+        this.lastReadMessages = new HashMap<>();
+    }
 
 	public Conversation(String conversationId) {
-		this.conversationId = conversationId;
-		this.messageHistory = new ArrayList<>();
-	}	
+		this._conversationId = conversationId;
+		this._messageHistory = new ArrayList<>();
+	}
+
+	public Conversation(String conversationId, List<User> participants) {
+		if (conversationId == null || participants == null || participants.size() < 2) {
+			throw new IllegalArgumentException("Invalid conversation");
+		}
+
+		this._conversationId = conversationId;
+		this._participants = new ArrayList<>(participants);
+		this._messages = new ArrayList<>();
+	}
+	
+    public List<User> getParticipants() {
+        return _participants;
+    }
+    
+    public String getParticipantsAsString() {
+        StringBuilder participantsString = new StringBuilder();
+        for (User participant : _participants) {
+            participantsString.append(participant.getId()).append(", ");
+        }
+        if (participantsString.length() > 0) {
+            participantsString.delete(participantsString.length() - 2, participantsString.length());
+        }
+        return participantsString.toString();
+    }
 
 	public String getConversationId() {
-		return conversationId;
+		return _conversationId;
 	}
 
 	public void addMessage(String sender, String receiver, String content, ArrayList<String> attachments) {
@@ -46,7 +95,7 @@ public class Conversation {
 	}
 
 	public void addMessage(Message message) {
-		messageHistory.add(message);
+		_messageHistory.add(message);
 	}
 
 	public void displayMessages() {
@@ -56,7 +105,7 @@ public class Conversation {
 	}
 
 	public void displayMessageHistory() {
-		for (Message message : messageHistory) {
+		for (Message message : _messageHistory) {
 			System.out.println(message);
 		}
 	}
@@ -95,5 +144,17 @@ public class Conversation {
 
 		return latestMessages;
 	}
+	public void markMessageAsRead(int messageId, String userId) {
+    messageReaders.computeIfAbsent(messageId, k -> new HashSet<>()).add(userId);
+}
+public Set<String> getUsersWhoReadMessage(int messageId) {
+    return messageReaders.getOrDefault(messageId, Collections.emptySet());
+}
+public void setLastReadMessage(String userId, Message lastMessage) {
+	lastReadMessages.put(userId, lastMessage);
+}
+public Message getLastReadMessage(String userId) {
+	return lastReadMessages.get(userId);
+}
 
 }

@@ -2,14 +2,14 @@ package group4.chat.usecases.users;
 
 import group4.chat.domains.User;
 import group4.chat.domains.groupUser.publicGroup.PublicGroup;
-import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.UseCase;
+import group4.chat.usecases.adapters.DataStorage;
 
 public class JoinGroupByJoinCodeUseCase
 		extends UseCase<JoinGroupByJoinCodeUseCase.InputValues, JoinGroupByJoinCodeUseCase.OutputValues> {
-	private InMemoryDataStorage dataStorage;
+	private DataStorage dataStorage;
 
-	public JoinGroupByJoinCodeUseCase(InMemoryDataStorage dataStorage) {
+	public JoinGroupByJoinCodeUseCase(DataStorage dataStorage) {
 		this.dataStorage = dataStorage;
 	}
 

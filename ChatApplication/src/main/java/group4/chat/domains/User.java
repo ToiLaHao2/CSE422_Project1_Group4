@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import group4.chat.message.Conversation;
+
 public class User extends BaseEntity {
 	private String _firstName;
 	private String _lastName;
@@ -12,6 +14,9 @@ public class User extends BaseEntity {
 	private Gender _gender;
 	private Date _dateOfBirth;
 	private List<String> _listGroupOfUser;
+	private List<Conversation> _listConversations;
+	private List<String> groupInvitations;
+
 
 	public enum Gender {
 		MALE, FEMALE, OTHER
@@ -30,7 +35,13 @@ public class User extends BaseEntity {
 	public User(String _firstName, String _hashedPassword) {
 		this._firstName = _firstName;
 		this._hashedPassword = _hashedPassword;
+		this.groupInvitations = new ArrayList<>();
 	}
+	public User(String firstName, String lastName, String hashedPassword) {
+        this._firstName = firstName;
+        this._lastName = lastName;
+        this._hashedPassword = hashedPassword;
+    }
 
 	public String get_firstName() {
 		return _firstName;
@@ -55,6 +66,10 @@ public class User extends BaseEntity {
 	public Date get_dateOfBirth() {
 		return _dateOfBirth;
 	}
+	
+    public List<Conversation> getConversations() {
+        return new ArrayList<>();
+    }
 
 	public static class UserBuilder {
 		private String _firstName;
@@ -120,7 +135,11 @@ public class User extends BaseEntity {
 	public void sendAttachment(String receiverID, Byte[] attachment) {
 		System.out.println("File: '" + attachment + "' has been sent to user with ID: " + receiverID);
 	}
-	public void receiveGroupInvite(String message) {
-        System.out.println("Group invitation: " + message);
+	
+	public void receiveGroupInvite(String inviteMessage) {
+        groupInvitations.add(inviteMessage);
+    }
+	public List<String> getGroupInvitations() {
+        return groupInvitations;
     }
 }

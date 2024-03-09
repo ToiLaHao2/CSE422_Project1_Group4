@@ -41,7 +41,7 @@ class JoinGroupByCodeTestCase {
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("User has been added to the group", outputValues.getMessage());
+    	assertEquals("User has been added to the group", outputValues.getMessage());
 
 		assertTrue(publicGroup.getGroupUsers().contains(userUser), "User should be added to the group");
 	}
