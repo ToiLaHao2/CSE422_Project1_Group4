@@ -37,7 +37,7 @@ class RemoveUserFromAGroupTestCase {
 		User userToRemove = new User(userNameToRemove, "123");
 		userToRemove.setId(userIdToRemove);
 
-		PrivateGroup privateGroup = new PrivateGroup(admin);
+		PrivateGroup privateGroup = new PrivateGroup(admin,null);
 		privateGroup.setId(groupId);
 		privateGroup.addAdmin(admin);
 		privateGroup.addMember(userToRemove);
@@ -75,7 +75,7 @@ class RemoveUserFromAGroupTestCase {
 		User nonAdmin = new User(nonAdminName, "123");
 		nonAdmin.setId(nonAdminId);
 
-		PrivateGroup privateGroup = new PrivateGroup(admin);
+		PrivateGroup privateGroup = new PrivateGroup(admin,null);
 		privateGroup.setId(groupId);
 		privateGroup.addAdmin(admin);
 		privateGroup.addMember(userToRemove);
@@ -128,7 +128,7 @@ class RemoveUserFromAGroupTestCase {
 		User admin = new User(adminName, "123");
 		admin.setId(adminId);
 
-		PrivateGroup privateGroup = new PrivateGroup(admin);
+		PrivateGroup privateGroup = new PrivateGroup(admin,null);
 		privateGroup.setId(groupId);
 
 		dataStorage.getUsers().add(admin);
