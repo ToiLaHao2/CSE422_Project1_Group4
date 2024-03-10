@@ -57,7 +57,7 @@ class LeaveGroupTestCase {
 
 		User user = new User(userName, "123");
 		user.setId(userId);
-		PrivateGroup privateGroup = new PrivateGroup(user);
+		PrivateGroup privateGroup = new PrivateGroup(user, null);
 		privateGroup.setId(groupId);
 		_dataStorage.getUsers().add(user);
 		_dataStorage.getPrivateGroup().add(privateGroup);

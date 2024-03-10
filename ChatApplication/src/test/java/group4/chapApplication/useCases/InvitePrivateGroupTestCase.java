@@ -34,7 +34,7 @@ class InvitePrivateGroupTestCase {
 		admin.setId(adminId);
 		User user = new User(userName, "123");
 		user.setId(userId);
-		PrivateGroup privateGroup = new PrivateGroup(admin);
+		PrivateGroup privateGroup = new PrivateGroup(admin,null);
 		privateGroup.setId(groupId);
 
 		_dataStorage.getUsers().add(admin);

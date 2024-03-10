@@ -43,8 +43,8 @@ class ListGroupsContainUserTestCase {
 		_dataStorage.getPublicGroup().add(publicGroup2);
 		_dataStorage.getUsers().add(user);
 
-		PrivateGroup privateGroup1 = new PrivateGroup(user);
-		PrivateGroup privateGroup2 = new PrivateGroup(user);
+		PrivateGroup privateGroup1 = new PrivateGroup(user, null);
+		PrivateGroup privateGroup2 = new PrivateGroup(user, null);
 
 		privateGroup1.addMember(user);
 		privateGroup2.addMember(user);
@@ -107,8 +107,8 @@ class ListGroupsContainUserTestCase {
 		_dataStorage.getPublicGroup().add(publicGroup2);
 		_dataStorage.getUsers().add(user);
 
-		PrivateGroup privateGroup1 = new PrivateGroup(user);
-		PrivateGroup privateGroup2 = new PrivateGroup(user);
+		PrivateGroup privateGroup1 = new PrivateGroup(user, null);
+		PrivateGroup privateGroup2 = new PrivateGroup(user, null);
 
 		privateGroup1.addMember(user);
 
