@@ -61,6 +61,7 @@ public class Conversation {
 	public Conversation(String conversationId) {
 		this._conversationId = conversationId;
 		this._messageHistory = new ArrayList<>();
+		this._messages = new ArrayList<>();
 	}
 
 	public Conversation(String conversationId, List<User> participants) {
