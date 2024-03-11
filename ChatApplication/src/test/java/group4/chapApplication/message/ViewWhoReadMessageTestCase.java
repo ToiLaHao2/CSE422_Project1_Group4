@@ -31,13 +31,13 @@ class ViewWhoReadMessageTestCase {
         int messageId=1;
         
         Message message = new Message(1, "Hi");
-        Set<String> usersWhoReadMessage = new HashSet<>();
-        usersWhoReadMessage.add(user1);
-        usersWhoReadMessage.add(user2);
+        
 
         Conversation conversation = new Conversation();
-        conversation.set_conversationId(conversationId);
+        conversation.addMessage(message);
         conversation.setLastReadMessage(user1, message);
+        conversation.setLastReadMessage(user2, message);
+        _dataStorage.addConversation(conversation);
 
         ViewWhoReadMessageUseCase.InputValues inputValues = new ViewWhoReadMessageUseCase.InputValues(conversationId, messageId);
         ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessage.execute(inputValues);
