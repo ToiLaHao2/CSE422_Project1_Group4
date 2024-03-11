@@ -26,7 +26,7 @@ class RecordLastMessageTestCase {
 		String conversationId = "conver1";
 
 		Conversation conversation = new Conversation();
-		conversation.addMessage(new Message(123, "Hello"));
+		conversation.addNewSendingMessage(new Message(123, "Hello"));
 		
 		_dataStorage.addConversation(conversation);
 

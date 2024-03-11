@@ -31,7 +31,7 @@ class RemoveMessageTestCase {
         Message message = new Message(123, "Hello");
         message.set_messageId(messageId);
         
-        conversation.addMessage(message);
+        conversation.addNewSendingMessage(message);
         _dataStorage.addConversation(conversation);
 
         _dataStorage.getConversation(conversationId);
