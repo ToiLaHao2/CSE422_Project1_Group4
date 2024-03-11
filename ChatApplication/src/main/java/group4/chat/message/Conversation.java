@@ -56,6 +56,8 @@ public class Conversation {
 
 	public Conversation() {
 		this.lastReadMessages = new HashMap<>();
+		this._messageHistory = new ArrayList<>();
+		this._messages = new ArrayList<>();
 	}
 
 	public Conversation(String conversationId) {
