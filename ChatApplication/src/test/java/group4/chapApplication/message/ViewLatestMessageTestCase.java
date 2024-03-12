@@ -27,6 +27,7 @@ class ViewLatestMessageTestCase {
 		Message message3 = new Message(4, "sender1111", "receiver1111", "message1111");
 
 		Conversation conversation = new Conversation(conversationId);
+		conversation.set_conversationId(conversationId);
 		conversation.addMessage(message);
 		conversation.addMessage(message1);
 		conversation.addMessage(message2);
@@ -35,16 +36,16 @@ class ViewLatestMessageTestCase {
 		dataStorage.addConversation(conversation);
 
 		ViewLatestMessageUseCase useCase = new ViewLatestMessageUseCase();
-		
+
 		ViewLatestMessageUseCase.InputValues inputValues = new InputValues(3, upToTime);
 		useCase.set_conversationID(conversationId);
 
 		ViewLatestMessageUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
 		System.out.println("Expected Result: 1");
-        System.out.println("Actual Result: " + outputValues.get_resultCode());
+		System.out.println("Actual Result: " + outputValues.get_resultCode());
 
-        assertEquals(ViewLatestMessageUseCase.ResultCodes.SUCCESS, outputValues.get_resultCode());
-    }
+		assertEquals(ViewLatestMessageUseCase.ResultCodes.SUCCESS, outputValues.get_resultCode());
+	}
 
 }
