@@ -17,6 +17,7 @@ public class PrivateGroup extends GroupUsers {
         this._listAdmins = new ArrayList<>();
         this._groupUsers.add(admin);
         this._groupName = name;
+        this._groupRequests = new ArrayList<>();
     }
 
     public void addAdmin(User user) {

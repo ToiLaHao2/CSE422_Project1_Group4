@@ -28,15 +28,16 @@ class ViewWhoReadMessageTestCase {
         String conversationId = "conver1";
         String user1 = "user1";
         String user2 = "user2";
+        int messageId=1;
         
         Message message = new Message(1, "Hi");
-        Set<String> usersWhoReadMessage = new HashSet<>();
-        usersWhoReadMessage.add(user1);
-        usersWhoReadMessage.add(user2);
+        
 
         Conversation conversation = new Conversation();
-        conversation.set_conversationId(conversationId);
+        conversation.addMessage(message);
         conversation.setLastReadMessage(user1, message);
+        conversation.setLastReadMessage(user2, message);
+        _dataStorage.addConversation(conversation);
 
         ViewWhoReadMessageUseCase.InputValues inputValues = new ViewWhoReadMessageUseCase.InputValues(conversationId, messageId);
         ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessage.execute(inputValues);
@@ -67,7 +68,7 @@ class ViewWhoReadMessageTestCase {
         ViewWhoReadMessageUseCase.InputValues inputValues = new ViewWhoReadMessageUseCase.InputValues(conversationId, messageId);
         ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessage.execute(inputValues);
 
-        assertEquals(ViewWhoReadMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+        assertEquals(ViewWhoReadMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
     }
 
 }

@@ -33,7 +33,7 @@ class RequestJoiningPrivateGroupTestCase {
 
         PrivateGroup group = new PrivateGroup(admin, null);
         group.setId(groupID);
-        group.addAdmin(admin);
+
         dataStorage.getUsers().add(admin);
         dataStorage.getUsers().add(user);
         dataStorage.getPrivateGroup().add(group);
@@ -47,36 +47,52 @@ class RequestJoiningPrivateGroupTestCase {
 
     @Test
     void testUserAlreadyInGroup() {
+        String adminId = "admin1";
+        String userId = "user1";
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
+        admin.setId(adminId);
+        user.setId(userId);
 
-        PrivateGroup group = new PrivateGroup("Group1");
+        String groupId = "group1";
+        PrivateGroup group = new PrivateGroup(admin, "Group1");
+        group.setId(groupId);
         group.addAdmin(admin);
         group.addMember(user);
 
-        RequestToJoinPrivateGroupUseCase request = new RequestToJoinPrivateGroupUseCase();
+        dataStorage.getUsers().add(admin);
+        dataStorage.getUsers().add(user);
+        dataStorage.getPrivateGroup().add(group);
 
         RequestToJoinPrivateGroupUseCase.InputValues inputValues = new RequestToJoinPrivateGroupUseCase.InputValues(
-                user, group);
-        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = request.execute(inputValues);
+                userId, groupId);
+        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
         assertEquals(false, outputValues.isRequestApproved());
     }
 
     @Test
     void testUserAlreadyRequested() {
+        String adminId = "admin1";
+        String userId = "user1";
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
+        admin.setId(adminId);
+        user.setId(userId);
 
-        PrivateGroup group = new PrivateGroup("Group1");
+        String groupId = "group1";
+        PrivateGroup group = new PrivateGroup(admin, "Group1");
+        group.setId(groupId);
         group.addAdmin(admin);
         group.requestToJoin(user);
 
-        RequestToJoinPrivateGroupUseCase request = new RequestToJoinPrivateGroupUseCase();
+        dataStorage.getUsers().add(admin);
+        dataStorage.getUsers().add(user);
+        dataStorage.getPrivateGroup().add(group);
 
         RequestToJoinPrivateGroupUseCase.InputValues inputValues = new RequestToJoinPrivateGroupUseCase.InputValues(
-                user, group);
-        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = request.execute(inputValues);
+                userId, groupId);
+        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
         assertEquals(false, outputValues.isRequestApproved());
     }

@@ -9,6 +9,7 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class RequestToJoinPrivateGroupUseCase
         extends UseCase<RequestToJoinPrivateGroupUseCase.InputValues, RequestToJoinPrivateGroupUseCase.OutputValues> {
+
     private DataStorage _dataStorage;
 
     public RequestToJoinPrivateGroupUseCase(DataStorage _dataStorage) {
