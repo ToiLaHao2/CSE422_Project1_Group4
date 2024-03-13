@@ -6,20 +6,20 @@ import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;
 
 public class RemoveMessageUseCase extends UseCase<RemoveMessageUseCase.InputValues, RemoveMessageUseCase.OutputValues> {
-	private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
 	public RemoveMessageUseCase(DataStorage dataStorage) {
-		this.dataStorage = dataStorage;
-
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) {
 		String userId = input.getUserId();
 		String conversationId = input.getConversationId();
-		int messageId = input.getMessageId();
 
-		Conversation conversation = dataStorage.getConversation(conversationId);
+		int messageId = input.getMessageId();
+		Conversation conversation = _dataStorage.getConversation(conversationId);
+
 		if (conversation == null) {
 			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
 		}
@@ -27,34 +27,34 @@ public class RemoveMessageUseCase extends UseCase<RemoveMessageUseCase.InputValu
 		if (message == null) {
 			return new OutputValues(ResultCodes.FAILED, "Message not found in the conversation");
 		}
-		// Need 1 more condition
+
 		conversation.deleteMessage(message);
-		dataStorage.updateConversation(conversation);
+		_dataStorage.updateConversation(conversation);
 		return new OutputValues(ResultCodes.SUCCESS, "Message deleted successfully");
 
 	}
 
 	public static class InputValues {
-		private final String userId;
-		private final String conversationId;
-		private final int messageId;
+		private final String _userId;
+		private final String _conversationId;
+		private final int _messageId;
 
 		public InputValues(String userId, String conversationId, int messageId) {
-			this.userId = userId;
-			this.conversationId = conversationId;
-			this.messageId = messageId;
+			this._userId = userId;
+			this._conversationId = conversationId;
+			this._messageId = messageId;
 		}
 
 		public String getUserId() {
-			return userId;
+			return _userId;
 		}
 
 		public String getConversationId() {
-			return conversationId;
+			return _conversationId;
 		}
 
 		public int getMessageId() {
-			return messageId;
+			return _messageId;
 		}
 
 	}

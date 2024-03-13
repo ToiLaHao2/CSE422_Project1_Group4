@@ -8,18 +8,17 @@ import org.junit.jupiter.api.Test;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.message.Conversation;
 import group4.chat.message.Message;
-import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.message.EditMessageUseCase;
 
 class EditMessageTestCase {
 
-	private EditMessageUseCase editMessageUseCase;
-	private InMemoryDataStorage dataStorage;
+	private EditMessageUseCase _editMessageUseCase;
+	private InMemoryDataStorage _dataStorage;
 
 	@BeforeEach
 	void setUp() {
-		dataStorage = new InMemoryDataStorage();
-		editMessageUseCase = new EditMessageUseCase(dataStorage);
+		_dataStorage = new InMemoryDataStorage();
+		_editMessageUseCase = new EditMessageUseCase(_dataStorage);
 	}
 
 	@Test
@@ -32,12 +31,12 @@ class EditMessageTestCase {
 		Message message = new Message(messageId, "Old message content");
 		conversation.addNewSendingMessage(message);
 		
-		dataStorage.addConversation(conversation);
+		_dataStorage.addConversation(conversation);
 
 		EditMessageUseCase.InputValues inputValues = new EditMessageUseCase.InputValues(conversationId, messageId,
 				newContent);
 
-		EditMessageUseCase.OutputValues outputValues = editMessageUseCase.execute(inputValues);
+		EditMessageUseCase.OutputValues outputValues = _editMessageUseCase.execute(inputValues);
 
 		assertEquals(EditMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("Message edited successfully", outputValues.getMessage());

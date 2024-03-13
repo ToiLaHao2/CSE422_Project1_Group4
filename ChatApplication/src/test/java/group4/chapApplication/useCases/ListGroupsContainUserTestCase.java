@@ -18,18 +18,19 @@ import group4.chat.usecases.users.ListGroupsContainUserUseCase;
 class ListGroupsContainUserTestCase {
 
 	private InMemoryDataStorage _dataStorage;
-	private ListGroupsContainUserUseCase _useCase;
+	private ListGroupsContainUserUseCase _listGroupContainUserUseCase;
 
 	@BeforeEach
 	public void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_useCase = new ListGroupsContainUserUseCase(_dataStorage);
+		_listGroupContainUserUseCase = new ListGroupsContainUserUseCase(_dataStorage);
 	}
 
 	@Test
 	public void testListGroupsContainUserSuccess() throws Exception {
 		String userName = "user1";
 		String userId = "u101";
+		
 		User user = new User(userName, "123");
 		user.setId(userId);
 
@@ -54,7 +55,7 @@ class ListGroupsContainUserTestCase {
 
 		ListGroupsContainUserUseCase.InputValues inputValues = new ListGroupsContainUserUseCase.InputValues(userId);
 
-		ListGroupsContainUserUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		ListGroupsContainUserUseCase.OutputValues outputValues = _listGroupContainUserUseCase.execute(inputValues);
 
 		assertEquals(ListGroupsContainUserUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 
@@ -74,13 +75,15 @@ class ListGroupsContainUserTestCase {
 	public void testListGroupsContainUser_UserNotInAnyGroups() throws Exception {
 		String userName = "user101";
 		String userId = "user1";
+		
 		User user = new User(userName, "123");
 		user.setId(userId);
+		
 		_dataStorage.getUsers().add(user);
 
 		ListGroupsContainUserUseCase.InputValues inputValues = new ListGroupsContainUserUseCase.InputValues(userId);
 
-		ListGroupsContainUserUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		ListGroupsContainUserUseCase.OutputValues outputValues = _listGroupContainUserUseCase.execute(inputValues);
 
 		assertEquals(ListGroupsContainUserUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 
@@ -95,6 +98,7 @@ class ListGroupsContainUserTestCase {
 	public void testListGroupsContainUser_UserNotInSomeGroups() throws Exception {
 		String userId = "user1";
 		String userName = "user101";
+		
 		User user = new User(userName, "123");
 		user.setId(userId);
 
@@ -117,7 +121,7 @@ class ListGroupsContainUserTestCase {
 
 		ListGroupsContainUserUseCase.InputValues inputValues = new ListGroupsContainUserUseCase.InputValues(userId);
 
-		ListGroupsContainUserUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		ListGroupsContainUserUseCase.OutputValues outputValues = _listGroupContainUserUseCase.execute(inputValues);
 
 		assertEquals(ListGroupsContainUserUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 

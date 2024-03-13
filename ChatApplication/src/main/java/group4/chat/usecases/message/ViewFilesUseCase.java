@@ -33,14 +33,14 @@ public class ViewFilesUseCase extends UseCase<ViewFilesUseCase.InputValues, View
 	}
 
 	public static class InputValues {
-		private String groupId;
+		private String _groupId;
 
 		public InputValues(String groupId) {
-			this.groupId = groupId;
+			this._groupId = groupId;
 		}
 
 		public String getGroupId() {
-			return groupId;
+			return _groupId;
 		}
 	}
 

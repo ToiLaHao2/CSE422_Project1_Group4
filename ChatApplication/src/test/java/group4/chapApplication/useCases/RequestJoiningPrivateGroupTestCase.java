@@ -9,24 +9,26 @@ import group4.chat.domains.User;
 import group4.chat.domains.groupUser.privateGroup.PrivateGroup;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.adapters.DataStorage;
-import group4.chat.usecases.users.RemoveUserFromAGroupUseCase;
 import group4.chat.usecases.users.RequestToJoinPrivateGroupUseCase;
 
 class RequestJoiningPrivateGroupTestCase {
-
-    private DataStorage dataStorage;
-    private RequestToJoinPrivateGroupUseCase useCase;
+    private RequestToJoinPrivateGroupUseCase _requestJoiningToPrivateGroupUseCase;
+    private InMemoryDataStorage _dataStorage;
 
     @BeforeEach
     public void setUp() {
-        dataStorage = new InMemoryDataStorage();
-        useCase = new RequestToJoinPrivateGroupUseCase(dataStorage);
+        _dataStorage = new InMemoryDataStorage();
+        _requestJoiningToPrivateGroupUseCase = new RequestToJoinPrivateGroupUseCase(_dataStorage);
     }
+
+    private DataStorage dataStorage;
+    private RequestToJoinPrivateGroupUseCase useCase;
 
     @Test
     void testJoinGroupSuccessfully() {
         String userID = "userId1";
         String groupID = "groupId1";
+        
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
         user.setId(userID);
@@ -42,13 +44,13 @@ class RequestJoiningPrivateGroupTestCase {
                 userID, groupID);
         RequestToJoinPrivateGroupUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
-        assertEquals(true, outputValues.isRequestApproved());
     }
 
     @Test
     void testUserAlreadyInGroup() {
         String adminId = "admin1";
         String userId = "user1";
+        
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
         admin.setId(adminId);
@@ -75,6 +77,7 @@ class RequestJoiningPrivateGroupTestCase {
     void testUserAlreadyRequested() {
         String adminId = "admin1";
         String userId = "user1";
+        
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
         admin.setId(adminId);

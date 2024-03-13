@@ -18,8 +18,10 @@ public class FindMessagesUseCase
     @Override
     public OutputValues execute(InputValues input) throws Exception {
         InMemoryDataStorage dataStorage = InMemoryDataStorage.getInstance();
+        
         List<Message> foundMessages = new ArrayList<>();
         List<Conversation> conversations = dataStorage.getAllConversations();
+        
         if (conversations != null && !conversations.isEmpty()) {
             for (Conversation conversation : conversations) {
                 for (Message message : conversation.get_messages()) {
@@ -35,25 +37,25 @@ public class FindMessagesUseCase
     }
 
     public static class InputValues {
-        private final String keyword;
+        private final String _keyword;
 
         public InputValues(String keyword) {
-            this.keyword = keyword;
+            this._keyword = keyword;
         }
 
         public String getKeyword() {
-            return keyword;
+            return _keyword;
         }
     }
 
     public static class OutputValues {
         private int _resultCode;
-        private List<Message> foundMessages;
+        private List<Message> _foundMessages;
         private String _message;
 
         public OutputValues(int resultCode, List<Message> foundMessages) {
             this._resultCode = resultCode;
-            this.foundMessages = foundMessages;
+            this._foundMessages = foundMessages;
         }
 
         public OutputValues(int resultCode, String message) {
@@ -70,7 +72,7 @@ public class FindMessagesUseCase
         }
 
         public List<Message> getFoundMessages() {
-            return foundMessages;
+            return _foundMessages;
         }
     }
 

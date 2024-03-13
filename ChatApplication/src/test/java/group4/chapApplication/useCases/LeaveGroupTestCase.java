@@ -15,12 +15,12 @@ import group4.chat.usecases.users.LeaveGroupUseCase;
 
 class LeaveGroupTestCase {
 	private DataStorage _dataStorage;
-	private LeaveGroupUseCase _useCase;
+	private LeaveGroupUseCase _leaveGroupUseCase;
 
 	@BeforeEach
 	public void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_useCase = new LeaveGroupUseCase(_dataStorage);
+		_leaveGroupUseCase = new LeaveGroupUseCase(_dataStorage);
 	}
 
 	@Test
@@ -32,16 +32,17 @@ class LeaveGroupTestCase {
 
 		User user = new User(userName, "123");
 		user.setId(userId);
+		
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
-
 		publicGroup.addMember(user);
+		
 		_dataStorage.getUsers().add(user);
 		_dataStorage.getPublicGroup().add(publicGroup);
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
-		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		LeaveGroupUseCase.OutputValues outputValues = _leaveGroupUseCase.execute(inputValues);
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has left the group", outputValues.getMessage());
@@ -57,14 +58,16 @@ class LeaveGroupTestCase {
 
 		User user = new User(userName, "123");
 		user.setId(userId);
+		
 		PrivateGroup privateGroup = new PrivateGroup(user, null);
 		privateGroup.setId(groupId);
+		
 		_dataStorage.getUsers().add(user);
 		_dataStorage.getPrivateGroup().add(privateGroup);
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, groupId);
 
-		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		LeaveGroupUseCase.OutputValues outputValues = _leaveGroupUseCase.execute(inputValues);
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("User has left the group", outputValues.getMessage());
@@ -81,7 +84,7 @@ class LeaveGroupTestCase {
 
 		LeaveGroupUseCase.InputValues inputValues = new LeaveGroupUseCase.InputValues(userId, nonExistentGroupId);
 
-		LeaveGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		LeaveGroupUseCase.OutputValues outputValues = _leaveGroupUseCase.execute(inputValues);
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("Group not found", outputValues.getMessage());

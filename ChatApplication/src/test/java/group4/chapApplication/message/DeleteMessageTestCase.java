@@ -13,17 +13,18 @@ import group4.chat.usecases.message.DeleteMessageUseCase;
 
 class DeleteMessageTestCase {
 
-	private DeleteMessageUseCase _useCase;
+	private DeleteMessageUseCase _deleteMessageUsecase;
 
 	@BeforeEach
 	public void setUp() {
-		_useCase = new DeleteMessageUseCase();
+		_deleteMessageUsecase = new DeleteMessageUseCase();
 	}
 
 	@Test
 	public void testDeleteMessageSuccess() throws Exception {
 		String groupName = "g3";
 		String conversationId = "existingConversation";
+		
 		Conversation conversation = new Conversation(null, null, groupName, conversationId);
 		Message message = new Message(1, "sender", "receiver", "Sample message");
 		conversation.addNewSendingMessage(message);
@@ -32,7 +33,7 @@ class DeleteMessageTestCase {
 		int messageId = 1;
 		DeleteMessageUseCase.InputValues inputValues = new DeleteMessageUseCase.InputValues(conversationId, messageId);
 
-		DeleteMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		DeleteMessageUseCase.OutputValues outputValues = _deleteMessageUsecase.execute(inputValues);
 
 		assertEquals(DeleteMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("Message deleted successfully", outputValues.getMessage());
@@ -47,7 +48,7 @@ class DeleteMessageTestCase {
 
 		DeleteMessageUseCase.InputValues inputValues = new DeleteMessageUseCase.InputValues(conversationId, messageId);
 
-		DeleteMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		DeleteMessageUseCase.OutputValues outputValues = _deleteMessageUsecase.execute(inputValues);
 
 		assertEquals(DeleteMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("Conversation not found", outputValues.getMessage());

@@ -18,16 +18,16 @@ import group4.chat.domains.BaseEntity;
  * @author Asus
  */
 public class InMemoryRepositories<T extends BaseEntity> implements Respository<T> {
-    private List<T> enities;
-    public static int idCounter = 1;
+    private List<T> _enities;
+    public static int _idCounter = 1;
 
     public InMemoryRepositories() {
-        enities = new ArrayList<>();
+        _enities = new ArrayList<>();
     }
 
     @Override
     public T getById(String id) {
-        Optional<T> entity = enities.stream().filter(e -> e.getId().equals(id)).findFirst();
+        Optional<T> entity = _enities.stream().filter(e -> e.getId().equals(id)).findFirst();
         if (entity.isEmpty()) {
             return null;
         } else
@@ -41,24 +41,24 @@ public class InMemoryRepositories<T extends BaseEntity> implements Respository<T
             return false;
         }
 
-        enities.add(entity);
+        _enities.add(entity);
         return true;
     }
 
     @Override
     public void deleteAll() {
-        enities.clear();
+        _enities.clear();
     }
 
     @Override
     public T getFirst(Predicate<T> predicate) {
-        Optional<T> entity = enities.stream().filter(predicate).findFirst();
+        Optional<T> entity = _enities.stream().filter(predicate).findFirst();
         return entity.isPresent() ? entity.get() : null;
     }
 
     @Override
     public List<T> getAll() {
-        return new ArrayList<>(enities);
+        return new ArrayList<>(_enities);
     }
 
 }

@@ -16,12 +16,12 @@ import group4.chat.usecases.users.CreatePublicGroupUseCase;
 class CreatePublicGroupTestCase {
 
 	private DataStorage _dataStorage;
-	private CreatePublicGroupUseCase _useCase;
+	private CreatePublicGroupUseCase _createPublicGroupUseCase;
 
 	@BeforeEach
 	public void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_useCase = new CreatePublicGroupUseCase(_dataStorage);
+		_createPublicGroupUseCase = new CreatePublicGroupUseCase(_dataStorage);
 	}
 
 	@Test
@@ -45,7 +45,7 @@ class CreatePublicGroupTestCase {
 		_dataStorage.getUsers().add(user3);
 
 		CreatePublicGroupUseCase.InputValues inputValues = new CreatePublicGroupUseCase.InputValues(userIDs);
-		CreatePublicGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		CreatePublicGroupUseCase.OutputValues outputValues = _createPublicGroupUseCase.execute(inputValues);
 
 		assertEquals(CreatePublicGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertTrue(outputValues.getMessage().startsWith("Public group created successfully with join code:"));
