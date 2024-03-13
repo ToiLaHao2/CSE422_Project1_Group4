@@ -19,7 +19,7 @@ class ViewLatestMessageTestCase {
 		String conversationId = "1";
 		LocalDateTime upToTime = LocalDateTime.now();
 
-		InMemoryDataStorage dataStorage = new InMemoryDataStorage();
+		InMemoryDataStorage dataStorage = InMemoryDataStorage.getInstance();
 
 		Message message = new Message(1, "sender1", "receiver1", "message1");
 		Message message1 = new Message(2, "sender11", "receiver11", "message11");
@@ -27,7 +27,6 @@ class ViewLatestMessageTestCase {
 		Message message3 = new Message(4, "sender1111", "receiver1111", "message1111");
 
 		Conversation conversation = new Conversation(conversationId);
-		conversation.set_conversationId(conversationId);
 		conversation.addMessage(message);
 		conversation.addMessage(message1);
 		conversation.addMessage(message2);
@@ -37,8 +36,7 @@ class ViewLatestMessageTestCase {
 
 		ViewLatestMessageUseCase useCase = new ViewLatestMessageUseCase();
 
-		ViewLatestMessageUseCase.InputValues inputValues = new InputValues(3, upToTime);
-		useCase.set_conversationID(conversationId);
+		ViewLatestMessageUseCase.InputValues inputValues = new InputValues(conversationId, 3, upToTime);
 
 		ViewLatestMessageUseCase.OutputValues outputValues = useCase.execute(inputValues);
 
