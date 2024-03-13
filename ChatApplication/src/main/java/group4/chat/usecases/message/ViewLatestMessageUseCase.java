@@ -12,11 +12,6 @@ import group4.chat.message.Message;
 
 public class ViewLatestMessageUseCase
 		extends UseCase<ViewLatestMessageUseCase.InputValues, ViewLatestMessageUseCase.OutputValues> {
-	private String _conversationID;
-
-	public void set_conversationID(String _conversationID) {
-		this._conversationID = _conversationID;
-	}
 
 	public ViewLatestMessageUseCase() {
 
@@ -25,9 +20,11 @@ public class ViewLatestMessageUseCase
 	public static class InputValues {
 		private int _numberOfLatestMessage;
 		private LocalDateTime _upToTime;
+		private String _conversationID;
 
-		public InputValues(int _numberOfLatestMessage, LocalDateTime _upToTime) {
+		public InputValues(String conversationId, int _numberOfLatestMessage, LocalDateTime _upToTime) {
 			super();
+			this._conversationID = conversationId;
 			this._numberOfLatestMessage = _numberOfLatestMessage;
 			this._upToTime = _upToTime;
 		}
@@ -46,6 +43,10 @@ public class ViewLatestMessageUseCase
 
 		public void set_upToTime(LocalDateTime _upToTime) {
 			this._upToTime = _upToTime;
+		}
+
+		public String getConversationId() {
+			return this._conversationID;
 		}
 
 	}
@@ -74,7 +75,7 @@ public class ViewLatestMessageUseCase
 	public OutputValues execute(InputValues input) throws Exception {
 		InMemoryDataStorage dataStorage = InMemoryDataStorage.getInstance();
 		List<String> messages = new ArrayList<>();
-		Conversation conversation = dataStorage.getConversation(_conversationID);
+		Conversation conversation = dataStorage.getConversation(input.getConversationId());
 
 		if (conversation != null) {
 			List<Message> latestMessages = conversation.getLatestMessage(input.get_numberOfLatestMessage(),
