@@ -15,7 +15,7 @@ public class User extends BaseEntity {
 	private Date _dateOfBirth;
 	private List<String> _listGroupOfUser;
 	private List<Conversation> _listConversations;
-	private List<String> groupInvitations;
+	private List<String> _groupInvitations;
 
 
 	public enum Gender {
@@ -35,7 +35,7 @@ public class User extends BaseEntity {
 	public User(String _firstName, String _hashedPassword) {
 		this._firstName = _firstName;
 		this._hashedPassword = _hashedPassword;
-		this.groupInvitations = new ArrayList<>();
+		this._groupInvitations = new ArrayList<>();
 	}
 	public User(String firstName, String lastName, String hashedPassword) {
         this._firstName = firstName;
@@ -137,9 +137,9 @@ public class User extends BaseEntity {
 	}
 	
 	public void receiveGroupInvite(String inviteMessage) {
-        groupInvitations.add(inviteMessage);
+        _groupInvitations.add(inviteMessage);
     }
 	public List<String> getGroupInvitations() {
-        return groupInvitations;
+        return _groupInvitations;
     }
 }

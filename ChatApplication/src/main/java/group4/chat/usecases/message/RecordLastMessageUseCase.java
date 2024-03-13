@@ -7,41 +7,43 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class RecordLastMessageUseCase
 		extends UseCase<RecordLastMessageUseCase.InputValues, RecordLastMessageUseCase.OutputValues> {
-	private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
 	public RecordLastMessageUseCase(DataStorage dataStorage) {
-		this.dataStorage = dataStorage;
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) throws Exception {
 		String userId = input.getUserId();
 		String conversationId = input.getConversationId();
-		Conversation conversation = dataStorage.getConversation(conversationId);
+
+		Conversation conversation = _dataStorage.getConversation(conversationId);
+
 		if (conversation == null) {
 			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
 		}
 		Message lastMessage = conversation.get_messages().get(conversation.get_messages().size() - 1);
-		dataStorage.updateLastReadMessage(userId, conversationId, lastMessage);
+		_dataStorage.updateLastReadMessage(userId, conversationId, lastMessage);
 
 		return new OutputValues(ResultCodes.SUCCESS, "Last message recorded successfully");
 	}
 
 	public static class InputValues {
-		private String userId;
-		private String conversationId;
+		private String _userId;
+		private String _conversationId;
 
 		public InputValues(String userId, String conversationId) {
-			this.userId = userId;
-			this.conversationId = conversationId;
+			this._userId = userId;
+			this._conversationId = conversationId;
 		}
 
 		public String getUserId() {
-			return userId;
+			return _userId;
 		}
 
 		public String getConversationId() {
-			return conversationId;
+			return _conversationId;
 		}
 
 	}

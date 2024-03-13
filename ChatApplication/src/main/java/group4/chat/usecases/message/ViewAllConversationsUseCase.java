@@ -11,15 +11,15 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class ViewAllConversationsUseCase
 		extends UseCase<ViewAllConversationsUseCase.InputValues, ViewAllConversationsUseCase.OutputValues> {
-	private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
 	public ViewAllConversationsUseCase(DataStorage dataStorage) {
-		this.dataStorage = dataStorage;
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) {
-		List<Conversation> userConversations = dataStorage.getAllConversations();
+		List<Conversation> userConversations = _dataStorage.getAllConversations();
 
 		StringBuilder messageBuilder = new StringBuilder("Conversations you have joined:\n");
 
@@ -29,7 +29,7 @@ public class ViewAllConversationsUseCase
 						? conversation.get_user2()
 						: conversation.get_user1();
 
-				User otherUserObj = dataStorage.getUsers().getById(otherUser);
+				User otherUserObj = _dataStorage.getUsers().getById(otherUser);
 
 				if (otherUserObj != null) {
 					messageBuilder.append("Conversation ID: ").append(conversation.getConversationId())
@@ -37,14 +37,14 @@ public class ViewAllConversationsUseCase
 				}
 			} else if (conversation.get_group() != null) {
 				// Conversation within a group
-				PrivateGroup privateGroup = dataStorage.getPrivateGroup().getById(conversation.get_group());
+				PrivateGroup privateGroup = _dataStorage.getPrivateGroup().getById(conversation.get_group());
 
 				if (privateGroup != null) {
 					messageBuilder.append("Conversation ID: ").append(conversation.getConversationId())
 							.append(", within group: ").append(privateGroup.getGroupName()).append("\n");
 
 				} else {
-					PublicGroup publicGroup = dataStorage.getPublicGroup().getById(conversation.get_group());
+					PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(conversation.get_group());
 
 					if (publicGroup != null) {
 						messageBuilder.append("Conversation ID: ").append(conversation.getConversationId())
@@ -59,14 +59,14 @@ public class ViewAllConversationsUseCase
 	}
 
 	public static class InputValues {
-		private User currentUser;
+		private User _currentUser;
 
 		public InputValues(User currentUser) {
-			this.currentUser = currentUser;
+			this._currentUser = currentUser;
 		}
 
 		public User getCurrentUser() {
-			return currentUser;
+			return _currentUser;
 		}
 
 	}

@@ -8,79 +8,82 @@ import group4.chat.usecases.adapters.DataStorage;
 import java.util.List;
 
 public class ViewNLatestMessagesUseCase
-        extends UseCase<ViewNLatestMessagesUseCase.InputValues, ViewNLatestMessagesUseCase.OutputValues> {
+		extends UseCase<ViewNLatestMessagesUseCase.InputValues, ViewNLatestMessagesUseCase.OutputValues> {
 
-    private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
-    public ViewNLatestMessagesUseCase(DataStorage dataStorage) {
-        this.dataStorage = dataStorage;
-    }
+	public ViewNLatestMessagesUseCase(DataStorage dataStorage) {
+		this._dataStorage = dataStorage;
+	}
 
-    @Override
-    public OutputValues execute(InputValues input) throws Exception {
-        Conversation conversation = dataStorage.getConversation(input.getConversationId());
-        if (conversation == null) {
-            return new OutputValues(ResultCodes.FAILED, "Conversation not found");
-        }
+	@Override
+	public OutputValues execute(InputValues input) throws Exception {
+		Conversation conversation = _dataStorage.getConversation(input.getConversationId());
+		
+		if (conversation == null) {
+			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
+		}
 
-        List<Message> latestMessages = conversation.get_messages();
-        int totalMessages = latestMessages.size();
+		List<Message> latestMessages = conversation.get_messages();
+		int totalMessages = latestMessages.size();
 
-        // Ensure N is within bounds
-        int n = Math.min(input.getN(), totalMessages);
+		// Ensure N is within bounds
+		int n = Math.min(input.getN(), totalMessages);
 
-        // Get the latest N messages
-        List<Message> resultMessages = latestMessages.subList(totalMessages - n, totalMessages);
+		// Get the latest N messages
+		List<Message> resultMessages = latestMessages.subList(totalMessages - n, totalMessages);
 
-        return new OutputValues(ResultCodes.SUCCESS, resultMessages);
-    }
+		return new OutputValues(ResultCodes.SUCCESS, resultMessages);
+	}
 
-    public static class InputValues {
-        private String conversationId;
-        private int n;
+	public static class InputValues {
+		private String _conversationId;
+		private int _nLatestMessages;
 
-        public InputValues(String conversationId, int n) {
-            this.conversationId = conversationId;
-            this.n = n;
-        }
+		public InputValues(String conversationId, int n) {
+			this._conversationId = conversationId;
+			this._nLatestMessages = n;
+		}
 
-        public String getConversationId() {
-            return conversationId;
-        }
+		public String getConversationId() {
+			return _conversationId;
+		}
 
-        public int getN() {
-            return n;
-        }
-    }
+		public int getN() {
+			return _nLatestMessages;
+		}
+	}
 
-    public static class OutputValues {
-        private int _resultCode;
-        private List<Message> messages;
-        private String _message;
+	public static class OutputValues {
+		private int _resultCode;
+		private List<Message> _messages;
+		private String _message;
 
-        public OutputValues(int resultCode, List<Message> messages) {
-            this._resultCode = resultCode;
-            this.messages = messages;
-        }
-        public OutputValues(int resultCode, String message) {
+		public OutputValues(int resultCode, List<Message> messages) {
+			this._resultCode = resultCode;
+			this._messages = messages;
+		}
+
+		public OutputValues(int resultCode, String message) {
 			_message = message;
 			_resultCode = resultCode;
 		}
 
-        public int getResultCode() {
-            return _resultCode;
-        }
+		public int getResultCode() {
+			return _resultCode;
+		}
 
-        public List<Message> getMessages() {
-            return messages;
-        }
-        public String getMessage() {
+		public List<Message> getMessages() {
+			return _messages;
+		}
+
+		public String getMessage() {
 			return _message;
 		}
-    }
+	}
 
-    public static class ResultCodes {
-        public static final int SUCCESS = 1;
-        public static final int FAILED = 0;
-    }
+	public static class ResultCodes {
+		public static final int SUCCESS = 1;
+		public static final int FAILED = 0;
+	}
 }

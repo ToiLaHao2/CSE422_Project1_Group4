@@ -8,38 +8,40 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class ViewWhoReadMessageUseCase
 		extends UseCase<ViewWhoReadMessageUseCase.InputValues, ViewWhoReadMessageUseCase.OutputValues> {
-	private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
 	public ViewWhoReadMessageUseCase(DataStorage dataStorage) {
-		this.dataStorage = dataStorage;
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) {
-		Conversation conversation = dataStorage.getConversation(input.conversationId);
+		Conversation conversation = _dataStorage.getConversation(input._conversationId);
+		
 		if (conversation == null) {
 			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
 		}
-		Set<String> usersWhoReadMessage = conversation.getUsersWhoReadMessage(input.messageId);
+		
+		Set<String> usersWhoReadMessage = conversation.getUsersWhoReadMessage(input._messageId);
 
 		return new OutputValues(ResultCodes.SUCCESS, "Users who read your message: " + usersWhoReadMessage);
 	}
 
 	public static class InputValues {
-		private final String conversationId;
-		private final int messageId;
+		private final String _conversationId;
+		private final int _messageId;
 
 		public InputValues(String conversationId, int messageId) {
-			this.conversationId = conversationId;
-			this.messageId = messageId;
+			this._conversationId = conversationId;
+			this._messageId = messageId;
 		}
 
 		public String getConversationId() {
-			return conversationId;
+			return _conversationId;
 		}
 
 		public int getMessageId() {
-			return messageId;
+			return _messageId;
 		}
 
 	}

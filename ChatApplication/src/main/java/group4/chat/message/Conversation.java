@@ -19,8 +19,8 @@ public class Conversation {
 	private String _conversationId;
 	private List<Message> _messageHistory;
 	private List<User> _participants;
-	private Map<Integer, Set<String>> messageReaders;
-	private Map<String, Message> lastReadMessages;
+	private Map<Integer, Set<String>> _messageReaders;
+	private Map<String, Message> _lastReadMessages;
 
 	public String get_user1() {
 		return _user1;
@@ -37,7 +37,7 @@ public class Conversation {
 	public Conversation(String user1, String user2, String group, String conversationID) {
 
 		this._messages = new ArrayList<>();
-		this.messageReaders = new HashMap<>();
+		this._messageReaders = new HashMap<>();
 
 		if (user1 != null && user2 != null) {
 
@@ -55,17 +55,17 @@ public class Conversation {
 	}
 
 	public Conversation() {
-		this.lastReadMessages = new HashMap<>();
+		this._lastReadMessages = new HashMap<>();
 		this._messageHistory = new ArrayList<>();
 		this._messages = new ArrayList<>();
-		this.messageReaders = new HashMap<>();
+		this._messageReaders = new HashMap<>();
 	}
 
 	public Conversation(String conversationId) {
 		this._conversationId = conversationId;
 		this._messageHistory = new ArrayList<>();
 		this._messages = new ArrayList<>();
-		this.messageReaders = new HashMap<>();
+		this._messageReaders = new HashMap<>();
 	}
 
 	public Conversation(String conversationId, List<User> participants) {
@@ -169,19 +169,19 @@ public class Conversation {
 	}
 
 	public void markMessageAsRead(int messageId, String userId) {
-		messageReaders.computeIfAbsent(messageId, k -> new HashSet<>()).add(userId);
+		_messageReaders.computeIfAbsent(messageId, k -> new HashSet<>()).add(userId);
 	}
 
 	public Set<String> getUsersWhoReadMessage(int messageId) {
-		return messageReaders.getOrDefault(messageId, Collections.emptySet());
+		return _messageReaders.getOrDefault(messageId, Collections.emptySet());
 	}
 
 	public void setLastReadMessage(String userId, Message lastMessage) {
-		lastReadMessages.put(userId, lastMessage);
+		_lastReadMessages.put(userId, lastMessage);
 	}
 
 	public Message getLastReadMessage(String userId) {
-		return lastReadMessages.get(userId);
+		return _lastReadMessages.get(userId);
 	}
 
 }

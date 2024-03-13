@@ -13,32 +13,32 @@ public class ViewConversationUseCase
 	private DataStorage _dataStorage;
 
 	public static class InputValues {
-		private User user;
+		private User _user;
 
 		public InputValues(User user) {
-			this.user = user;
+			this._user = user;
 		}
 
 		public User getUser() {
-			return user;
+			return _user;
 		}
 	}
 
 	public static class OutputValues {
-		private List<String> joinedConversations;
-		private int resultCode;
+		private List<String> _joinedConversations;
+		private int _resultCode;
 
 		public OutputValues(List<String> joinedConversations, int resultCode) {
-			this.joinedConversations = joinedConversations;
-			this.resultCode = resultCode;
+			this._joinedConversations = joinedConversations;
+			this._resultCode = resultCode;
 		}
 
 		public List<String> getJoinedConversations() {
-			return joinedConversations;
+			return _joinedConversations;
 		}
 
 		public int getResultCode() {
-			return resultCode;
+			return _resultCode;
 		}
 	}
 

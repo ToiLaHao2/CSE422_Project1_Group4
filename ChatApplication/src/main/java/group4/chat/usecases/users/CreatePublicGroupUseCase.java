@@ -21,10 +21,12 @@ public class CreatePublicGroupUseCase
 		ArrayList<String> userIDs = input.getUserIDs();
 		String joinCode = generateJoinCode();
 		PublicGroup publicGroup = new PublicGroup(joinCode);
+		
 		for (int i = 0; i < userIDs.size(); i++) {
 			User member = _dataStorage.getUsers().getById(userIDs.get(i));
 			publicGroup.addMember(member);
 		}
+		
 		_dataStorage.getPublicGroup().add(publicGroup);
 		return new OutputValues(ResultCodes.SUCCESS, "Public group created successfully with join code: " + joinCode);
 	}
@@ -32,19 +34,21 @@ public class CreatePublicGroupUseCase
 	private String generateJoinCode() {
 		String _joinCode;
 		Random rd = new Random(5);
+		
 		_joinCode = rd.toString();
+		
 		return _joinCode;
 	}
 
 	public static class InputValues {
-		private ArrayList<String> userIDs;
+		private ArrayList<String> _userIDs;
 
 		public InputValues(ArrayList<String> userIDs) {
-			this.userIDs = userIDs;
+			this._userIDs = userIDs;
 		}
 
 		public ArrayList<String> getUserIDs() {
-			return userIDs;
+			return _userIDs;
 		}
 
 	}

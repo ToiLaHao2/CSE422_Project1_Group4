@@ -51,17 +51,17 @@ public class ViewLatestMessageUseCase
 	}
 
 	public static class OutputValues {
-		private List<String> messages;
+		private List<String> _messages;
 		private int _resultCode;
 
 		public OutputValues(List<String> messages, int _resultCode) {
 			super();
-			this.messages = messages;
+			this._messages = messages;
 			this._resultCode = _resultCode;
 		}
 
 		public List<String> getMessages() {
-			return messages;
+			return _messages;
 		}
 
 		public int get_resultCode() {

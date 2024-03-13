@@ -19,20 +19,20 @@ public class ListGroupsContainUserUseCase
 
 	@Override
 	public OutputValues execute(InputValues input) throws Exception {
-		User user = _dataStorage.getUsers().getById(input.userID);
+		User user = _dataStorage.getUsers().getById(input._userID);
 
 		List<PublicGroup> publicGroups = _dataStorage.getPublicGroup().getAll();
 		List<PrivateGroup> privateGroups = _dataStorage.getPrivateGroup().getAll();
 
 		List<PublicGroup> userPublicGroups = new ArrayList<>();
 		List<PrivateGroup> userPrivateGroups = new ArrayList<>();
-		
+
 		for (PublicGroup group : publicGroups) {
 			if (group.getGroupUsers().contains(user)) {
 				userPublicGroups.add(group);
 			}
 		}
-		
+
 		for (PrivateGroup group : privateGroups) {
 			if (group.getGroupUsers().contains(user)) {
 				userPrivateGroups.add(group);
@@ -40,43 +40,41 @@ public class ListGroupsContainUserUseCase
 		}
 
 		return new OutputValues(ResultCodes.SUCCESS, userPublicGroups, userPrivateGroups);
-
 	}
 
 	public static class InputValues {
-		private String userID;
+		private String _userID;
 
 		public InputValues(String userID) {
-			this.userID = userID;
+			this._userID = userID;
 		}
 
 		public String getUserID() {
-			return userID;
+			return _userID;
 		}
-
 	}
 
 	public static class OutputValues {
-		private final int resultCode;
-		private List<PublicGroup> userPublicGroups;
-		private List<PrivateGroup> userPrivateGroups;
+		private final int _resultCode;
+		private List<PublicGroup> _userPublicGroups;
+		private List<PrivateGroup> _userPrivateGroups;
 
 		public OutputValues(int resultCode, List<PublicGroup> userPublicGroups, List<PrivateGroup> userPrivateGroups) {
-			this.resultCode = resultCode;
-			this.userPublicGroups = userPublicGroups;
-			this.userPrivateGroups = userPrivateGroups;
+			this._resultCode = resultCode;
+			this._userPublicGroups = userPublicGroups;
+			this._userPrivateGroups = userPrivateGroups;
 		}
 
 		public int getResultCode() {
-			return resultCode;
+			return _resultCode;
 		}
 
 		public List<PublicGroup> getUserPublicGroups() {
-			return userPublicGroups;
+			return _userPublicGroups;
 		}
 
 		public List<PrivateGroup> getUserPrivateGroups() {
-			return userPrivateGroups;
+			return _userPrivateGroups;
 		}
 	}
 
