@@ -34,7 +34,7 @@ class ViewWhoReadMessageTestCase {
 
         Conversation conversation = new Conversation();
         conversation.set_conversationId(conversationId);
-        conversation.addMessage(message);
+        conversation.addNewSendingMessage(message);
         conversation.setLastReadMessage(user1, message);
         conversation.setLastReadMessage(user2, message);
         _dataStorage.addConversation(conversation);
