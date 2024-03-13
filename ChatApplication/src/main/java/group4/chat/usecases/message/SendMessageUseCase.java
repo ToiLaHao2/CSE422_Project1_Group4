@@ -38,7 +38,7 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
 
     private String saveAttachment(byte[] attachment) throws Exception {
         String attachmentId = UUID.randomUUID().toString();
-        String filePath = "/path/to/attachments/" + attachmentId + ".dat";
+        String filePath = "test/" + attachmentId + ".dat";
         try (FileOutputStream fos = new FileOutputStream(filePath)) {
             fos.write(attachment);
         }
