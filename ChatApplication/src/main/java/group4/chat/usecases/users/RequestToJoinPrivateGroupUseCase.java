@@ -8,35 +8,36 @@ import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;
 
 public class RequestToJoinPrivateGroupUseCase
-		extends UseCase<RequestToJoinPrivateGroupUseCase.InputValues, RequestToJoinPrivateGroupUseCase.OutputValues> {
-	private DataStorage _dataStorage;	
-	
-	public RequestToJoinPrivateGroupUseCase(DataStorage _dataStorage) {
-		super();
-		this._dataStorage = _dataStorage;
-	}
+        extends UseCase<RequestToJoinPrivateGroupUseCase.InputValues, RequestToJoinPrivateGroupUseCase.OutputValues> {
 
-	public static class InputValues {
-        private User _requestingUser;
-        private PrivateGroup _group;
+    private DataStorage _dataStorage;
 
-        public InputValues(User requestingUser, PrivateGroup group) {
-            this._requestingUser = requestingUser;
-            this._group = group;
+    public RequestToJoinPrivateGroupUseCase(DataStorage _dataStorage) {
+        super();
+        this._dataStorage = _dataStorage;
+    }
+
+    public static class InputValues {
+        private String _requestingUserID;
+        private String _groupID;
+
+        public InputValues(String requestingUserID, String groupID) {
+            this._requestingUserID = requestingUserID;
+            this._groupID = groupID;
         }
 
-        public User getRequestingUser() {
-            return _requestingUser;
+        public String getRequestingUserId() {
+            return _requestingUserID;
         }
 
-        public PrivateGroup getGroup() {
-            return _group;
+        public String getGroupId() {
+            return _groupID;
         }
     }
 
     public static class OutputValues {
         private boolean _requestApproved;
-        private int _resultCode; 
+        private int _resultCode;
 
         public OutputValues(boolean requestApproved, int resultCode) {
             this._requestApproved = requestApproved;
@@ -46,14 +47,16 @@ public class RequestToJoinPrivateGroupUseCase
         public boolean isRequestApproved() {
             return _requestApproved;
         }
+
+        public static class ResultCodes {
+            public static final int SUCCESS = 1;
+            public static final int FAILED = 0;
+        }
     }
 
-	public OutputValues execute(InputValues input) {
-		PrivateGroup group = input.getGroup();
-        User requestingUser = input.getRequestingUser();
-        
-		User user = _dataStorage.getUsers().getById(input._requestingUser.getId());
-		PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(input.getGroup().getId());
+    public OutputValues execute(InputValues input) {
+        PrivateGroup group = _dataStorage.getPrivateGroup().getById(input.getGroupId());
+        User requestingUser = _dataStorage.getUsers().getById(input.getRequestingUserId());
 
         if (group.getGroupUsers().contains(requestingUser)) {
             return new OutputValues(false, ResultCodes.FAILED);
@@ -64,15 +67,13 @@ public class RequestToJoinPrivateGroupUseCase
                 return new OutputValues(false, ResultCodes.FAILED);
             }
         }
-
-        GroupRequest request = new GroupRequest(requestingUser, group);
         group.requestToJoin(requestingUser);
 
         return new OutputValues(true, ResultCodes.SUCCESS);
-	}
-	
-	public static class ResultCodes {
-		public static final int SUCCESS = 1;
-		public static final int FAILED = 0;
-	}
+    }
+
+    public static class ResultCodes {
+        public static final int SUCCESS = 1;
+        public static final int FAILED = 0;
+    }
 }

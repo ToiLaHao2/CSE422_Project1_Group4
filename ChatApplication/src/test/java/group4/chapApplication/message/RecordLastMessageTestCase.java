@@ -26,8 +26,9 @@ class RecordLastMessageTestCase {
 		String conversationId = "conver1";
 
 		Conversation conversation = new Conversation();
-		conversation.addMessage(new Message(123, "Hello"));
-		
+		conversation.set_conversationId(conversationId);
+		conversation.addNewSendingMessage(new Message(123, "Hello"));
+
 		_dataStorage.addConversation(conversation);
 
 		RecordLastMessageUseCase.InputValues inputValues = new RecordLastMessageUseCase.InputValues(userId,
@@ -36,16 +37,17 @@ class RecordLastMessageTestCase {
 
 		assertEquals(RecordLastMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 	}
-	
+
 	@Test
-    public void testRecordLastMessage_ConversationNotFound() throws Exception {
-        String userId = "user1";
-        String conversationId = "nonExistentConver";
+	public void testRecordLastMessage_ConversationNotFound() throws Exception {
+		String userId = "user1";
+		String conversationId = "nonExistentConver";
 
-        RecordLastMessageUseCase.InputValues inputValues = new RecordLastMessageUseCase.InputValues(userId, conversationId);
-        RecordLastMessageUseCase.OutputValues outputValues = _recordMessage.execute(inputValues);
+		RecordLastMessageUseCase.InputValues inputValues = new RecordLastMessageUseCase.InputValues(userId,
+				conversationId);
+		RecordLastMessageUseCase.OutputValues outputValues = _recordMessage.execute(inputValues);
 
-        assertEquals(RecordLastMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-    }
+		assertEquals(RecordLastMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
+	}
 
 }

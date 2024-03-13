@@ -14,7 +14,7 @@ import group4.chat.usecases.message.EditMessageUseCase;
 class EditMessageTestCase {
 
 	private EditMessageUseCase editMessageUseCase;
-	private DataStorage dataStorage;
+	private InMemoryDataStorage dataStorage;
 
 	@BeforeEach
 	void setUp() {
@@ -31,7 +31,8 @@ class EditMessageTestCase {
 		Conversation conversation = new Conversation(conversationId);
 		Message message = new Message(messageId, "Old message content");
 		conversation.addNewSendingMessage(message);
-		dataStorage.getConversation(conversation.getConversationId());
+		
+		dataStorage.addConversation(conversation);
 
 		EditMessageUseCase.InputValues inputValues = new EditMessageUseCase.InputValues(conversationId, messageId,
 				newContent);
