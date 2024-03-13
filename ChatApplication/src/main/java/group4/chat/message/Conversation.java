@@ -58,12 +58,14 @@ public class Conversation {
 		this.lastReadMessages = new HashMap<>();
 		this._messageHistory = new ArrayList<>();
 		this._messages = new ArrayList<>();
+		this.messageReaders = new HashMap<>();
 	}
 
 	public Conversation(String conversationId) {
 		this._conversationId = conversationId;
 		this._messageHistory = new ArrayList<>();
 		this._messages = new ArrayList<>();
+		this.messageReaders = new HashMap<>();
 	}
 
 	public Conversation(String conversationId, List<User> participants) {
