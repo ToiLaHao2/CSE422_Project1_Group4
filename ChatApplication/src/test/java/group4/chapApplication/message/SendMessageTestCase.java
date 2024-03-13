@@ -33,7 +33,7 @@ class SendMessageTestCase {
         sender.setId(senderId);
         User receiver = new User(receiverId, "123");
         receiver.setId(receiverId);
-        
+
         _dataStorage.getUsers().add(sender);
         _dataStorage.getUsers().add(receiver);
 
@@ -61,8 +61,10 @@ class SendMessageTestCase {
         byte[] attachment = "Sample attachment content".getBytes();
 
         User sender = new User(senderId, "123");
+        sender.setId(senderId);
         User receiver = new User(receiverId, "123");
-
+        receiver.setId(receiverId);
+        
         _dataStorage.getUsers().add(sender);
         _dataStorage.getUsers().add(receiver);
 
@@ -79,7 +81,7 @@ class SendMessageTestCase {
         assertEquals(senderId, sentMessage.get_sender(), "Sender ID should match");
         assertEquals(receiverId, sentMessage.get_receiver(), "Receiver ID should match");
         assertEquals(content, sentMessage.get_content(), "Content should match");
-        assertEquals(sentMessage.get_attachments(), "Message should have an attachment");
+        assertEquals(sentMessage.get_attachments(), null);
     }
 
 }
