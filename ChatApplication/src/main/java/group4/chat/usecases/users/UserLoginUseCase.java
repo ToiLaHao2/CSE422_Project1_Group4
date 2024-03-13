@@ -24,6 +24,7 @@ public class UserLoginUseCase extends UseCase<UserLoginUseCase.InputValues, User
 		if (user != null) {
 			try {
 				String hashedPassword = _hasher.hash(password);
+				
 				if (hashedPassword.equals(user.get_hashedPassword())) {
 					return new OutputValues(ResultCodes.SUCCESS, "You logged in successfully");
 				} else {

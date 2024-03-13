@@ -14,13 +14,13 @@ import group4.chat.message.Conversation;
 import group4.chat.usecases.message.ViewAllConversationsUseCase;
 
 class ViewAllConversationTestCase {
-	private ViewAllConversationsUseCase _viewAllConversations;
+	private ViewAllConversationsUseCase _viewAllConversationsUseCase;
 	private InMemoryDataStorage _dataStorage;
 
 	@BeforeEach
 	void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_viewAllConversations = new ViewAllConversationsUseCase(_dataStorage);
+		_viewAllConversationsUseCase = new ViewAllConversationsUseCase(_dataStorage);
 	}
 
 	@Test
@@ -41,7 +41,7 @@ class ViewAllConversationTestCase {
 		_dataStorage.addConversation(groupConversation);
 
 		ViewAllConversationsUseCase.InputValues inputValues = new ViewAllConversationsUseCase.InputValues(currentUser);
-		ViewAllConversationsUseCase.OutputValues outputValues = _viewAllConversations.execute(inputValues);
+		ViewAllConversationsUseCase.OutputValues outputValues = _viewAllConversationsUseCase.execute(inputValues);
 
 		assertEquals(ViewAllConversationsUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 	}
@@ -52,7 +52,7 @@ class ViewAllConversationTestCase {
 		List<Conversation> userConversations = new ArrayList<>();
 
 		ViewAllConversationsUseCase.InputValues inputValues = new ViewAllConversationsUseCase.InputValues(currentUser);
-		ViewAllConversationsUseCase.OutputValues outputValues = _viewAllConversations.execute(inputValues);
+		ViewAllConversationsUseCase.OutputValues outputValues = _viewAllConversationsUseCase.execute(inputValues);
 
 		assertEquals(ViewAllConversationsUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 	}

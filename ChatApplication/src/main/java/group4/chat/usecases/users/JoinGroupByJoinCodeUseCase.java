@@ -7,17 +7,17 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class JoinGroupByJoinCodeUseCase
 		extends UseCase<JoinGroupByJoinCodeUseCase.InputValues, JoinGroupByJoinCodeUseCase.OutputValues> {
-	private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
 	public JoinGroupByJoinCodeUseCase(DataStorage dataStorage) {
-		this.dataStorage = dataStorage;
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) throws Exception {
 		String joinCode = input.getJoinCode();
-		User user = dataStorage.getUsers().getById(input.getUserID());
-		PublicGroup publicGroup = dataStorage.getPublicGroup().getById(input.publicGroupID);
+		User user = _dataStorage.getUsers().getById(input.getUserID());
+		PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(input._publicGroupID);
 
 		if (publicGroup != null) {
 			if (publicGroup.getJoinCode().equals(joinCode)) {
@@ -25,30 +25,31 @@ public class JoinGroupByJoinCodeUseCase
 				return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
 			}
 		}
+		
 		return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
 	}
 
 	public static class InputValues {
-		private String joinCode;
-		private String userID;
-		private String publicGroupID;
+		private String _joinCode;
+		private String _userID;
+		private String _publicGroupID;
 
 		public InputValues(String joinCode, String userID, String publicGroupID) {
-			this.joinCode = joinCode;
-			this.userID = userID;
-			this.publicGroupID = publicGroupID;
+			this._joinCode = joinCode;
+			this._userID = userID;
+			this._publicGroupID = publicGroupID;
 		}
 
 		public String getJoinCode() {
-			return joinCode;
+			return _joinCode;
 		}
 
 		public String getUserID() {
-			return userID;
+			return _userID;
 		}
 
 		public String getPublicGroupID() {
-			return publicGroupID;
+			return _publicGroupID;
 		}
 	}
 

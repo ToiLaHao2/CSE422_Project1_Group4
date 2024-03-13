@@ -20,23 +20,26 @@ public class CreatePrivateGroupUseCase
 		ArrayList<String> userIDs = input.getUserIDs();
 		User creator = _dataStorage.getUsers().getById(userIDs.get(0));
 		PrivateGroup privateGroup = new PrivateGroup(creator, null);
+		
 		for (int i = 1; i < userIDs.size(); i++) {
 			User member = _dataStorage.getUsers().getById(userIDs.get(i));
 			privateGroup.addMember(member);
 		}
+		
 		_dataStorage.getPrivateGroup().add(privateGroup);
+		
 		return new OutputValues(ResultCodes.SUCCESS, "Private group created successfully");
 	}
 
 	public static class InputValues {
-		private ArrayList<String> userIDs;
+		private ArrayList<String> _userIDs;
 
 		public InputValues(ArrayList<String> userIDs) {
-			this.userIDs = userIDs;
+			this._userIDs = userIDs;
 		}
 
 		public ArrayList<String> getUserIDs() {
-			return userIDs;
+			return _userIDs;
 		}
 
 	}

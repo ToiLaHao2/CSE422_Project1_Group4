@@ -7,27 +7,27 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class RemoveUserFromAGroupUseCase
 		extends UseCase<RemoveUserFromAGroupUseCase.InputValues, RemoveUserFromAGroupUseCase.OutputValues> {
-	private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
 	public RemoveUserFromAGroupUseCase(DataStorage dataStorage) {
-		this.dataStorage = dataStorage;
+		this._dataStorage = dataStorage;
 	}
 
 	@Override
 	public OutputValues execute(InputValues input) {
-		PrivateGroup group = dataStorage.getPrivateGroup().getById(input.getGroupID());
+		PrivateGroup group = _dataStorage.getPrivateGroup().getById(input.getGroupID());
 
 		if (group == null) {
 			return new OutputValues(ResultCodes.FAILED, "Group not found");
 		}
 
-		User userToRemove = dataStorage.getUsers().getById(input.getUserID());
+		User userToRemove = _dataStorage.getUsers().getById(input.getUserID());
 
 		if (userToRemove == null) {
 			return new OutputValues(ResultCodes.FAILED, "User not found");
 		}
 
-		User admin = dataStorage.getUsers().getById(input.getAdminID());
+		User admin = _dataStorage.getUsers().getById(input.getAdminID());
 
 		if (admin == null) {
 			return new OutputValues(ResultCodes.FAILED, "User not found");
@@ -38,31 +38,32 @@ public class RemoveUserFromAGroupUseCase
 		}
 
 		group.removeMember(userToRemove);
+		
 		return new OutputValues(ResultCodes.SUCCESS, "User removed from the group successfully");
 
 	}
 
 	public static class InputValues {
-		private final String groupID;
-		private final String userID;
-		private final String adminID;
+		private final String _groupID;
+		private final String _userID;
+		private final String _adminID;
 
 		public InputValues(String groupID, String userID, String adminID) {
-			this.groupID = groupID;
-			this.userID = userID;
-			this.adminID = adminID;
+			this._groupID = groupID;
+			this._userID = userID;
+			this._adminID = adminID;
 		}
 
 		public String getGroupID() {
-			return groupID;
+			return _groupID;
 		}
 
 		public String getUserID() {
-			return userID;
+			return _userID;
 		}
 
 		public String getAdminID() {
-			return adminID;
+			return _adminID;
 		}
 
 	}

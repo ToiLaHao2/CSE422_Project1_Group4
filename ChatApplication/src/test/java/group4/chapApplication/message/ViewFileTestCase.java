@@ -14,11 +14,11 @@ import group4.chat.usecases.message.ViewFilesUseCase;
 
 class ViewFileTestCase {
 
-	private ViewFilesUseCase viewFilesUseCase;
+	private ViewFilesUseCase _viewFilesUseCase;
 
     @BeforeEach
     void setUp() {
-        viewFilesUseCase = new ViewFilesUseCase();
+        _viewFilesUseCase = new ViewFilesUseCase();
     }
 
     @Test
@@ -37,7 +37,7 @@ class ViewFileTestCase {
         dataStorage.getConversation(conversation.getConversationId());
 
         ViewFilesUseCase.InputValues inputValues = new ViewFilesUseCase.InputValues(groupId);
-        ViewFilesUseCase.OutputValues outputValues = viewFilesUseCase.execute(inputValues);
+        ViewFilesUseCase.OutputValues outputValues = _viewFilesUseCase.execute(inputValues);
 
         assertEquals(ViewFilesUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
     }
@@ -47,7 +47,7 @@ class ViewFileTestCase {
         String groupId = "nonexistent";
         ViewFilesUseCase.InputValues inputValues = new ViewFilesUseCase.InputValues(groupId);
 
-        ViewFilesUseCase.OutputValues outputValues = viewFilesUseCase.execute(inputValues);
+        ViewFilesUseCase.OutputValues outputValues = _viewFilesUseCase.execute(inputValues);
 
         assertEquals(ViewFilesUseCase.ResultCodes.FAILED, outputValues.getResultCode());
         assertEquals("Conversation not found", outputValues.get_message());

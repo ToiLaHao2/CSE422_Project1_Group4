@@ -1,13 +1,8 @@
-package group4.chapApplication.message;
+package group4.chapApplication.useCases;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,12 +13,12 @@ import group4.chat.usecases.users.FindUsernameUseCase;
 
 class FindUsernameTestCase {
 	private DataStorage _dataStorage;
-	private FindUsernameUseCase _useCase;
+	private FindUsernameUseCase _findUserNameUseCase;
 
 	@BeforeEach
 	public void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_useCase = new FindUsernameUseCase(_dataStorage);
+		_findUserNameUseCase = new FindUsernameUseCase(_dataStorage);
 	}
 
 	@Test
@@ -37,12 +32,11 @@ class FindUsernameTestCase {
 
 		FindUsernameUseCase.InputValues inputValues = new FindUsernameUseCase.InputValues(searchString);
 
-		FindUsernameUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		FindUsernameUseCase.OutputValues outputValues = _findUserNameUseCase.execute(inputValues);
 
 		assertEquals(FindUsernameUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(),outputValues.getMessage());
 		assertEquals("Users found", outputValues.getMessage());
 		assertTrue(outputValues.getFoundUsers().contains(user1));
-		// assertTrue(outputValues.getFoundUsers().contains(user2));
 	}
 
 	@Test
@@ -51,11 +45,10 @@ class FindUsernameTestCase {
 
 		FindUsernameUseCase.InputValues inputValues = new FindUsernameUseCase.InputValues(searchString);
 
-		FindUsernameUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		FindUsernameUseCase.OutputValues outputValues = _findUserNameUseCase.execute(inputValues);
 
 		assertEquals(FindUsernameUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("No users found", outputValues.getMessage());
-		// assertTrue(outputValues.getFoundUsers().isEmpty());
 	}
 
 }

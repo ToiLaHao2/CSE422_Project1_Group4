@@ -3,12 +3,12 @@ package group4.chat.file;
 import group4.chat.domains.BaseEntity;
 
 public class File extends BaseEntity {
-    private String name;
-    private String fileType;
+    private String _name;
+    private String _fileType;
 
     public File(String name, String fileType) {
-        this.name = name;
-        this.fileType = fileType;
+        this._name = name;
+        this._fileType = fileType;
     }
 }
 
