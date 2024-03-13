@@ -22,11 +22,14 @@ public class UserRegistrationUseCase
 	public OutputValues execute(InputValues input) throws Exception {
 		boolean check = true;
 		Respository<User> userRepository = _dataStorage.getUsers();
+		
 		for (User u : userRepository.getAll()) {
 			if (u.get_firstName().equals(input._username))
 				return new OutputValues(ResultCodes.FAILED, "Username already exists");
 		}
+		
 		int passwordStrength = input._password.length();
+		
 		if (passwordStrength <= 8) {
 			return new OutputValues(ResultCodes.FAILED,
 					"Invalid password. Password must be at least 8 characters long.");
@@ -34,8 +37,10 @@ public class UserRegistrationUseCase
 		if (check == true) {
 			User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
 			_dataStorage.getUsers().add(user);
+			
 			return new OutputValues(ResultCodes.SUCCESS, "You sign up sucessfully");
 		}
+		
 		return new OutputValues(ResultCodes.FAILED, "");
 	}
 

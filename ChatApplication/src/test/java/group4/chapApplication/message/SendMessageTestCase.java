@@ -15,12 +15,12 @@ import group4.chat.usecases.message.SendMessageUseCase;
 class SendMessageTestCase {
 
     private DataStorage _dataStorage;
-    private SendMessageUseCase _useCase;
+    private SendMessageUseCase _sendMessageUseCase;
 
     @BeforeEach
     public void setUp() {
         _dataStorage = new InMemoryDataStorage();
-        _useCase = new SendMessageUseCase(_dataStorage);
+        _sendMessageUseCase = new SendMessageUseCase(_dataStorage);
     }
 
     @Test
@@ -40,7 +40,7 @@ class SendMessageTestCase {
         SendMessageUseCase.InputValues inputValues = new SendMessageUseCase.InputValues(null, receiverId, content, 1,
                 senderId);
 
-        SendMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+        SendMessageUseCase.OutputValues outputValues = _sendMessageUseCase.execute(inputValues);
 
         assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(), outputValues.getMessage());
         assertEquals("Sending message successful", outputValues.getMessage());
@@ -69,7 +69,7 @@ class SendMessageTestCase {
         SendMessageUseCase.InputValues inputValues = new SendMessageUseCase.InputValues(attachment, receiverId, content,
                 1, senderId);
 
-        SendMessageUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+        SendMessageUseCase.OutputValues outputValues = _sendMessageUseCase.execute(inputValues);
 
         assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
         assertEquals("Sending message successfull", outputValues.getMessage());

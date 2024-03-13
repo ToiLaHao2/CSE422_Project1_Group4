@@ -8,17 +8,18 @@ import group4.chat.usecases.adapters.DataStorage;
 
 public class FindUsernameUseCase
         extends UseCase<FindUsernameUseCase.InputValues, FindUsernameUseCase.OutputValues> {
-    private DataStorage dataStorage;
+    private DataStorage _dataStorage;
 
     public FindUsernameUseCase(DataStorage dataStorage) {
-        this.dataStorage = dataStorage;
+        this._dataStorage = dataStorage;
     }
 
     @Override
     public OutputValues execute(InputValues input) {
         String searchString = input.getSearchString();
         ArrayList<User> foundUsers = new ArrayList<>();
-        for (User user : dataStorage.getUsers().getAll()) {
+        
+        for (User user : _dataStorage.getUsers().getAll()) {
             if (user.get_firstName().equals(searchString)) {
                 foundUsers.add(user);
             }
@@ -32,46 +33,46 @@ public class FindUsernameUseCase
     }
 
     public static class InputValues {
-        private String searchString;
+        private String _searchString;
 
         public InputValues(String searchString) {
-            this.searchString = searchString;
+            this._searchString = searchString;
         }
 
         public String getSearchString() {
-            return searchString;
+            return _searchString;
         }
 
     }
 
     public static class OutputValues {
-        private final int resultCode;
-        private final String message;
-        private ArrayList<User> foundUsers;
+        private final int _resultCode;
+        private final String _message;
+        private ArrayList<User> _foundUsers;
 
         public OutputValues(int resultCode, String message, ArrayList<User> foundUsers) {
-            this.resultCode = resultCode;
-            this.message = message;
-            this.foundUsers = foundUsers != null ? foundUsers : new ArrayList<>();
+            this._resultCode = resultCode;
+            this._message = message;
+            this._foundUsers = foundUsers != null ? foundUsers : new ArrayList<>();
         }
 
         public OutputValues(int resultCode, String message) {
-            this.resultCode = resultCode;
-            this.message = message;
-            this.foundUsers = new ArrayList<>();
+            this._resultCode = resultCode;
+            this._message = message;
+            this._foundUsers = new ArrayList<>();
 
         }
 
         public int getResultCode() {
-            return resultCode;
+            return _resultCode;
         }
 
         public String getMessage() {
-            return message;
+            return _message;
         }
 
         public ArrayList<User> getFoundUsers() {
-            return foundUsers;
+            return _foundUsers;
         }
     }
 

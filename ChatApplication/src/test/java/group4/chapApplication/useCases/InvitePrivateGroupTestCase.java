@@ -14,12 +14,12 @@ import group4.chat.usecases.users.UserInviteForPrivateGroupUseCase;
 class InvitePrivateGroupTestCase {
 
 	private DataStorage _dataStorage;
-	private UserInviteForPrivateGroupUseCase _useCase;
+	private UserInviteForPrivateGroupUseCase _userInviteForPrivateGroupUseCase;
 
 	@BeforeEach
 	public void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_useCase = new UserInviteForPrivateGroupUseCase(_dataStorage);
+		_userInviteForPrivateGroupUseCase = new UserInviteForPrivateGroupUseCase(_dataStorage);
 	}
 
 	@Test
@@ -44,7 +44,7 @@ class InvitePrivateGroupTestCase {
 		UserInviteForPrivateGroupUseCase.InputValues inputValues = new UserInviteForPrivateGroupUseCase.InputValues(
 				adminId, userId, groupId);
 
-		UserInviteForPrivateGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		UserInviteForPrivateGroupUseCase.OutputValues outputValues = _userInviteForPrivateGroupUseCase.execute(inputValues);
 
 		assertEquals(UserInviteForPrivateGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 	}

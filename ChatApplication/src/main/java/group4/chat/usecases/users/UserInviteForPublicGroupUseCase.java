@@ -6,75 +6,73 @@ import group4.chat.usecases.UseCase;
 import group4.chat.usecases.adapters.DataStorage;
 
 public class UserInviteForPublicGroupUseCase
+		extends UseCase<UserInviteForPublicGroupUseCase.InputValues, UserInviteForPublicGroupUseCase.OutputValues> {
+	private DataStorage _dataStorage;
 
-        extends UseCase<UserInviteForPublicGroupUseCase.InputValues, UserInviteForPublicGroupUseCase.OutputValues> {
-    private DataStorage dataStorage;
+	public UserInviteForPublicGroupUseCase(DataStorage dataStorage) {
+		this._dataStorage = dataStorage;
+	}
 
-    public UserInviteForPublicGroupUseCase(DataStorage dataStorage) {
-        this.dataStorage = dataStorage;
-    }
+	@Override
+	public OutputValues execute(InputValues input) throws Exception {
+		String groupId = input.getGroupId();
+		
+		User user = _dataStorage.getUsers().getById(input.getUserID());
+		PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(groupId);
 
-    @Override
-    public OutputValues execute(InputValues input) throws Exception {
+		if (publicGroup != null) {
+			if (publicGroup.getGroupUsers().contains(user)) {
+				return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
+			} else {
+				publicGroup.addMember(user);
+				return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
+			}
+		} else {
+			return new OutputValues(ResultCodes.FAILED, "Group ID not found");
+		}
+	}
 
-        String groupId = input.getGroupId();
-        User user = dataStorage.getUsers().getById(input.getUserID());
+	public static class InputValues {
+		private String _groupId;
+		private String _userID;
 
-        PublicGroup publicGroup = dataStorage.getPublicGroup().getById(groupId);
+		public InputValues(String groupId, String userID) {
+			this._groupId = groupId;
+			this._userID = userID;
+		}
 
-        if (publicGroup != null) {
-            if (publicGroup.getGroupUsers().contains(user)) {
-                return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
-            } else {
-                publicGroup.addMember(user);
-                return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
-            }
-        } else {
-            return new OutputValues(ResultCodes.FAILED, "Group ID not found");
-        }
-    }
+		public String getGroupId() {
+			return _groupId;
+		}
 
-    public static class InputValues {
-        private String groupId;
-        private String userID;
+		public String getUserID() {
+			return _userID;
+		}
 
-        public InputValues(String groupId, String userID) {
-            this.groupId = groupId;
-            this.userID = userID;
-        }
+	}
 
-        public String getGroupId() {
-            return groupId;
-        }
+	public static class OutputValues {
+		private final int _resultCode;
+		private final String _message;
 
-        public String getUserID() {
-            return userID;
-        }
+		public OutputValues(int resultCode, String message) {
+			_message = message;
+			_resultCode = resultCode;
+		}
 
-    }
+		public int getResultCode() {
+			return _resultCode;
+		}
 
-    public static class OutputValues {
-        private final int _resultCode;
-        private final String _message;
+		public String getMessage() {
+			return _message;
+		}
 
-        public OutputValues(int resultCode, String message) {
-            _message = message;
-            _resultCode = resultCode;
-        }
+	}
 
-        public int getResultCode() {
-            return _resultCode;
-        }
-
-        public String getMessage() {
-            return _message;
-        }
-
-    }
-
-    public static class ResultCodes {
-        public static final int SUCCESS = 1;
-        public static final int FAILED = 0;
-    }
+	public static class ResultCodes {
+		public static final int SUCCESS = 1;
+		public static final int FAILED = 0;
+	}
 
 }

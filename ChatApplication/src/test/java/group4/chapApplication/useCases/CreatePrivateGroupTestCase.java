@@ -11,26 +11,26 @@ import group4.chat.domains.User;
 import group4.chat.infrastructure.data.InMemoryDataStorage;
 import group4.chat.usecases.adapters.DataStorage;
 import group4.chat.usecases.users.CreatePrivateGroupUseCase;
-import group4.chat.usecases.users.CreatePublicGroupUseCase;
 
 class CreatePrivateGroupTestCase {
 
 	private DataStorage _dataStorage;
-	private CreatePrivateGroupUseCase _useCase;
+	private CreatePrivateGroupUseCase _createPrivateGroupUseCase;
 
 	@BeforeEach
 	public void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_useCase = new CreatePrivateGroupUseCase(_dataStorage);
+		_createPrivateGroupUseCase = new CreatePrivateGroupUseCase(_dataStorage);
 	}
 
 	@Test
 	public void testCreatePrivateGroup_Success() {
-		// Arrange
 		String creatorId = "user1";
 		String memberId1 = "user2";
 		String memberId2 = "user3";
+		
 		ArrayList<String> userIDs = new ArrayList<>();
+		
 		userIDs.add(creatorId);
 		userIDs.add(memberId1);
 		userIDs.add(memberId2);
@@ -45,7 +45,7 @@ class CreatePrivateGroupTestCase {
 
 		CreatePrivateGroupUseCase.InputValues inputValues = new CreatePrivateGroupUseCase.InputValues(userIDs);
 
-		CreatePrivateGroupUseCase.OutputValues outputValues = _useCase.execute(inputValues);
+		CreatePrivateGroupUseCase.OutputValues outputValues = _createPrivateGroupUseCase.execute(inputValues);
 
 		assertEquals(CreatePrivateGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 		assertEquals("Private group created successfully", outputValues.getMessage());

@@ -15,9 +15,11 @@ public class MD5Hasher implements Hasher {
     public String hash(String text) throws Exception {
         byte[] hashByte;
         String hashString;
+        
         MessageDigest md = MessageDigest.getInstance("MD5");
         hashByte = md.digest(text.getBytes());
         hashString = new String(hashByte);
+        
         return hashString;
     }
 }

@@ -2,8 +2,6 @@ package group4.chat.usecases.message;
 
 import group4.chat.usecases.adapters.DataStorage;
 
-import group4.chat.usecases.adapters.Respository;
-
 import java.io.FileOutputStream;
 import java.util.UUID;
 
@@ -13,105 +11,106 @@ import group4.chat.message.Message;
 
 public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, SendMessageUseCase.OutputValues> {
 
-    private DataStorage dataStorage;
+	private DataStorage _dataStorage;
 
-    public SendMessageUseCase(DataStorage dataStorage) {
-        this.dataStorage = dataStorage;
-    }
+	public SendMessageUseCase(DataStorage dataStorage) {
+		this._dataStorage = dataStorage;
+	}
 
-    @Override
-    public OutputValues execute(InputValues input) throws Exception {
-        User sender = dataStorage.getUsers().getById(input.getSenderID());
-        User receiver = dataStorage.getUsers().getById(input.getReceiverId());
-        if (sender == null || receiver == null) {
-            return new OutputValues(ResultCodes.FAILED, "Sender or receiver not found");
-        }
-        if (input.attachment != null) {
-            String attachmentId = saveAttachment(input.attachment);
-            sendMessageWithAttachment(input.messageId, input.senderID, input.receiverId, input.content, attachmentId);
-            return new OutputValues(ResultCodes.SUCCESS, "Sending message successfull");
-        } else {
-            sendMessage(input.messageId, input.senderID, input.receiverId, input.content);
-        }
-        return new OutputValues(ResultCodes.SUCCESS, "Sending message successful");
-    }
+	@Override
+	public OutputValues execute(InputValues input) throws Exception {
+		User sender = _dataStorage.getUsers().getById(input.getSenderID());
+		User receiver = _dataStorage.getUsers().getById(input.getReceiverId());
+		if (sender == null || receiver == null) {
+			return new OutputValues(ResultCodes.FAILED, "Sender or receiver not found");
+		}
+		if (input._attachment != null) {
+			String attachmentId = saveAttachment(input._attachment);
+			sendMessageWithAttachment(input._messageId, input._senderID, input._receiverId, input._content,
+					attachmentId);
+			return new OutputValues(ResultCodes.SUCCESS, "Sending message successfull");
+		} else {
+			sendMessage(input._messageId, input._senderID, input._receiverId, input._content);
+		}
+		return new OutputValues(ResultCodes.SUCCESS, "Sending message successful");
+	}
 
-    private String saveAttachment(byte[] attachment) throws Exception {
-        String attachmentId = UUID.randomUUID().toString();
-        String filePath = "/path/to/attachments/" + attachmentId + ".dat";
-        try (FileOutputStream fos = new FileOutputStream(filePath)) {
-            fos.write(attachment);
-        }
-        return attachmentId;
-    }
+	private String saveAttachment(byte[] attachment) throws Exception {
+		String attachmentId = UUID.randomUUID().toString();
+		String filePath = "/path/to/attachments/" + attachmentId + ".dat";
+		try (FileOutputStream fos = new FileOutputStream(filePath)) {
+			fos.write(attachment);
+		}
+		return attachmentId;
+	}
 
-    private void sendMessage(int messageId, String senderId, String receiverId, String content) {
-        new Message(messageId, senderId, receiverId, content);
-    }
+	private void sendMessage(int messageId, String senderId, String receiverId, String content) {
+		new Message(messageId, senderId, receiverId, content);
+	}
 
-    private void sendMessageWithAttachment(int messageId, String senderId, String receiverId, String content,
-            String attachmentId) {
-        new Message(messageId, senderId, receiverId, content, attachmentId);
-    }
+	private void sendMessageWithAttachment(int messageId, String senderId, String receiverId, String content,
+			String attachmentId) {
+		new Message(messageId, senderId, receiverId, content, attachmentId);
+	}
 
-    public static class InputValues {
-        private byte[] attachment;
-        private String receiverId;
-        private String content;
-        private int messageId;
-        private String senderID;
+	public static class InputValues {
+		private byte[] _attachment;
+		private String _receiverId;
+		private String _content;
+		private int _messageId;
+		private String _senderID;
 
-        public InputValues(byte[] attachment, String receiverId, String content, int messageId, String senderID) {
-            this.attachment = attachment;
-            this.receiverId = receiverId;
-            this.content = content;
-            this.messageId = messageId;
-            this.senderID = senderID;
-        }
+		public InputValues(byte[] attachment, String receiverId, String content, int messageId, String senderID) {
+			this._attachment = attachment;
+			this._receiverId = receiverId;
+			this._content = content;
+			this._messageId = messageId;
+			this._senderID = senderID;
+		}
 
-        public byte[] getAttachment() {
-            return attachment;
-        }
+		public byte[] getAttachment() {
+			return _attachment;
+		}
 
-        public String getReceiverId() {
-            return receiverId;
-        }
+		public String getReceiverId() {
+			return _receiverId;
+		}
 
-        public String getContent() {
-            return content;
-        }
+		public String getContent() {
+			return _content;
+		}
 
-        public int getMessageId() {
-            return messageId;
-        }
+		public int getMessageId() {
+			return _messageId;
+		}
 
-        public String getSenderID() {
-            return senderID;
-        }
-    }
+		public String getSenderID() {
+			return _senderID;
+		}
+	}
 
-    public static class OutputValues {
-        private final int _resultCode;
-        private final String _message;
+	public static class OutputValues {
+		private final int _resultCode;
+		private final String _message;
 
-        public OutputValues(int resultCode, String message) {
-            _message = message;
-            _resultCode = resultCode;
-        }
+		public OutputValues(int resultCode, String message) {
+			_message = message;
+			_resultCode = resultCode;
+		}
 
-        public int getResultCode() {
-            return _resultCode;
-        }
+		public int getResultCode() {
+			return _resultCode;
+		}
 
-        public String getMessage() {
-            return _message;
-        }
+		public String getMessage() {
+			return _message;
+		}
 
-    }
+	}
 
-    public static class ResultCodes {
-        public static final int SUCCESS = 1;
-        public static final int FAILED = 0;
-    }
+	public static class ResultCodes {
+		public static final int SUCCESS = 1;
+		public static final int FAILED = 0;
+	}
 
 }

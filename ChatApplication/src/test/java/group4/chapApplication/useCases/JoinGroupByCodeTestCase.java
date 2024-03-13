@@ -13,13 +13,13 @@ import group4.chat.usecases.users.JoinGroupByJoinCodeUseCase;
 
 class JoinGroupByCodeTestCase {
 
-	private InMemoryDataStorage dataStorage;
-	private JoinGroupByJoinCodeUseCase useCase;
+	private InMemoryDataStorage _dataStorage;
+	private JoinGroupByJoinCodeUseCase _joinGroupByJoinCodeUseCase;
 
 	@BeforeEach
 	public void setUp() {
-		dataStorage = new InMemoryDataStorage();
-		useCase = new JoinGroupByJoinCodeUseCase(dataStorage);
+		_dataStorage = new InMemoryDataStorage();
+		_joinGroupByJoinCodeUseCase = new JoinGroupByJoinCodeUseCase(_dataStorage);
 	}
 
 	@Test
@@ -28,17 +28,20 @@ class JoinGroupByCodeTestCase {
 		String user = "John";
 		String groupId = "Mai123";
 		String userId = "Mai123";
+		
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
+		
 		User userUser = new User(user, "123");
 		userUser.setId(userId);
-		dataStorage.getPublicGroup().add(publicGroup);
-		dataStorage.getUsers().add(userUser);
+		
+		_dataStorage.getPublicGroup().add(publicGroup);
+		_dataStorage.getUsers().add(userUser);
 
 		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode,
 				userId, groupId);
 
-		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
+		JoinGroupByJoinCodeUseCase.OutputValues outputValues = _joinGroupByJoinCodeUseCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
     	assertEquals("User has been added to the group", outputValues.getMessage());
@@ -48,22 +51,25 @@ class JoinGroupByCodeTestCase {
 
 	@Test
 	public void testJoinGroupByJoinCodeInvalidJoinCode() throws Exception {
-		// Arrange
 		String joinCodeTest = "12345";
 		String joinCode = "group123";
 		String user = "John";
 		String groupId = "Mai123";
 		String userId = "Mai123";
+		
 		PublicGroup publicGroup = new PublicGroup(joinCode);
 		publicGroup.setId(groupId);
+		
 		User userUser = new User(user, "123");
 		userUser.setId(userId);
-		dataStorage.getPublicGroup().add(publicGroup);
-		dataStorage.getUsers().add(userUser);
+		
+		_dataStorage.getPublicGroup().add(publicGroup);
+		_dataStorage.getUsers().add(userUser);
+		
 		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCodeTest,
 				userId, groupId);
 
-		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
+		JoinGroupByJoinCodeUseCase.OutputValues outputValues = _joinGroupByJoinCodeUseCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("Invalid join code. Unable to join the group", outputValues.getMessage());
@@ -73,18 +79,17 @@ class JoinGroupByCodeTestCase {
 
 	@Test
 	public void testJoinGroupByJoinCodePublicGroupNotFound() throws Exception {
-		// Arrange
 		String joinCode = "12345";
 		String userId = "user1";
 		String publicGroupId = "nonexistentGroup";
 
 		User user = new User(userId, "123");
-		dataStorage.getUsers().add(user);
+		_dataStorage.getUsers().add(user);
 
 		JoinGroupByJoinCodeUseCase.InputValues inputValues = new JoinGroupByJoinCodeUseCase.InputValues(joinCode,
 				userId, publicGroupId);
 
-		JoinGroupByJoinCodeUseCase.OutputValues outputValues = useCase.execute(inputValues);
+		JoinGroupByJoinCodeUseCase.OutputValues outputValues = _joinGroupByJoinCodeUseCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 		assertEquals("Invalid join code. Unable to join the group", outputValues.getMessage());

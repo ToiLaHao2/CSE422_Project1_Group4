@@ -11,13 +11,13 @@ import group4.chat.message.Message;
 import group4.chat.usecases.message.RecordLastMessageUseCase;
 
 class RecordLastMessageTestCase {
-	private RecordLastMessageUseCase _recordMessage;
+	private RecordLastMessageUseCase _recordMessageUseCase;
 	private InMemoryDataStorage _dataStorage;
 
 	@BeforeEach
 	void setUp() {
 		_dataStorage = new InMemoryDataStorage();
-		_recordMessage = new RecordLastMessageUseCase(_dataStorage);
+		_recordMessageUseCase = new RecordLastMessageUseCase(_dataStorage);
 	}
 
 	@Test
@@ -33,7 +33,7 @@ class RecordLastMessageTestCase {
 
 		RecordLastMessageUseCase.InputValues inputValues = new RecordLastMessageUseCase.InputValues(userId,
 				conversationId);
-		RecordLastMessageUseCase.OutputValues outputValues = _recordMessage.execute(inputValues);
+		RecordLastMessageUseCase.OutputValues outputValues = _recordMessageUseCase.execute(inputValues);
 
 		assertEquals(RecordLastMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
 	}
@@ -45,7 +45,7 @@ class RecordLastMessageTestCase {
 
 		RecordLastMessageUseCase.InputValues inputValues = new RecordLastMessageUseCase.InputValues(userId,
 				conversationId);
-		RecordLastMessageUseCase.OutputValues outputValues = _recordMessage.execute(inputValues);
+		RecordLastMessageUseCase.OutputValues outputValues = _recordMessageUseCase.execute(inputValues);
 
 		assertEquals(RecordLastMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 	}

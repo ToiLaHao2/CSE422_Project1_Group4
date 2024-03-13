@@ -21,6 +21,8 @@ public interface DataStorage {
 	List<Conversation> getAllConversations();
 
 	void cleanAll();
-	 void updateLastReadMessage(String userId, String conversationId, Message lastMessage) throws Exception;
-	 void updateConversation(Conversation conversation);
+
+	void updateLastReadMessage(String userId, String conversationId, Message lastMessage) throws Exception;
+
+	void updateConversation(Conversation conversation);
 }

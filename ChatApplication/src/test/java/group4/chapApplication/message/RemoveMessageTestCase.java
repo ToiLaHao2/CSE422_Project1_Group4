@@ -11,13 +11,13 @@ import group4.chat.message.Message;
 import group4.chat.usecases.message.RemoveMessageUseCase;
 
 class RemoveMessageTestCase {
-    private RemoveMessageUseCase _removeMessage;
+    private RemoveMessageUseCase _removeMessageUseCase;
     private InMemoryDataStorage _dataStorage;
 
     @BeforeEach
     void setUp() {
         _dataStorage = new InMemoryDataStorage();
-        _removeMessage = new RemoveMessageUseCase(_dataStorage);
+        _removeMessageUseCase = new RemoveMessageUseCase(_dataStorage);
     }
 
     @Test
@@ -39,7 +39,7 @@ class RemoveMessageTestCase {
 
         RemoveMessageUseCase.InputValues inputValues = new RemoveMessageUseCase.InputValues(userId, conversationId,
                 messageId);
-        RemoveMessageUseCase.OutputValues outputValues = _removeMessage.execute(inputValues);
+        RemoveMessageUseCase.OutputValues outputValues = _removeMessageUseCase.execute(inputValues);
 
         assertEquals(RemoveMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
     }
@@ -52,7 +52,7 @@ class RemoveMessageTestCase {
 
         RemoveMessageUseCase.InputValues inputValues = new RemoveMessageUseCase.InputValues(userId, conversationId,
                 messageId);
-        RemoveMessageUseCase.OutputValues outputValues = _removeMessage.execute(inputValues);
+        RemoveMessageUseCase.OutputValues outputValues = _removeMessageUseCase.execute(inputValues);
 
         assertEquals(RemoveMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
     }
@@ -66,7 +66,7 @@ class RemoveMessageTestCase {
 
         RemoveMessageUseCase.InputValues inputValues = new RemoveMessageUseCase.InputValues(userId, conversationId,
                 messageId);
-        RemoveMessageUseCase.OutputValues outputValues = _removeMessage.execute(inputValues);
+        RemoveMessageUseCase.OutputValues outputValues = _removeMessageUseCase.execute(inputValues);
 
         assertEquals(RemoveMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
     }

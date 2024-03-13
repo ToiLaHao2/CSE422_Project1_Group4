@@ -2,9 +2,6 @@ package group4.chapApplication.message;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,13 +11,13 @@ import group4.chat.message.Message;
 import group4.chat.usecases.message.ViewWhoReadMessageUseCase;
 
 class ViewWhoReadMessageTestCase {
-    private ViewWhoReadMessageUseCase _viewWhoReadMessage;
+    private ViewWhoReadMessageUseCase _viewWhoReadMessageUseCase;
     private InMemoryDataStorage _dataStorage;
 
     @BeforeEach
     void setUp() {
         _dataStorage = new InMemoryDataStorage();
-        _viewWhoReadMessage = new ViewWhoReadMessageUseCase(_dataStorage);
+        _viewWhoReadMessageUseCase = new ViewWhoReadMessageUseCase(_dataStorage);
     }
 
     @Test
@@ -37,11 +34,12 @@ class ViewWhoReadMessageTestCase {
         conversation.addNewSendingMessage(message);
         conversation.setLastReadMessage(user1, message);
         conversation.setLastReadMessage(user2, message);
+        
         _dataStorage.addConversation(conversation);
 
         ViewWhoReadMessageUseCase.InputValues inputValues = new ViewWhoReadMessageUseCase.InputValues(conversationId,
                 messageId);
-        ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessage.execute(inputValues);
+        ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessageUseCase.execute(inputValues);
 
         assertEquals(ViewWhoReadMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
     }
@@ -53,7 +51,7 @@ class ViewWhoReadMessageTestCase {
 
         ViewWhoReadMessageUseCase.InputValues inputValues = new ViewWhoReadMessageUseCase.InputValues(conversationId,
                 messageId);
-        ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessage.execute(inputValues);
+        ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessageUseCase.execute(inputValues);
 
         assertEquals(ViewWhoReadMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
     }
@@ -68,7 +66,7 @@ class ViewWhoReadMessageTestCase {
 
         ViewWhoReadMessageUseCase.InputValues inputValues = new ViewWhoReadMessageUseCase.InputValues(conversationId,
                 messageId);
-        ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessage.execute(inputValues);
+        ViewWhoReadMessageUseCase.OutputValues outputValues = _viewWhoReadMessageUseCase.execute(inputValues);
 
         assertEquals(ViewWhoReadMessageUseCase.ResultCodes.FAILED, outputValues.getResultCode());
     }
