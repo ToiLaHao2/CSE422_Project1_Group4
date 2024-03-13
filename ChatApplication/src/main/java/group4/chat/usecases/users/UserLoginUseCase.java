@@ -26,15 +26,15 @@ public class UserLoginUseCase extends UseCase<UserLoginUseCase.InputValues, User
 				String hashedPassword = _hasher.hash(password);
 				
 				if (hashedPassword.equals(user.get_hashedPassword())) {
-					return new OutputValues(ResultCodes.SUCCESS, "You logged in successfully");
+					return new OutputValues(ResultCodes.SUCCESS);
 				} else {
-					return new OutputValues(ResultCodes.FAILED, "Invalid username or password");
+					return new OutputValues(ResultCodes.FAILED);
 				}
 			} catch (Exception exception) {
-				return new OutputValues(ResultCodes.FAILED, "Error occurred");
+				return new OutputValues(ResultCodes.FAILED);
 			}
 		} else {
-			return new OutputValues(ResultCodes.FAILED, "User not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 	}
 
@@ -50,19 +50,13 @@ public class UserLoginUseCase extends UseCase<UserLoginUseCase.InputValues, User
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
-		}
-
-		public String getMessage() {
-			return _message;
 		}
 	}
 

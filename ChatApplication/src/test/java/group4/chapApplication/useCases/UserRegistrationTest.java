@@ -44,7 +44,6 @@ public class UserRegistrationTest {
 		UserRegistrationUseCase.OutputValues output = registration.execute(input);
 
 		assertEquals(UserRegistrationUseCase.ResultCodes.FAILED, output.getResultCode());
-		assertEquals("Username already exists", output.getMessage());
 	}
 
 	@Test
@@ -57,6 +56,5 @@ public class UserRegistrationTest {
 		UserRegistrationUseCase.OutputValues output = registration.execute(input);
 
 		assertEquals(UserRegistrationUseCase.ResultCodes.FAILED, output.getResultCode());
-		assertEquals("Invalid password. Password must be at least 8 characters long.", output.getMessage());
 	}
 }

@@ -44,8 +44,6 @@ class JoinGroupByCodeTestCase {
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = _joinGroupByJoinCodeUseCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-    	assertEquals("User has been added to the group", outputValues.getMessage());
-
 		assertTrue(publicGroup.getGroupUsers().contains(userUser), "User should be added to the group");
 	}
 
@@ -72,8 +70,6 @@ class JoinGroupByCodeTestCase {
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = _joinGroupByJoinCodeUseCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("Invalid join code. Unable to join the group", outputValues.getMessage());
-
 		assertTrue(publicGroup.getGroupUsers().isEmpty(), "User should not be added to the group");
 	}
 
@@ -92,7 +88,6 @@ class JoinGroupByCodeTestCase {
 		JoinGroupByJoinCodeUseCase.OutputValues outputValues = _joinGroupByJoinCodeUseCase.execute(inputValues);
 
 		assertEquals(JoinGroupByJoinCodeUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("Invalid join code. Unable to join the group", outputValues.getMessage());
 	}
 
 }

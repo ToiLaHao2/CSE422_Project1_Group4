@@ -39,7 +39,6 @@ class EditMessageTestCase {
 		EditMessageUseCase.OutputValues outputValues = _editMessageUseCase.execute(inputValues);
 
 		assertEquals(EditMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("Message edited successfully", outputValues.getMessage());
 		assertEquals(newContent, message.get_content());
 	}
 }

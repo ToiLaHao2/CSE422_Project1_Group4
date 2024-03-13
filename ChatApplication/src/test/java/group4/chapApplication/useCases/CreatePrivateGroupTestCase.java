@@ -48,7 +48,6 @@ class CreatePrivateGroupTestCase {
 		CreatePrivateGroupUseCase.OutputValues outputValues = _createPrivateGroupUseCase.execute(inputValues);
 
 		assertEquals(CreatePrivateGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("Private group created successfully", outputValues.getMessage());
 	}
 
 }

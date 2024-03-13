@@ -51,8 +51,6 @@ class RemoveUserFromAGroupTestCase {
 		RemoveUserFromAGroupUseCase.OutputValues outputValues = _removeUserFromAGroupUseCase.execute(inputValues);
 
 		assertEquals(RemoveUserFromAGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("User removed from the group successfully", outputValues.getMessage());
-
 		assertFalse(privateGroup.getGroupUsers().contains(userToRemove),
 				"User should be removed from the private group");
 	}
@@ -90,8 +88,6 @@ class RemoveUserFromAGroupTestCase {
 		RemoveUserFromAGroupUseCase.OutputValues outputValues = _removeUserFromAGroupUseCase.execute(inputValues);
 
 		assertEquals(RemoveUserFromAGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("You are not an administrator of this group", outputValues.getMessage());
-
 		assertTrue(privateGroup.getGroupUsers().contains(userToRemove),
 				"User should not be removed from the private group");
 	}
@@ -114,7 +110,6 @@ class RemoveUserFromAGroupTestCase {
 		RemoveUserFromAGroupUseCase.OutputValues outputValues = _removeUserFromAGroupUseCase.execute(inputValues);
 
 		assertEquals(RemoveUserFromAGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("Group not found", outputValues.getMessage());
 	}
 
 	@Test
@@ -139,6 +134,5 @@ class RemoveUserFromAGroupTestCase {
 		RemoveUserFromAGroupUseCase.OutputValues outputValues = _removeUserFromAGroupUseCase.execute(inputValues);
 
 		assertEquals(RemoveUserFromAGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("User not found", outputValues.getMessage());
 	}
 }

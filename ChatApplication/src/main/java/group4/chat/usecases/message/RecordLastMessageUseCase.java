@@ -21,12 +21,12 @@ public class RecordLastMessageUseCase
 		Conversation conversation = _dataStorage.getConversation(conversationId);
 
 		if (conversation == null) {
-			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 		Message lastMessage = conversation.get_messages().get(conversation.get_messages().size() - 1);
 		_dataStorage.updateLastReadMessage(userId, conversationId, lastMessage);
 
-		return new OutputValues(ResultCodes.SUCCESS, "Last message recorded successfully");
+		return new OutputValues(ResultCodes.SUCCESS);
 	}
 
 	public static class InputValues {
@@ -50,19 +50,13 @@ public class RecordLastMessageUseCase
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
-		}
-
-		public String getMessage() {
-			return _message;
 		}
 	}
 

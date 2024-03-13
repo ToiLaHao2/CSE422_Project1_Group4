@@ -28,7 +28,7 @@ public class CreatePrivateGroupUseCase
 		
 		_dataStorage.getPrivateGroup().add(privateGroup);
 		
-		return new OutputValues(ResultCodes.SUCCESS, "Private group created successfully");
+		return new OutputValues(ResultCodes.SUCCESS);
 	}
 
 	public static class InputValues {
@@ -46,19 +46,13 @@ public class CreatePrivateGroupUseCase
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
-		}
-
-		public String getMessage() {
-			return _message;
 		}
 	}
 

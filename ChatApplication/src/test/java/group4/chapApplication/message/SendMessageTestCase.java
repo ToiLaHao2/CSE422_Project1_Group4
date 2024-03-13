@@ -42,9 +42,7 @@ class SendMessageTestCase {
 
         SendMessageUseCase.OutputValues outputValues = _sendMessageUseCase.execute(inputValues);
 
-        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode(), outputValues.getMessage());
-        assertEquals("Sending message successful", outputValues.getMessage());
-
+        assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
         Message sentMessage = new Message(123, senderId, receiverId, content);
 
         assertNotNull(sentMessage, "Message should be saved in the data storage");
@@ -74,7 +72,6 @@ class SendMessageTestCase {
         SendMessageUseCase.OutputValues outputValues = _sendMessageUseCase.execute(inputValues);
 
         assertEquals(SendMessageUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-        assertEquals("Sending message successfull", outputValues.getMessage());
 
         Message sentMessage = new Message(123, senderId, receiverId, content);
         assertNotNull(sentMessage, "Message should be saved in the data storage");

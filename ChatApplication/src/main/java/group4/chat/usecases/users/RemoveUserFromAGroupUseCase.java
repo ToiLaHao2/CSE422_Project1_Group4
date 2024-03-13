@@ -18,28 +18,28 @@ public class RemoveUserFromAGroupUseCase
 		PrivateGroup group = _dataStorage.getPrivateGroup().getById(input.getGroupID());
 
 		if (group == null) {
-			return new OutputValues(ResultCodes.FAILED, "Group not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 
 		User userToRemove = _dataStorage.getUsers().getById(input.getUserID());
 
 		if (userToRemove == null) {
-			return new OutputValues(ResultCodes.FAILED, "User not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 
 		User admin = _dataStorage.getUsers().getById(input.getAdminID());
 
 		if (admin == null) {
-			return new OutputValues(ResultCodes.FAILED, "User not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 
 		if (!group.isAdmin(admin)) {
-			return new OutputValues(ResultCodes.FAILED, "You are not an administrator of this group");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 
 		group.removeMember(userToRemove);
 		
-		return new OutputValues(ResultCodes.SUCCESS, "User removed from the group successfully");
+		return new OutputValues(ResultCodes.SUCCESS);
 
 	}
 
@@ -70,19 +70,13 @@ public class RemoveUserFromAGroupUseCase
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
-		}
-
-		public String getMessage() {
-			return _message;
 		}
 	}
 

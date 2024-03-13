@@ -25,17 +25,17 @@ public class UserInviteForPrivateGroupUseCase
         PrivateGroup privateGroup = _dataStorage.getPrivateGroup().getById(groupId);
 
         if (admin == null || privateGroup == null || user == null) {
-            return new OutputValues(ResultCodes.FAILED, "User or group not found");
+            return new OutputValues(ResultCodes.FAILED);
         }
         if (privateGroup.findAdmin(admin) == false) {
-            return new OutputValues(ResultCodes.FAILED, "User is not an admin of the group");
+            return new OutputValues(ResultCodes.FAILED);
         }
         
         String inviteMessage = "You have been invited to join the private group: " + privateGroup.getId();
         user.receiveGroupInvite(inviteMessage);
         privateGroup.addMember(user);
         
-        return new OutputValues(ResultCodes.SUCCESS, "User has been invited to join the group");
+        return new OutputValues(ResultCodes.SUCCESS);
     }
 
     public static class InputValues {
@@ -64,19 +64,13 @@ public class UserInviteForPrivateGroupUseCase
 
     public static class OutputValues {
         private final int _resultCode;
-        private final String _message;
 
-        public OutputValues(int resultCode, String message) {
-            _message = message;
+        public OutputValues(int resultCode) {
             _resultCode = resultCode;
         }
 
         public int getResultCode() {
             return _resultCode;
-        }
-
-        public String getMessage() {
-            return _message;
         }
     }
 

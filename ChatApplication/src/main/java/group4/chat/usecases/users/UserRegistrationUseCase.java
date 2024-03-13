@@ -25,23 +25,22 @@ public class UserRegistrationUseCase
 		
 		for (User u : userRepository.getAll()) {
 			if (u.get_firstName().equals(input._username))
-				return new OutputValues(ResultCodes.FAILED, "Username already exists");
+				return new OutputValues(ResultCodes.FAILED);
 		}
 		
 		int passwordStrength = input._password.length();
 		
 		if (passwordStrength <= 8) {
-			return new OutputValues(ResultCodes.FAILED,
-					"Invalid password. Password must be at least 8 characters long.");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 		if (check == true) {
 			User user = new UserBuilder(input._username, _hasher.hash(input._password)).build();
 			_dataStorage.getUsers().add(user);
 			
-			return new OutputValues(ResultCodes.SUCCESS, "You sign up sucessfully");
+			return new OutputValues(ResultCodes.SUCCESS);
 		}
 		
-		return new OutputValues(ResultCodes.FAILED, "");
+		return new OutputValues(ResultCodes.FAILED);
 	}
 
 	public static class InputValues {
@@ -56,19 +55,13 @@ public class UserRegistrationUseCase
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
-		}
-
-		public String getMessage() {
-			return _message;
 		}
 	}
 

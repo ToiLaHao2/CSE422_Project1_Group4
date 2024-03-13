@@ -19,7 +19,7 @@ public class EditMessageUseCase extends UseCase<EditMessageUseCase.InputValues, 
 		Message message = conversation.getMessageById(input._messageId);
 		message.set_content(input._newContent);
 
-		return new OutputValues(ResultCodes.SUCCESS, "Message edited successfully");
+		return new OutputValues(ResultCodes.SUCCESS);
 	}
 
 	public static class InputValues {
@@ -36,21 +36,14 @@ public class EditMessageUseCase extends UseCase<EditMessageUseCase.InputValues, 
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
 		}
-
-		public String getMessage() {
-			return _message;
-		}
-
 	}
 
 	public static class ResultCodes {

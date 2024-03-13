@@ -71,8 +71,6 @@ class InvitePublicGroupTestCase {
 		UserInviteForPublicGroupUseCase.OutputValues outputValues = _userInviteForPublicGroupUseCase.execute(inputValues);
 
 		assertEquals(UserInviteForPublicGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("User is already a member of the group", outputValues.getMessage());
-
 	}
 
 	@Test

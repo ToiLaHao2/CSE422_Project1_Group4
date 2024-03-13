@@ -22,13 +22,13 @@ public class UserInviteForPublicGroupUseCase
 
 		if (publicGroup != null) {
 			if (publicGroup.getGroupUsers().contains(user)) {
-				return new OutputValues(ResultCodes.FAILED, "User is already a member of the group");
+				return new OutputValues(ResultCodes.FAILED);
 			} else {
 				publicGroup.addMember(user);
-				return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
+				return new OutputValues(ResultCodes.SUCCESS);
 			}
 		} else {
-			return new OutputValues(ResultCodes.FAILED, "Group ID not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 	}
 
@@ -53,21 +53,14 @@ public class UserInviteForPublicGroupUseCase
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
 		}
-
-		public String getMessage() {
-			return _message;
-		}
-
 	}
 
 	public static class ResultCodes {

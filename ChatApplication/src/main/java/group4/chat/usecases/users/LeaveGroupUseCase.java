@@ -21,16 +21,16 @@ public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, Le
 		PublicGroup publicGroup = _dataStorage.getPublicGroup().getById(groupID);
 		if (publicGroup != null) {
 			publicGroup.removeMember(user);
-			return new OutputValues(ResultCodes.SUCCESS, "User has left the group");
+			return new OutputValues(ResultCodes.SUCCESS);
 		}
 
 		PrivateGroup privateGroup = _dataStorage.getPrivateGroup().getById(groupID);
 		if (privateGroup != null) {
 			privateGroup.removeMember(user);
-			return new OutputValues(ResultCodes.SUCCESS, "User has left the group");
+			return new OutputValues(ResultCodes.SUCCESS);
 		}
 
-		return new OutputValues(ResultCodes.FAILED, "Group not found");
+		return new OutputValues(ResultCodes.FAILED);
 	}
 
 	public static class InputValues {
@@ -53,21 +53,14 @@ public class LeaveGroupUseCase extends UseCase<LeaveGroupUseCase.InputValues, Le
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
 		}
-
-		public String getMessage() {
-			return _message;
-		}
-
 	}
 
 	public static class ResultCodes {

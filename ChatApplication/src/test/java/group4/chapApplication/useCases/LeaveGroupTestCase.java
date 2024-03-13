@@ -45,7 +45,6 @@ class LeaveGroupTestCase {
 		LeaveGroupUseCase.OutputValues outputValues = _leaveGroupUseCase.execute(inputValues);
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("User has left the group", outputValues.getMessage());
 		assertFalse(publicGroup.getGroupUsers().contains(user), "User should be removed from the group");
 
 	}
@@ -70,7 +69,6 @@ class LeaveGroupTestCase {
 		LeaveGroupUseCase.OutputValues outputValues = _leaveGroupUseCase.execute(inputValues);
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
-		assertEquals("User has left the group", outputValues.getMessage());
 		assertFalse(privateGroup.getGroupUsers().contains(user), "User should be removed from the group");
 	}
 
@@ -87,7 +85,6 @@ class LeaveGroupTestCase {
 		LeaveGroupUseCase.OutputValues outputValues = _leaveGroupUseCase.execute(inputValues);
 
 		assertEquals(LeaveGroupUseCase.ResultCodes.FAILED, outputValues.getResultCode());
-		assertEquals("Group not found", outputValues.getMessage());
 	}
 
 }

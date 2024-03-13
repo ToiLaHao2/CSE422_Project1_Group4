@@ -22,11 +22,11 @@ public class JoinGroupByJoinCodeUseCase
 		if (publicGroup != null) {
 			if (publicGroup.getJoinCode().equals(joinCode)) {
 				publicGroup.addMember(user);
-				return new OutputValues(ResultCodes.SUCCESS, "User has been added to the group");
+				return new OutputValues(ResultCodes.SUCCESS);
 			}
 		}
 		
-		return new OutputValues(ResultCodes.FAILED, "Invalid join code. Unable to join the group");
+		return new OutputValues(ResultCodes.FAILED);
 	}
 
 	public static class InputValues {
@@ -55,21 +55,14 @@ public class JoinGroupByJoinCodeUseCase
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
 		}
-
-		public String getMessage() {
-			return _message;
-		}
-
 	}
 
 	public static class ResultCodes {

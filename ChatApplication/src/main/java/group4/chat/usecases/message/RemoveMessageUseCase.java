@@ -21,16 +21,16 @@ public class RemoveMessageUseCase extends UseCase<RemoveMessageUseCase.InputValu
 		Conversation conversation = _dataStorage.getConversation(conversationId);
 
 		if (conversation == null) {
-			return new OutputValues(ResultCodes.FAILED, "Conversation not found");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 		Message message = conversation.getMessageById(messageId);
 		if (message == null) {
-			return new OutputValues(ResultCodes.FAILED, "Message not found in the conversation");
+			return new OutputValues(ResultCodes.FAILED);
 		}
 
 		conversation.deleteMessage(message);
 		_dataStorage.updateConversation(conversation);
-		return new OutputValues(ResultCodes.SUCCESS, "Message deleted successfully");
+		return new OutputValues(ResultCodes.SUCCESS);
 
 	}
 
@@ -61,19 +61,13 @@ public class RemoveMessageUseCase extends UseCase<RemoveMessageUseCase.InputValu
 
 	public static class OutputValues {
 		private final int _resultCode;
-		private final String _message;
 
-		public OutputValues(int resultCode, String message) {
-			_message = message;
+		public OutputValues(int resultCode) {
 			_resultCode = resultCode;
 		}
 
 		public int getResultCode() {
 			return _resultCode;
-		}
-
-		public String getMessage() {
-			return _message;
 		}
 	}
 

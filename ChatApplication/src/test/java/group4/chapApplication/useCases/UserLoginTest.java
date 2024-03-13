@@ -46,7 +46,7 @@ class UserLoginTest {
 
 		UserLoginUseCase.OutputValues output = login.execute(input);
 
-		assertEquals(UserLoginUseCase.ResultCodes.FAILED, output.getResultCode(), "Login should fail");
+		assertEquals(UserLoginUseCase.ResultCodes.FAILED, output.getResultCode());
 	}
 
 	@Test
@@ -58,7 +58,7 @@ class UserLoginTest {
 
 		UserLoginUseCase.OutputValues output = login.execute(input);
 
-		assertEquals(UserLoginUseCase.ResultCodes.FAILED, output.getResultCode(), "Login should fail");
+		assertEquals(UserLoginUseCase.ResultCodes.FAILED, output.getResultCode());
 	}
 
 	@Test
@@ -71,7 +71,7 @@ class UserLoginTest {
 
 		UserLoginUseCase.OutputValues output = login.execute(input);
 
-		assertEquals(UserLoginUseCase.ResultCodes.FAILED, output.getResultCode(), "Login should fail");
+		assertEquals(UserLoginUseCase.ResultCodes.FAILED, output.getResultCode());
 	}
 
 	class HasherWithError implements Hasher {
