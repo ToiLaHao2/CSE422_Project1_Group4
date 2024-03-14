@@ -90,14 +90,21 @@ public class SendMessageUseCase extends UseCase<SendMessageUseCase.InputValues, 
 
     public static class OutputValues {
         private final int _resultCode;
+        private final String _message;
 
-        public OutputValues(int resultCode) {
+        public OutputValues(int resultCode, String message) {
+            _message = message;
             _resultCode = resultCode;
         }
 
         public int getResultCode() {
             return _resultCode;
         }
+
+        public String getMessage() {
+            return _message;
+        }
+
     }
 
     public static class ResultCodes {
