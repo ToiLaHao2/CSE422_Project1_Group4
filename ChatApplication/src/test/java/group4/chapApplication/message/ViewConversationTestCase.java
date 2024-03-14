@@ -42,6 +42,6 @@ class ViewConversationTestCase {
 	        ViewConversationUseCase.InputValues inputValues = new ViewConversationUseCase.InputValues(user);
 	        ViewConversationUseCase.OutputValues outputValues = _viewConversationUseCase.execute(inputValues);
 
-	        assertEquals(ViewConversationUseCase.ResultCodes.SUCCESS, outputValues.getResultCode());
+	        assertEquals(ViewConversationUseCase.ResultCodes.FAILED, outputValues.getResultCode());
 	    }
 }

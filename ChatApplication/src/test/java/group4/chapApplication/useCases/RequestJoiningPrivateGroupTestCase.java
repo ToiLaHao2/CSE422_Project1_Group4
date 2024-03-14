@@ -13,7 +13,7 @@ import group4.chat.usecases.users.RequestToJoinPrivateGroupUseCase;
 
 class RequestJoiningPrivateGroupTestCase {
     private RequestToJoinPrivateGroupUseCase _requestJoiningToPrivateGroupUseCase;
-    private InMemoryDataStorage _dataStorage;
+    private DataStorage _dataStorage;
 
     @BeforeEach
     public void setUp() {
@@ -21,14 +21,11 @@ class RequestJoiningPrivateGroupTestCase {
         _requestJoiningToPrivateGroupUseCase = new RequestToJoinPrivateGroupUseCase(_dataStorage);
     }
 
-    private DataStorage dataStorage;
-    private RequestToJoinPrivateGroupUseCase useCase;
-
     @Test
     void testJoinGroupSuccessfully() {
         String userID = "userId1";
         String groupID = "groupId1";
-        
+
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
         user.setId(userID);
@@ -36,21 +33,22 @@ class RequestJoiningPrivateGroupTestCase {
         PrivateGroup group = new PrivateGroup(admin, null);
         group.setId(groupID);
 
-        dataStorage.getUsers().add(admin);
-        dataStorage.getUsers().add(user);
-        dataStorage.getPrivateGroup().add(group);
+        _dataStorage.getUsers().add(admin);
+        _dataStorage.getUsers().add(user);
+        _dataStorage.getPrivateGroup().add(group);
 
         RequestToJoinPrivateGroupUseCase.InputValues inputValues = new RequestToJoinPrivateGroupUseCase.InputValues(
                 userID, groupID);
-        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = useCase.execute(inputValues);
+        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = _requestJoiningToPrivateGroupUseCase.execute(inputValues);
 
+        assertEquals(true, outputValues.isRequestApproved());
     }
 
     @Test
     void testUserAlreadyInGroup() {
         String adminId = "admin1";
         String userId = "user1";
-        
+
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
         admin.setId(adminId);
@@ -62,13 +60,13 @@ class RequestJoiningPrivateGroupTestCase {
         group.addAdmin(admin);
         group.addMember(user);
 
-        dataStorage.getUsers().add(admin);
-        dataStorage.getUsers().add(user);
-        dataStorage.getPrivateGroup().add(group);
+        _dataStorage.getUsers().add(admin);
+        _dataStorage.getUsers().add(user);
+        _dataStorage.getPrivateGroup().add(group);
 
         RequestToJoinPrivateGroupUseCase.InputValues inputValues = new RequestToJoinPrivateGroupUseCase.InputValues(
                 userId, groupId);
-        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = useCase.execute(inputValues);
+        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = _requestJoiningToPrivateGroupUseCase.execute(inputValues);
 
         assertEquals(false, outputValues.isRequestApproved());
     }
@@ -77,7 +75,7 @@ class RequestJoiningPrivateGroupTestCase {
     void testUserAlreadyRequested() {
         String adminId = "admin1";
         String userId = "user1";
-        
+
         User admin = new User("Admin1", "123");
         User user = new User("User1", "123");
         admin.setId(adminId);
@@ -89,13 +87,13 @@ class RequestJoiningPrivateGroupTestCase {
         group.addAdmin(admin);
         group.requestToJoin(user);
 
-        dataStorage.getUsers().add(admin);
-        dataStorage.getUsers().add(user);
-        dataStorage.getPrivateGroup().add(group);
+        _dataStorage.getUsers().add(admin);
+        _dataStorage.getUsers().add(user);
+        _dataStorage.getPrivateGroup().add(group);
 
         RequestToJoinPrivateGroupUseCase.InputValues inputValues = new RequestToJoinPrivateGroupUseCase.InputValues(
                 userId, groupId);
-        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = useCase.execute(inputValues);
+        RequestToJoinPrivateGroupUseCase.OutputValues outputValues = _requestJoiningToPrivateGroupUseCase.execute(inputValues);
 
         assertEquals(false, outputValues.isRequestApproved());
     }
